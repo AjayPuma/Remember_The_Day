@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- ==========================================
+         BASIC PAGE SETTINGS
+         ========================================== -->
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Memories - Remember a Day</title>
+
+    <!-- Main stylesheet -->
+    <link rel="stylesheet" href="../css/style.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- ==========================================
+     APP HEADER
+     ========================================== -->
+
+<header class="app-header">
+
+    <div class="header-content">
+
+        <div class="app-brand">
+
+            <div class="app-logo">
+                ♥
+            </div>
+
+            <div>
+
+                <h1>
+                    Memories
+                </h1>
+
+                <p class="tagline">
+                    Keep the moments that matter.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+
+    <!-- ==========================================
+         MAIN CONTENT
+         ========================================== -->
+
+    <main class="app-container">
+
+
+        <!-- ======================================
+             PAGE INTRODUCTION
+             ====================================== -->
+
+        <section>
+
+            <p class="section-label">
+                YOUR MEMORIES
+            </p>
+
+            <h2 class="page-heading">
+                Moments worth remembering
+            </h2>
+
+        </section>
+
+
+
+        <!-- ======================================
+             ADD MEMORY FORM
+             ====================================== -->
+
+        <section class="memory-form">
+
+
+            <!-- MEMORY TITLE -->
+
+            <div class="form-group">
+
+                <label for="memory-title">
+                    Title
+                </label>
+
+                <input
+                    type="text"
+                    id="memory-title"
+                    placeholder="Example: Our first trip"
+                >
+
+            </div>
+
+
+
+            <!-- MEMORY DATE -->
+
+            <div class="form-group">
+
+                <label for="memory-date">
+                    Date
+                </label>
+
+                <input
+                    type="date"
+                    id="memory-date"
+                >
+
+            </div>
+
+
+
+            <!-- MEMORY NOTE -->
+
+            <div class="form-group">
+
+                <label for="memory-note">
+                    Memory
+                </label>
+
+                <textarea
+                    id="memory-note"
+                    rows="4"
+                    placeholder="Write something you want to remember..."
+                ></textarea>
+
+            </div>
+
+
+
+            <!-- SAVE MEMORY BUTTON -->
+
+            <button
+                type="button"
+                id="save-memory"
+                class="primary-button"
+            >
+                Save Memory
+            </button>
+
+
+        </section>
+
+
+
+        <!-- ======================================
+             SAVED MEMORIES
+             ====================================== -->
+
+        <section>
+
+            <div class="section-heading">
+
+                <div>
+
+                    <p class="section-label">
+                        SAVED
+                    </p>
+
+                    <h2>
+                        Your Memories
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <!--
+                JavaScript will display
+                saved memories here.
+            -->
+
+            <div id="memory-list">
+
+                <!-- Memories appear here -->
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- ==========================================
+         BOTTOM NAVIGATION
+         ========================================== -->
+
+    <nav class="bottom-nav">
+
+
+        <!-- HOME -->
+
+        <a
+            href="../index.html"
+            class="nav-item"
+        >
+
+            <span>⌂</span>
+
+            <small>
+                Home
+            </small>
+
+        </a>
+
+
+
+        <!-- ADD -->
+
+        <a
+            href="add.html"
+            class="nav-item"
+        >
+
+            <span>＋</span>
+
+            <small>
+                Add
+            </small>
+
+        </a>
+
+
+
+        <!-- MEMORIES -->
+
+        <a
+            href="memories.html"
+            class="nav-item active"
+        >
+
+            <span>♥</span>
+
+            <small>
+                Memories
+            </small>
+
+        </a>
+
+
+        <a href="../settings.html" class="nav-item">
+    <span>⚙</span>
+    <small>Settings</small>
+</a>
+
+
+    </nav>
+
+
+
+    <!-- ==========================================
+         JAVASCRIPT
+         ========================================== -->
+
+    <script src="../js/memories.js"></script>
+
+
+</body>
+
+</html>
