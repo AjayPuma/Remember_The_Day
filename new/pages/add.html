@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- ==========================================
+         BASIC PAGE SETTINGS
+         ========================================== -->
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Add Occasion - Remember a Day</title>
+
+    <!-- Main stylesheet -->
+    <link rel="stylesheet" href="../css/style.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- ==========================================
+     APP HEADER
+     ========================================== -->
+
+    <header class="app-header">
+
+        <div class="header-content">
+
+            <div class="app-brand">
+
+                <div class="app-logo">
+                    ♥
+                </div>
+
+                <div>
+
+                    <h1 id="page-title">
+                        Add Occasion
+                    </h1>
+
+                    <p class="tagline">
+                        Add a day you never want to forget.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ==========================================
+         MAIN CONTENT
+         ========================================== -->
+
+    <main class="app-container">
+
+
+        <!-- ======================================
+             OCCASION FORM
+             ====================================== -->
+
+        <form id="occasion-form">
+
+
+            <!-- ==================================
+                 NAME
+                 ================================== -->
+
+            <div class="form-group">
+
+                <label for="name">
+                    Name
+                </label>
+
+                <input type="text" id="name" placeholder="Example: Mom's Birthday" required>
+
+            </div>
+
+
+
+            <!-- ==================================
+                 OCCASION TYPE
+                 ================================== -->
+
+            <div class="form-group">
+
+                <label for="type">
+                    Occasion Type
+                </label>
+
+                <select id="type" required>
+
+                    <option value="">
+                        Select occasion
+                    </option>
+
+                    <option value="Birthday">
+                        Birthday
+                    </option>
+
+                    <option value="Anniversary">
+                        Anniversary
+                    </option>
+
+                    <option value="Festival">
+                        Festival
+                    </option>
+
+                    <option value="Other">
+                        Other
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- ==================================
+                 DATE
+                 ================================== -->
+
+            <div class="form-group">
+
+                <label for="date">
+                    Date
+                </label>
+
+                <input type="date" id="date" required>
+
+            </div>
+
+
+
+            <!-- ==================================
+                 REMINDER
+                 ================================== -->
+
+            <div class="form-group">
+
+                <label for="reminder">
+                    Remind me
+                </label>
+
+                <select id="reminder">
+
+                    <option value="none">
+                        No reminder
+                    </option>
+
+                    <option value="1">
+                        1 day before
+                    </option>
+
+                    <option value="7">
+                        1 week before
+                    </option>
+
+                    <option value="30">
+                        30 days before
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- ==================================
+                 NOTES
+                 ================================== -->
+
+            <div class="form-group">
+
+                <label for="notes">
+                    Notes
+                </label>
+
+                <textarea id="notes" rows="4" placeholder="Anything you want to remember..."></textarea>
+
+            </div>
+
+            <!-- ==================================
+     PHOTO
+     ================================== -->
+
+            <div class="form-group">
+
+                <label for="event-photo">
+                    Photo
+                </label>
+
+                <input type="file" id="event-photo" accept="image/*">
+
+                <small class="input-help">
+                    Add a photo related to this occasion.
+                </small>
+
+            </div>
+
+
+            <!-- ==================================
+     PHOTO PREVIEW
+     ================================== -->
+
+            <div id="photo-preview" class="photo-preview">
+            </div>
+
+            <!-- ==================================
+    GIFT DETAILS
+    ================================== -->
+
+            <div class="gift-section">
+
+                <p class="section-label">
+                    GIFT
+                </p>
+
+                <div class="form-group">
+
+                    <label for="gift-idea">
+                        Gift Idea
+                    </label>
+
+                    <input type="text" id="gift-idea" placeholder="Example: Watch, Dress, Flowers">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="gift-budget">
+                        Budget
+                    </label>
+
+                    <input type="number" id="gift-budget" placeholder="Example: 2000" min="0">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="gift-status">
+                        Gift Status
+                    </label>
+
+                    <select id="gift-status">
+
+                        <option value="planned">
+                            Planned
+                        </option>
+
+                        <option value="bought">
+                            Bought
+                        </option>
+
+                        <option value="given">
+                            Given
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <!-- ==================================
+                 SAVE BUTTON
+                 ================================== -->
+
+            <button type="submit" class="primary-button save-button" id="save-button">
+                Save Occasion
+            </button>
+
+
+        </form>
+
+
+    </main>
+
+
+
+    <!-- ==========================================
+         BOTTOM NAVIGATION
+         ========================================== -->
+
+    <nav class="bottom-nav">
+
+
+        <!-- HOME -->
+
+        <a href="../index.html" class="nav-item">
+
+            <span>⌂</span>
+
+            <small>
+                Home
+            </small>
+
+        </a>
+
+
+
+        <!-- ADD -->
+
+        <a href="add.html" class="nav-item active">
+
+            <span>＋</span>
+
+            <small>
+                Add
+            </small>
+
+        </a>
+
+
+
+        <!-- MEMORIES -->
+
+        <a href="memories.html" class="nav-item">
+
+            <span>♥</span>
+
+            <small>
+                Memories
+            </small>
+
+        </a>
+
+        <a href="../settings.html" class="nav-item">
+            <span>⚙</span>
+            <small>Settings</small>
+        </a>
+
+
+    </nav>
+
+
+
+    <!-- ==========================================
+         JAVASCRIPT FILES
+         ========================================== -->
+
+    <script src="../js/storage.js"></script>
+
+    <script src="../js/events.js"></script>
+
+
+
+    <!-- ==========================================
+         ADD / EDIT OCCASION LOGIC
+         ========================================== -->
+
+    <script>
+
+        /* ==========================================
+           GET FORM ELEMENT
+           ========================================== */
+
+        const form =
+            document.getElementById("occasion-form");
+
+
+        /* ==========================================
+   CHECK EDIT MODE
+   ========================================== */
+
+        const urlParams =
+            new URLSearchParams(
+                window.location.search
+            );
+
+        const editingId =
+            urlParams.get("edit");
+
+        /* ==========================================
+           LOAD EVENT FOR EDITING
+           ========================================== */
+
+        if (editingId) {
+
+            const events = getEvents();
+
+            const eventToEdit = events.find(
+                event =>
+                    event.id === Number(editingId)
+            );
+
+
+            if (eventToEdit) {
+
+                /* ------------------------------
+                   Change page title
+                   ------------------------------ */
+
+                document.getElementById(
+                    "page-title"
+                ).textContent = "Edit Occasion";
+
+
+                /* ------------------------------
+                   Change button text
+                   ------------------------------ */
+
+                document.getElementById(
+                    "save-button"
+                ).textContent = "Update Occasion";
+
+
+                /* ------------------------------
+                   Fill existing values
+                   ------------------------------ */
+
+                document.getElementById(
+                    "name"
+                ).value = eventToEdit.name;
+
+
+                document.getElementById(
+                    "type"
+                ).value = eventToEdit.type;
+
+
+                document.getElementById(
+                    "date"
+                ).value = eventToEdit.date;
+
+
+                document.getElementById(
+                    "reminder"
+                ).value =
+                    eventToEdit.reminder || "none";
+
+
+                document.getElementById(
+                    "notes"
+                ).value =
+                    eventToEdit.notes || "";
+
+                /* ------------------------------
+       Load gift information
+       ------------------------------ */
+
+                if (eventToEdit.gift) {
+
+                    document.getElementById(
+                        "gift-idea"
+                    ).value =
+                        eventToEdit.gift.idea || "";
+
+                    document.getElementById(
+                        "gift-budget"
+                    ).value =
+                        eventToEdit.gift.budget || "";
+
+                    document.getElementById(
+                        "gift-status"
+                    ).value =
+                        eventToEdit.gift.status || "planned";
+
+                }
+
+            }
+
+        }
+
+
+
+        /* ==========================================
+           FORM SUBMISSION
+           ========================================== */
+
+        form.addEventListener(
+            "submit",
+            function (event) {
+
+                /* Prevent page refresh */
+                event.preventDefault();
+
+
+                /* ==================================
+                CREATE OCCASION OBJECT
+                ================================== */
+
+                const occasion = {
+
+                    name:
+                        document.getElementById("name").value.trim(),
+
+                    type:
+                        document.getElementById("type").value,
+
+                    date:
+                        document.getElementById("date").value,
+
+                    reminder:
+                        document.getElementById("reminder").value,
+
+                    notes:
+                        document.getElementById("notes").value.trim(),
+
+                    photo:
+                        selectedPhoto,
+
+                    gift: {
+
+                        idea:
+                            document.getElementById("gift-idea").value.trim(),
+
+                        budget:
+                            document.getElementById("gift-budget").value,
+
+                        status:
+                            document.getElementById("gift-status").value
+
+                    }
+
+                };
+
+
+
+
+                /* ==========================================
+                   UPDATE EXISTING OCCASION
+                   ========================================== */
+
+                if (editingId) {
+
+                    const events = getEvents();
+
+                    const index =
+                        events.findIndex(
+                            event =>
+                                event.id === Number(editingId)
+                        );
+
+
+                    if (index !== -1) {
+
+                        /*
+                         * Keep the original event ID.
+                         */
+
+                        occasion.id =
+                            Number(editingId);
+
+
+                        /*
+                         * Replace the old event.
+                         */
+
+                        events[index] =
+                            occasion;
+
+
+                        saveEvents(events);
+
+                    }
+
+
+                    alert(
+                        "Occasion updated successfully! ✨"
+                    );
+
+                }
+
+
+
+                /* ==================================
+                   ADD NEW OCCASION
+                   ================================== */
+
+                else {
+
+                    addEvent(occasion);
+
+
+                    alert(
+                        "Occasion saved successfully! 🎉"
+                    );
+
+                }
+
+
+
+                /* ==================================
+                   RETURN TO HOME
+                   ================================== */
+
+                window.location.href =
+                    "../index.html";
+
+            }
+        );
+        /* ==========================================
+       PHOTO ELEMENTS
+       ========================================== */
+
+        const photoInput =
+            document.getElementById("event-photo");
+
+        const photoPreview =
+            document.getElementById("photo-preview");
+
+
+        let selectedPhoto = "";
+
+
+        /* ==========================================
+           LOAD EXISTING PHOTO
+           ========================================== */
+
+        if (editingId) {
+
+            const events = getEvents();
+
+            const eventToEdit = events.find(
+                event => event.id === Number(editingId)
+            );
+
+            if (
+                eventToEdit &&
+                eventToEdit.photo
+            ) {
+
+                selectedPhoto =
+                    eventToEdit.photo;
+
+                showPhotoPreview(
+                    selectedPhoto
+                );
+
+            }
+
+        }
+
+
+        /* ==========================================
+           PHOTO SELECTION
+           ========================================== */
+
+        if (photoInput) {
+
+            photoInput.addEventListener(
+                "change",
+                function () {
+
+                    const file =
+                        this.files[0];
+
+                    if (!file) {
+                        return;
+                    }
+
+
+                    /* ==============================
+                       CHECK FILE TYPE
+                       ============================== */
+
+                    if (
+                        !file.type.startsWith(
+                            "image/"
+                        )
+                    ) {
+
+                        alert(
+                            "Please select an image."
+                        );
+
+                        return;
+
+                    }
+
+
+                    compressImage(file);
+
+                }
+            );
+
+        }
+
+
+        /* ==========================================
+           COMPRESS IMAGE
+           ========================================== */
+
+        function compressImage(file) {
+
+            const reader =
+                new FileReader();
+
+
+            reader.onload = function (event) {
+
+                const image =
+                    new Image();
+
+
+                image.onload = function () {
+
+                    const canvas =
+                        document.createElement(
+                            "canvas"
+                        );
+
+
+                    const maxSize = 600;
+
+                    let width =
+                        image.width;
+
+                    let height =
+                        image.height;
+
+
+                    /* ==============================
+                       RESIZE IMAGE
+                       ============================== */
+
+                    if (width > height) {
+
+                        if (width > maxSize) {
+
+                            height =
+                                height *
+                                (maxSize / width);
+
+                            width =
+                                maxSize;
+
+                        }
+
+                    } else {
+
+                        if (height > maxSize) {
+
+                            width =
+                                width *
+                                (maxSize / height);
+
+                            height =
+                                maxSize;
+
+                        }
+
+                    }
+
+
+                    canvas.width =
+                        width;
+
+                    canvas.height =
+                        height;
+
+
+                    const context =
+                        canvas.getContext(
+                            "2d"
+                        );
+
+
+                    context.drawImage(
+                        image,
+                        0,
+                        0,
+                        width,
+                        height
+                    );
+
+
+                    selectedPhoto =
+                        canvas.toDataURL(
+                            "image/jpeg",
+                            0.7
+                        );
+
+
+                    showPhotoPreview(
+                        selectedPhoto
+                    );
+
+                };
+
+
+                image.src =
+                    event.target.result;
+
+            };
+
+
+            reader.readAsDataURL(file);
+
+        }
+
+
+        /* ==========================================
+           SHOW PHOTO PREVIEW
+           ========================================== */
+
+        function showPhotoPreview(photo) {
+
+            if (!photoPreview) {
+                return;
+            }
+
+
+            photoPreview.innerHTML = `
+
+        <img
+            src="${photo}"
+            alt="Selected photo"
+        >
+
+    `;
+
+        }
+    </script>
+
+
+</body>
+
+</html>
