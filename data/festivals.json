@@ -1,0 +1,154 @@
+
+[
+  {
+    "id": "makar-sankranti",
+    "name": "Makar Sankranti",
+    "emoji": "🌾",
+    "category": "harvest",
+    "datesByYear": {
+      "2027": "2027-01-15"
+    }
+  },
+  {
+    "id": "pongal",
+    "name": "Pongal",
+    "emoji": "🌾",
+    "category": "harvest",
+    "datesByYear": {
+      "2027": "2027-01-15"
+    }
+  },
+  {
+    "id": "vasant-panchami",
+    "name": "Vasant Panchami",
+    "emoji": "📚",
+    "category": "hindu",
+    "datesByYear": {
+      "2027": "2027-02-11"
+    }
+  },
+  {
+    "id": "maha-shivaratri",
+    "name": "Maha Shivaratri",
+    "emoji": "🔱",
+    "category": "hindu",
+    "datesByYear": {
+      "2027": "2027-03-06"
+    }
+  },
+  {
+    "id": "holi",
+    "name": "Holi",
+    "emoji": "🎨",
+    "category": "hindu",
+    "datesByYear": {
+      "2027": "2027-03-22"
+    }
+  },
+  {
+    "id": "ugadi",
+    "name": "Ugadi",
+    "emoji": "🌸",
+    "category": "regional",
+    "datesByYear": {
+      "2027": "2027-04-07"
+    }
+  },
+  {
+    "id": "rama-navami",
+    "name": "Rama Navami",
+    "emoji": "🙏",
+    "category": "hindu",
+    "datesByYear": {
+      "2027": "2027-04-15"
+    }
+  },
+  {
+    "id": "eid-al-fitr",
+    "name": "Eid al-Fitr",
+    "emoji": "🌙",
+    "category": "islamic",
+    "datesByYear": {}
+  },
+  {
+    "id": "eid-al-adha",
+    "name": "Eid al-Adha",
+    "emoji": "🐐",
+    "category": "islamic",
+    "datesByYear": {}
+  },
+  {
+    "id": "guru-purnima",
+    "name": "Guru Purnima",
+    "emoji": "🙏",
+    "category": "hindu",
+    "datesByYear": {
+      "2027": "2027-07-18"
+    }
+  },
+  {
+    "id": "raksha-bandhan",
+    "name": "Raksha Bandhan",
+    "emoji": "🪢",
+    "category": "hindu",
+    "datesByYear": {
+      "2027": "2027-08-17"
+    }
+  },
+  {
+    "id": "janmashtami",
+    "name": "Krishna Janmashtami",
+    "emoji": "🦚",
+    "category": "hindu",
+    "datesByYear": {
+      "2027": "2027-08-25"
+    }
+  },
+  {
+    "id": "ganesh-chaturthi",
+    "name": "Ganesh Chaturthi",
+    "emoji": "🐘",
+    "category": "hindu",
+    "datesByYear": {
+      "2027": "2027-09-04"
+    }
+  },
+  {
+    "id": "onam",
+    "name": "Onam",
+    "emoji": "🌼",
+    "category": "regional",
+    "datesByYear": {
+      "2027": "2027-09-12"
+    }
+  },
+  {
+    "id": "dussehra",
+    "name": "Dussehra",
+    "emoji": "🏹",
+    "category": "hindu",
+    "datesByYear": {
+      "2027": "2027-10-09"
+    }
+  },
+  {
+    "id": "diwali",
+    "name": "Diwali",
+    "emoji": "🪔",
+    "category": "hindu",
+    "datesByYear": {
+      "2026": "2026-11-08",
+      "2027": "2027-10-29"
+    }
+  },
+  {
+    "id": "christmas",
+    "name": "Christmas",
+    "emoji": "🎄",
+    "category": "christian",
+    "datesByYear": {
+      "2026": "2026-12-25",
+      "2027": "2027-12-25"
+    }
+  }
+]

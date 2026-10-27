@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#19365B">
+  <title>Birthdays | Remember a Day</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body data-folder="birthdays">
+  <header class="app-header">
+    <div class="header-content">
+      <a class="back-link" href="../index.html">← Home</a>
+      <p class="section-label" id="folder-label">YOUR SPECIAL DATES</p>
+      <h1 id="folder-title">🎂 Birthdays</h1>
+      <p class="tagline" id="folder-description">Every moment matters.</p>
+    </div>
+  </header>
+  <main class="app-container">
+    <div class="folder-toolbar">
+      <input id="folder-search" type="search" placeholder="Search occasions..." aria-label="Search occasions">
+      <a href="add.html" class="primary-button">＋ Add Occasion</a>
+    </div>
+    <p class="folder-note">Dates repeat automatically every year for birthdays and anniversaries. Countdown is calculated from today's date.</p>
+    <section id="occasion-list" aria-live="polite"></section>
+  </main>
+  <nav class="bottom-nav" aria-label="Main navigation">
+    <a href="../index.html" class="nav-item"><span>⌂</span><small>Home</small></a>
+    <a href="add.html" class="nav-item"><span>＋</span><small>Add</small></a>
+    <a href="memories.html" class="nav-item"><span>♥</span><small>Memories</small></a>
+    <a href="../settings.html" class="nav-item"><span>⚙</span><small>Settings</small></a>
+  </nav>
+  <script src="../js/storage.js"></script>
+  <script src="../js/events.js"></script>
+  <script src="../js/categories.js"></script>
+</body>
+</html>

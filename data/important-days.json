@@ -1,0 +1,411 @@
+
+[
+  {
+    "id": "new-years-day",
+    "name": "New Year's Day",
+    "emoji": "🎉",
+    "category": "special",
+    "dateType": "fixed",
+    "month": 1,
+    "day": 1
+  },
+  {
+    "id": "world-braille-day",
+    "name": "World Braille Day",
+    "emoji": "👁️",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 1,
+    "day": 4
+  },
+  {
+    "id": "pravasi-bharatiya-divas",
+    "name": "Pravasi Bharatiya Divas",
+    "emoji": "🌐",
+    "category": "national",
+    "dateType": "fixed",
+    "month": 1,
+    "day": 9
+  },
+  {
+    "id": "world-hindi-day",
+    "name": "World Hindi Day",
+    "emoji": "📜",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 1,
+    "day": 10
+  },
+  {
+    "id": "national-youth-day",
+    "name": "National Youth Day",
+    "emoji": "🧑‍🎓",
+    "category": "national",
+    "dateType": "fixed",
+    "month": 1,
+    "day": 12
+  },
+  {
+    "id": "indian-army-day",
+    "name": "Indian Army Day",
+    "emoji": "🪖",
+    "category": "national",
+    "dateType": "fixed",
+    "month": 1,
+    "day": 15
+  },
+  {
+    "id": "netaji-jayanti",
+    "name": "Netaji Subhas Chandra Bose Jayanti",
+    "emoji": "✊",
+    "category": "national",
+    "dateType": "fixed",
+    "month": 1,
+    "day": 23
+  },
+  {
+    "id": "national-girl-child-day",
+    "name": "National Girl Child Day",
+    "emoji": "👧",
+    "category": "national",
+    "dateType": "fixed",
+    "month": 1,
+    "day": 24
+  },
+  {
+    "id": "national-voters-day",
+    "name": "National Voters' Day",
+    "emoji": "🗳️",
+    "category": "national",
+    "dateType": "fixed",
+    "month": 1,
+    "day": 25
+  },
+  {
+    "id": "republic-day",
+    "name": "Republic Day",
+    "emoji": "🇮🇳",
+    "category": "national",
+    "dateType": "fixed",
+    "month": 1,
+    "day": 26
+  },
+  {
+    "id": "martyrs-day-jan",
+    "name": "Martyrs' Day",
+    "emoji": "🕊️",
+    "category": "national",
+    "dateType": "fixed",
+    "month": 1,
+    "day": 30
+  },
+  {
+    "id": "world-wetlands-day",
+    "name": "World Wetlands Day",
+    "emoji": "🌲",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 2,
+    "day": 2
+  },
+  {
+    "id": "world-cancer-day",
+    "name": "World Cancer Day",
+    "emoji": "🎗️",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 2,
+    "day": 4
+  },
+  {
+    "id": "valentines-day",
+    "name": "Valentine's Day",
+    "emoji": "💖",
+    "category": "special",
+    "dateType": "fixed",
+    "month": 2,
+    "day": 14
+  },
+  {
+    "id": "national-science-day",
+    "name": "National Science Day",
+    "emoji": "🔬",
+    "category": "national",
+    "dateType": "fixed",
+    "month": 2,
+    "day": 28
+  },
+  {
+    "id": "international-womens-day",
+    "name": "International Women's Day",
+    "emoji": "👩",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 3,
+    "day": 8
+  },
+  {
+    "id": "world-water-day",
+    "name": "World Water Day",
+    "emoji": "💧",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 3,
+    "day": 22
+  },
+  {
+    "id": "shaheed-diwas-mar",
+    "name": "Shaheed Diwas",
+    "emoji": "🎖️",
+    "category": "national",
+    "dateType": "fixed",
+    "month": 3,
+    "day": 23
+  },
+  {
+    "id": "world-health-day",
+    "name": "World Health Day",
+    "emoji": "🩺",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 4,
+    "day": 7
+  },
+  {
+    "id": "ambedkar-jayanti",
+    "name": "Ambedkar Jayanti",
+    "emoji": "📖",
+    "category": "national",
+    "dateType": "fixed",
+    "month": 4,
+    "day": 14
+  },
+  {
+    "id": "earth-day",
+    "name": "Earth Day",
+    "emoji": "🌍",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 4,
+    "day": 22
+  },
+  {
+    "id": "labour-day",
+    "name": "International Labour Day",
+    "emoji": "🛠️",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 5,
+    "day": 1
+  },
+  {
+    "id": "mothers-day",
+    "name": "Mother's Day",
+    "emoji": "👩‍👦",
+    "category": "special",
+    "dateType": "nth-weekday",
+    "month": 5,
+    "weekday": 0,
+    "occurrence": 2
+  },
+  {
+    "id": "technology-day",
+    "name": "National Technology Day",
+    "emoji": "💻",
+    "category": "national",
+    "dateType": "fixed",
+    "month": 5,
+    "day": 11
+  },
+  {
+    "id": "environment-day",
+    "name": "World Environment Day",
+    "emoji": "🌱",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 6,
+    "day": 5
+  },
+  {
+    "id": "yoga-day",
+    "name": "International Day of Yoga",
+    "emoji": "🧘",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 6,
+    "day": 21
+  },
+  {
+    "id": "fathers-day",
+    "name": "Father's Day",
+    "emoji": "👨‍👦",
+    "category": "special",
+    "dateType": "nth-weekday",
+    "month": 6,
+    "weekday": 0,
+    "occurrence": 3
+  },
+  {
+    "id": "doctors-day",
+    "name": "National Doctors' Day",
+    "emoji": "🩺",
+    "category": "national",
+    "dateType": "fixed",
+    "month": 7,
+    "day": 1
+  },
+  {
+    "id": "kargil-vijay-diwas",
+    "name": "Kargil Vijay Diwas",
+    "emoji": "🎖️",
+    "category": "national",
+    "dateType": "fixed",
+    "month": 7,
+    "day": 26
+  },
+  {
+    "id": "independence-day",
+    "name": "Independence Day",
+    "emoji": "🇮🇳",
+    "category": "national",
+    "dateType": "fixed",
+    "month": 8,
+    "day": 15
+  },
+  {
+    "id": "friendship-day",
+    "name": "Friendship Day",
+    "emoji": "🫂",
+    "category": "special",
+    "dateType": "nth-weekday",
+    "month": 8,
+    "weekday": 0,
+    "occurrence": 1
+  },
+  {
+    "id": "national-sports-day",
+    "name": "National Sports Day",
+    "emoji": "🏅",
+    "category": "national",
+    "dateType": "fixed",
+    "month": 8,
+    "day": 29
+  },
+  {
+    "id": "teachers-day",
+    "name": "Teachers' Day",
+    "emoji": "🧑‍🏫",
+    "category": "national",
+    "dateType": "fixed",
+    "month": 9,
+    "day": 5
+  },
+  {
+    "id": "engineers-day",
+    "name": "Engineers' Day",
+    "emoji": "⚙️",
+    "category": "national",
+    "dateType": "fixed",
+    "month": 9,
+    "day": 15
+  },
+  {
+    "id": "hindi-diwas",
+    "name": "Hindi Diwas",
+    "emoji": "📜",
+    "category": "national",
+    "dateType": "fixed",
+    "month": 9,
+    "day": 14
+  },
+  {
+    "id": "gandhi-jayanti",
+    "name": "Gandhi Jayanti",
+    "emoji": "🌱",
+    "category": "national",
+    "dateType": "fixed",
+    "month": 10,
+    "day": 2
+  },
+  {
+    "id": "air-force-day",
+    "name": "Indian Air Force Day",
+    "emoji": "✈️",
+    "category": "national",
+    "dateType": "fixed",
+    "month": 10,
+    "day": 8
+  },
+  {
+    "id": "childrens-day",
+    "name": "Children's Day",
+    "emoji": "👧",
+    "category": "national",
+    "dateType": "fixed",
+    "month": 11,
+    "day": 14
+  },
+  {
+    "id": "national-education-day",
+    "name": "National Education Day",
+    "emoji": "🎓",
+    "category": "national",
+    "dateType": "fixed",
+    "month": 11,
+    "day": 11
+  },
+  {
+    "id": "constitution-day",
+    "name": "Constitution Day",
+    "emoji": "📜",
+    "category": "national",
+    "dateType": "fixed",
+    "month": 11,
+    "day": 26
+  },
+  {
+    "id": "world-aids-day",
+    "name": "World AIDS Day",
+    "emoji": "🎗️",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 12,
+    "day": 1
+  },
+  {
+    "id": "navy-day",
+    "name": "Indian Navy Day",
+    "emoji": "⚓",
+    "category": "national",
+    "dateType": "fixed",
+    "month": 12,
+    "day": 4
+  },
+  {
+    "id": "human-rights-day",
+    "name": "Human Rights Day",
+    "emoji": "⚖️",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 12,
+    "day": 10
+  },
+  {
+    "id": "mathematics-day",
+    "name": "National Mathematics Day",
+    "emoji": "🧮",
+    "category": "national",
+    "dateType": "fixed",
+    "month": 12,
+    "day": 22
+  },
+  {
+    "id": "christmas-eve-good-governance",
+    "name": "Good Governance Day",
+    "emoji": "🏛️",
+    "category": "national",
+    "dateType": "fixed",
+    "month": 12,
+    "day": 25
+  }
+]

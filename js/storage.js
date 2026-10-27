@@ -62,68 +62,43 @@ function deleteEvent(id) {
    ========================================== */
 
 
-/* ==========================================
-   EXPORT BACKUP
-   ========================================== */
 
 function exportBackup() {
+    try {
+        const memoriesData = localStorage.getItem("remember-a-day-memories");
 
-    const backup = {
+        const backup = {
+            occasions: getEvents(),
+            memories: memoriesData ? JSON.parse(memoriesData) : [],
+            createdAt: new Date().toISOString()
+        };
 
-        occasions: getEvents(),
-
-        memories:
-            JSON.parse(
-                localStorage.getItem(
-                    "remember-a-day-memories"
-                )
-            ) || [],
-
-        createdAt:
-            new Date().toISOString()
-
-    };
-
-
-    const data =
-        JSON.stringify(
-            backup,
-            null,
-            2
+        const blob = new Blob(
+            [JSON.stringify(backup, null, 2)],
+            { type: "application/json" }
         );
 
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
 
-    const blob =
-        new Blob(
-            [data],
-            {
-                type: "application/json"
-            }
-        );
-
-
-    const url =
-        URL.createObjectURL(blob);
-
-
-    const link =
-        document.createElement("a");
-
-
-    link.href = url;
-
-    link.download =
-        `remember-a-day-backup-${new Date()
+        link.href = url;
+        link.download = `remember-a-day-backup-${new Date()
             .toISOString()
             .slice(0, 10)}.json`;
 
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
 
-    link.click();
+        // Allow the browser time to start the download.
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
 
-
-    URL.revokeObjectURL(url);
-
+    } catch (error) {
+        console.error("Backup export failed:", error);
+        alert("Could not export backup. Please check the browser console.");
+    }
 }
+
 
 
 /* ==========================================

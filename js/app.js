@@ -686,3 +686,23 @@ if (importInput) {
 
 }
 
+
+
+/* ==========================================
+   HOME CATEGORY COUNTS
+   ========================================== */
+function updateOccasionCategoryCounts() {
+    const events = getEvents();
+    const isBirthday = e => String(e.type || "").toLowerCase().includes("birthday") ||
+        String(e.category || "").toLowerCase() === "birthday";
+    const isAnniversary = e => String(e.type || "").toLowerCase().includes("anniversary") ||
+        String(e.category || "").toLowerCase() === "anniversary";
+
+    const birthdayCount = document.getElementById("birthday-count");
+    const anniversaryCount = document.getElementById("anniversary-count");
+    const customCount = document.getElementById("custom-count");
+
+    if (birthdayCount) birthdayCount.textContent = `${events.filter(isBirthday).length} saved`;
+    if (anniversaryCount) anniversaryCount.textContent = `${events.filter(isAnniversary).length} saved`;
+    if (customCount) customCount.textContent = `${events.filter(e => !isBirthday(e) && !isAnniversary(e)).length} saved`;
+}

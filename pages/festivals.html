@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Festivals | Remember a Day</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <main class="app-container">
+        <header class="page-header">
+            <a href="../index.html">← Back</a>
+            <p class="section-label">CELEBRATE EVERY YEAR</p>
+            <h1>🪔 Festivals</h1>
+            <p>Discover upcoming festivals and celebrations.</p>
+        </header>
+        <section id="festival-list">Loading festivals...</section>
+    </main>
+
+    <script src="../js/calendar-data.js"></script>
+    <script>
+        const list = document.getElementById("festival-list");
+
+        CalendarData.getUpcoming(1094).then(events => {
+            const festivals = events.filter(e => e.section === "festival");
+
+            if (!festivals.length) {
+                list.innerHTML = "<p>No dated festivals found yet.</p>";
+                return;
+            }
+
+            list.innerHTML = festivals.map(event => `
+                <article class="event-card">
+                    <h2>${event.emoji || "🎉"} ${event.name}</h2>
+                    <p>${event.date.toLocaleDateString("en-IN", {
+                        day: "numeric", month: "long", year: "numeric"
+                    })}</p>
+                    <p class="event-countdown">
+                        ${event.daysUntil === 0 ? "🎉 Today!" :
+                          `⏳ ${event.daysUntil} days to go`}
+                    </p>
+                </article>
+            `).join("");
+        }).catch(error => {
+            console.error(error);
+            list.innerHTML = "<p>Unable to load festivals.</p>";
+        });
+    </script>
+</body>
+</html>

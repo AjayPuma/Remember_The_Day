@@ -110,12 +110,8 @@
                         Anniversary
                     </option>
 
-                    <option value="Festival">
-                        Festival
-                    </option>
-
-                    <option value="Other">
-                        Other
+                    <option value="Custom Occasion">
+                        Custom Occasion
                     </option>
 
                 </select>
@@ -424,9 +420,10 @@
                 ).value = eventToEdit.name;
 
 
-                document.getElementById(
-                    "type"
-                ).value = eventToEdit.type;
+                document.getElementById("type").value =
+                    ["Other", "Custom", "Custom Occasion"].includes(eventToEdit.type)
+                        ? "Custom Occasion"
+                        : eventToEdit.type;
 
 
                 document.getElementById(
@@ -497,6 +494,13 @@
 
                     type:
                         document.getElementById("type").value,
+
+                    category:
+                        document.getElementById("type").value === "Birthday"
+                            ? "birthday"
+                            : document.getElementById("type").value === "Anniversary"
+                                ? "anniversary"
+                                : "custom",
 
                     date:
                         document.getElementById("date").value,

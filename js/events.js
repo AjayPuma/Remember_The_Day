@@ -8,7 +8,7 @@
    ========================================== */
 
 function formatDate(dateString) {
-    const date = new Date(dateString);
+    const date = dateString instanceof Date ? dateString : new Date(`${dateString}T00:00:00`);
 
     return date.toLocaleDateString("en-IN", {
         day: "numeric",
@@ -172,49 +172,32 @@ if (event.photo) {
    ========================================== */
 
 function getNextOccurrence(event) {
+    const originalDate = new Date(`${event.date}T00:00:00`);
+    if (Number.isNaN(originalDate.getTime())) return new Date();
 
-    const originalDate = new Date(event.date);
+    const type = String(event.type || "").toLowerCase();
+    const category = String(event.category || "").toLowerCase();
+    const repeatsYearly = type.includes("birthday") ||
+        type.includes("anniversary") ||
+        category === "birthday" || category === "anniversary";
+
+    if (!repeatsYearly) return originalDate;
 
     const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const month = originalDate.getMonth();
+    const day = originalDate.getDate();
 
-    /*
-       Birthday and Anniversary repeat every year.
-    */
-
-    if (
-        event.type !== "Birthday" &&
-        event.type !== "Anniversary"
-    ) {
-        return originalDate;
+    function occurrence(year) {
+        const date = new Date(year, month, day);
+        // February 29 becomes February 28 in non-leap years.
+        return date.getMonth() === month ? date : new Date(year, month + 1, 0);
     }
 
-    let nextDate = new Date(
-        today.getFullYear(),
-        originalDate.getMonth(),
-        originalDate.getDate()
-    );
-
-    /*
-       If this year's date has already passed,
-       use next year.
-    */
-
-    if (nextDate < today) {
-
-        nextDate = new Date(
-            today.getFullYear() + 1,
-            originalDate.getMonth(),
-            originalDate.getDate()
-        );
-
-    }
-
+    let nextDate = occurrence(today.getFullYear());
+    if (nextDate < today) nextDate = occurrence(today.getFullYear() + 1);
     return nextDate;
 }
-
-/* ==========================================
-   DELETE EVENT
-   ========================================== */
 
 function removeEvent(id) {
 
@@ -243,7 +226,9 @@ function editEvent(id) {
      * This keeps Add mode and Edit mode separate.
      */
 
-    window.location.href =
-        `pages/add.html?edit=${id}`;
+    const isInsidePages = window.location.pathname.includes("/pages/");
+    window.location.href = isInsidePages
+        ? `add.html?edit=${id}`
+        : `pages/add.html?edit=${id}`;
 
 }

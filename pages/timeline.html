@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#e05a2b">
+  <title>Memory Timeline - Remember a Day</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .timeline-controls{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}
+    .timeline-controls input,.timeline-controls select{flex:1;min-width:180px}
+    .timeline-card{margin:16px 0;padding:18px;border:1px solid var(--border-color,#e5e5e5);border-radius:16px;background:var(--card-bg,#fff)}
+    .timeline-date{font-weight:700;color:var(--accent,#c84e2a)}
+    .timeline-photos{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin-top:12px}
+    .timeline-photos img{width:100%;height:150px;object-fit:cover;border-radius:10px}
+  </style>
+</head>
+<body>
+<header class="app-header">
+  <div class="header-content">
+    <div class="app-brand"><div class="app-logo">♥</div><div>
+      <h1>Memory Timeline</h1><p class="tagline">Your moments, in one place.</p>
+    </div></div>
+  </div>
+</header>
+<main class="app-container">
+  <div class="section-heading"><div><p class="section-label">YOUR STORY</p><h2>Moments worth keeping</h2></div>
+    <a class="text-button" href="../index.html">← Home</a>
+  </div>
+  <div class="timeline-controls">
+    <input id="timeline-search" type="search" placeholder="Search memories…">
+    <select id="timeline-sort" aria-label="Sort memories">
+      <option value="newest">Newest first</option>
+      <option value="oldest">Oldest first</option>
+    </select>
+  </div>
+  <div id="timeline-list"><p>Loading memories…</p></div>
+</main>
+<nav class="bottom-nav">
+  <a href="../index.html" class="nav-item"><span>⌂</span><small>Home</small></a>
+  <a href="add.html" class="nav-item"><span>＋</span><small>Add</small></a>
+  <a href="memories.html" class="nav-item"><span>♥</span><small>Memories</small></a>
+  <a href="timeline.html" class="nav-item active"><span>📸</span><small>Timeline</small></a>
+</nav>
+<script src="../js/timeline.js"></script>
+</body>
+</html>

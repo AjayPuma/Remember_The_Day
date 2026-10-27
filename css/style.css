@@ -14,13 +14,13 @@
 }
 
 :root {
-  --background: #f8f7f4;
-  --card: #ffffff;
-  --text: #202020;
-  --muted: #777777;
-  --accent: #e05a2b;
-  --border: #e8e5df;
-  --shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+  --background: #F5F0E6; /* Warm ivory */
+  --card: #FFFFFF;
+  --text: #19365B;       /* Deep editorial blue */
+  --muted: #687386;
+  --accent: #FF7048;     /* Coral orange */
+  --border: #E5DED2;
+  --shadow: 0 8px 25px rgba(25, 54, 91, 0.08);
   --radius: 18px;
 }
 
@@ -1344,4 +1344,437 @@ body.dark-mode .calendar-button {
 
 .switch input:checked + .slider::before {
   transform: translateX(22px);
+}
+
+
+
+/* Calendar page countdown */
+.event-countdown {
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-top: 8px;
+}
+
+.event-card {
+    margin-bottom: 14px;
+}
+
+
+/* Countdown on calendar pages */
+.event-countdown {
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-top: 8px;
+}
+
+.event-card {
+    margin-bottom: 14px;
+}
+
+.upcoming-section {
+  margin: 24px 0;
+}
+
+.upcoming-section h2 {
+  margin-bottom: 16px;
+}
+
+#upcoming-festivals {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+#upcoming-festivals .event-card {
+  padding: 16px;
+  border-radius: 14px;
+  background: var(--card-bg, #fff);
+  border: 1px solid var(--border-color, #e5e7eb);
+}
+
+#upcoming-festivals .event-card h3 {
+  margin-top: 0;
+}
+
+
+.memory-photos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.memory-photos img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+@media (max-width: 480px) {
+  .memory-photos img {
+    height: 100px;
+  }
+}
+
+
+/* Memory Timeline and multi-photo memories */
+.memory-photo-grid,
+.timeline-photos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 10px;
+    margin: 12px 0;
+}
+
+.memory-photo-grid .memory-photo {
+    display: block;
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.birthday-age {
+    font-weight: 700;
+    color: var(--accent, #c84e2a);
+}
+
+.timeline-card {
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 480px) {
+    .memory-photo-grid .memory-photo {
+        height: 105px;
+    }
+}
+
+
+
+
+/* ==========================================
+   WARM IVORY + EDITORIAL BLUE + CORAL
+   ========================================== */
+
+.app-header {
+  background: var(--background);
+}
+
+.app-header h1,
+.today-section h2,
+.section-heading h2,
+.page-heading,
+.calendar-header h2 {
+  color: var(--text);
+}
+
+.app-logo {
+  background: var(--text);
+  box-shadow: 0 6px 15px rgba(25, 54, 91, 0.2);
+}
+
+.reminder-icon {
+  background: #FCE1D8;
+}
+
+.calendar-day.has-event {
+  background: #E9EDF4;
+}
+
+.calendar-day.today,
+.calendar-day.has-event.today {
+  background: var(--text);
+  color: #FFFFFF;
+}
+
+.event-dot {
+  background: var(--accent);
+}
+
+
+/* ==========================================
+   REMEMBER A DAY — LAYOUT REFINEMENT
+   ========================================== */
+
+/* Give desktop screens better use of space */
+.header-content {
+  max-width: 960px;
+}
+
+.app-container {
+  max-width: 960px;
+  padding: 28px 24px 125px;
+}
+
+/* Today section */
+.today-section {
+  margin-bottom: 28px;
+}
+
+.today-section h2 {
+  line-height: 1.25;
+}
+
+/* Consistent shortcut grid */
+.quick-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 36px;
+  align-items: stretch;
+}
+
+.action-card {
+  min-width: 0;
+  min-height: 104px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-radius: 18px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  text-decoration: none;
+  box-shadow: var(--shadow);
+  overflow-wrap: anywhere;
+}
+
+.action-icon {
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: #FCE1D8;
+  color: var(--accent);
+  font-size: 23px;
+}
+
+.action-copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.action-copy strong {
+  font-size: 16px;
+  line-height: 1.35;
+  color: var(--text);
+}
+
+.action-copy small {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+/* Comfortable section spacing */
+.reminders-section,
+.upcoming-section,
+.calendar-section,
+.backup-section {
+  margin-bottom: 28px;
+}
+
+.section-heading {
+  gap: 12px;
+}
+
+#upcoming-festivals {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+/* Fixed bottom navigation */
+.bottom-nav {
+  position: fixed;
+  z-index: 1000;
+  bottom: 0;
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 960px;
+  height: calc(76px + env(safe-area-inset-bottom));
+  padding: 8px 16px calc(8px + env(safe-area-inset-bottom));
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid var(--border);
+  border-bottom: none;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -8px 28px rgba(25, 54, 91, 0.09);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.nav-item {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  max-width: 150px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 22px;
+  border-radius: 12px;
+}
+
+.nav-item small {
+  font-size: 12px;
+  margin-top: 0;
+}
+
+.nav-item.active {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.nav-item.active::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* Remove the special raised Add button styling */
+.nav-item[href="pages/add.html"] span,
+.nav-item[href="add.html"] span {
+  width: auto;
+  height: auto;
+  display: inline;
+  background: transparent;
+  color: inherit;
+  border-radius: 0;
+  font-size: 24px;
+}
+
+/* Tablet and mobile */
+@media (max-width: 650px) {
+  .header-content {
+    max-width: 100%;
+  }
+
+  .app-container {
+    padding: 22px 16px 120px;
+  }
+
+  .quick-actions {
+    gap: 12px;
+  }
+
+  .action-card {
+    min-height: 100px;
+    padding: 15px;
+    gap: 11px;
+  }
+
+  .action-icon {
+    flex-basis: 36px;
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+  }
+
+  .action-copy strong {
+    font-size: 14px;
+  }
+
+  .action-copy small {
+    font-size: 12px;
+  }
+
+  .bottom-nav {
+    border-radius: 18px 18px 0 0;
+  }
+}
+
+/* Small phones */
+@media (max-width: 380px) {
+  .app-container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .quick-actions {
+    gap: 9px;
+  }
+
+  .action-card {
+    padding: 12px 10px;
+    gap: 8px;
+  }
+
+  .action-icon {
+    flex-basis: 30px;
+    width: 30px;
+    height: 30px;
+    font-size: 17px;
+  }
+
+  .action-copy strong {
+    font-size: 13px;
+  }
+
+  .action-copy small {
+    font-size: 11px;
+  }
+
+  .nav-item small {
+    font-size: 11px;
+  }
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  body {
+    animation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
+/* ==========================================
+   OCCASION FOLDERS & COMBINED HOLIDAYS
+   ========================================== */
+.category-action { min-height: 94px; }
+.back-link { display: inline-block; margin-bottom: 18px; color: var(--accent); text-decoration: none; font-weight: 700; }
+.folder-toolbar { display: flex; gap: 12px; align-items: center; margin-bottom: 18px; }
+.folder-toolbar input { flex: 1; min-width: 0; }
+.folder-note { color: var(--muted); font-size: 13px; line-height: 1.5; margin-bottom: 18px; }
+.folder-extra { margin: 8px 0; color: var(--accent); font-size: 14px; font-weight: 600; }
+.holiday-filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+.filter-chip { border: 1px solid var(--border); border-radius: 999px; padding: 10px 14px; background: var(--card); color: var(--text); cursor: pointer; font: inherit; }
+.filter-chip.active { background: var(--text); border-color: var(--text); color: var(--card); }
+.holiday-card { align-items: center; gap: 12px; }
+.holiday-card .event-info { flex: 1; min-width: 0; }
+.holiday-card h2 { font-size: 18px; margin: 8px 0; }
+.holiday-card .event-countdown { white-space: nowrap; color: var(--accent); }
+.folder-toolbar .primary-button { white-space: nowrap; }
+@media (max-width: 460px) {
+  .folder-toolbar { align-items: stretch; flex-direction: column; }
+  .folder-toolbar .primary-button { text-align: center; }
+  .holiday-card { align-items: flex-start; flex-direction: column; }
 }

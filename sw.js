@@ -3,7 +3,7 @@
    SERVICE WORKER
    ========================================== */
 
-const CACHE_NAME = "remember-a-day-v1";
+const CACHE_NAME = "remember-a-day-v5";
 
 
 const FILES_TO_CACHE = [
@@ -15,8 +15,14 @@ const FILES_TO_CACHE = [
     "./settings.html",
 
     "./pages/add.html",
+    "./pages/birthdays.html",
+    "./pages/anniversaries.html",
+    "./pages/custom-occasions.html",
+    "./pages/holidays.html",
 
     "./pages/memories.html",
+
+    "./pages/timeline.html",
 
     "./css/style.css",
 
@@ -25,12 +31,23 @@ const FILES_TO_CACHE = [
     "./js/storage.js",
 
     "./js/events.js",
+    "./js/categories.js",
 
     "./js/reminders.js",
 
     "./js/memories.js",
 
-    "./manifest.json"
+    "./js/timeline.js",
+
+    "./manifest.json",
+
+    "./data/festivals.json",
+"./data/important-days.json",
+"./data/public-holidays.json",
+"./js/calendar-data.js",
+"./pages/festivals.html",
+"./pages/important-days.html",
+"./pages/public-holidays.html"
 
 ];
 

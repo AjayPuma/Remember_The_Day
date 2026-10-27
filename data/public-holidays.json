@@ -1,0 +1,30 @@
+
+[
+  {
+    "id": "republic-day",
+    "name": "Republic Day",
+    "date": "2027-01-26",
+    "country": "India",
+    "region": "all-india",
+    "holidayType": "national",
+    "sourceVerified": false
+  },
+  {
+    "id": "independence-day",
+    "name": "Independence Day",
+    "date": "2027-08-15",
+    "country": "India",
+    "region": "all-india",
+    "holidayType": "national",
+    "sourceVerified": false
+  },
+  {
+    "id": "gandhi-jayanti",
+    "name": "Gandhi Jayanti",
+    "date": "2027-10-02",
+    "country": "India",
+    "region": "all-india",
+    "holidayType": "national",
+    "sourceVerified": false
+  }
+]
