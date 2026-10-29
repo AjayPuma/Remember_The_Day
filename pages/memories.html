@@ -1,279 +1,363 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-    <!-- ==========================================
-         BASIC PAGE SETTINGS
-         ========================================== -->
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>Memories - Remember a Day</title>
-
-    <!-- Main stylesheet -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#F5F0E6">
+    <title>Memories | Remember a Day</title>
     <link rel="stylesheet" href="../css/style.css">
 
+    <style>
+        .memory-form,
+        .memory-filter-panel {
+            background: var(--card, #fff);
+            border: 1px solid var(--border, #e5dfd4);
+            border-radius: 18px;
+            padding: 22px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow, 0 5px 18px rgba(25,54,91,.06));
+        }
+
+        .memory-form h2,
+        .memory-filter-panel h2 {
+            margin: 0 0 16px;
+        }
+
+        .memory-form .form-group {
+            margin-bottom: 16px;
+        }
+
+        .memory-form input,
+        .memory-form textarea,
+        .memory-filter-panel input,
+        .memory-filter-panel select {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px 14px;
+            border: 1px solid var(--border, #e5dfd4);
+            border-radius: 11px;
+            font: inherit;
+            background: var(--background, #fff);
+            color: var(--text, #19365B);
+        }
+
+        .memory-form textarea {
+            resize: vertical;
+        }
+
+        .memory-form input:focus,
+        .memory-form textarea:focus,
+        .memory-filter-panel input:focus,
+        .memory-filter-panel select:focus {
+            outline: 2px solid rgba(255,112,72,.25);
+            border-color: #FF7048;
+        }
+
+        .memory-photo-input-note,
+        .memory-filter-note {
+            color: var(--muted, #777);
+            font-size: 13px;
+            margin-top: 7px;
+        }
+
+        .memory-preview-grid,
+        .memory-photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            gap: 10px;
+            margin: 14px 0;
+        }
+
+        .memory-preview-item {
+            position: relative;
+        }
+
+        .memory-preview-item img,
+        .memory-photo {
+            display: block;
+            width: 100%;
+            height: 130px;
+            object-fit: cover;
+            border-radius: 12px;
+            background: #eee8dc;
+        }
+
+        .memory-preview-remove {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            border: 0;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            background: #19365B;
+            color: white;
+            cursor: pointer;
+            font-size: 17px;
+        }
+
+        .memory-toolbar {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+            margin: 18px 0;
+        }
+
+        .memory-toolbar > * {
+            flex: 1;
+            min-width: 145px;
+        }
+
+        .memory-filter-panel[hidden] {
+            display: none;
+        }
+
+        .memory-filter-panel label {
+            display: block;
+            font-weight: 700;
+            font-size: 13px;
+            margin: 12px 0 6px;
+        }
+
+        .memory-card {
+            background: var(--card, #fff);
+            border: 1px solid var(--border, #e5dfd4);
+            border-radius: 18px;
+            padding: 20px;
+            margin-bottom: 18px;
+            box-shadow: var(--shadow, 0 5px 18px rgba(25,54,91,.06));
+            overflow-wrap: anywhere;
+        }
+
+        .memory-card h3 {
+            margin: 10px 0;
+        }
+
+        .memory-card-note {
+            line-height: 1.7;
+            white-space: normal;
+        }
+
+        .memory-card-actions {
+            display: flex;
+            gap: 9px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+
+        .memory-card-actions button {
+            cursor: pointer;
+        }
+
+        .memory-count {
+            color: var(--muted, #777);
+            font-size: 13px;
+            margin: 8px 0 16px;
+        }
+
+        .memory-photo {
+            cursor: zoom-in;
+        }
+
+        .memory-lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background: rgba(12,22,38,.88);
+        }
+
+        .memory-lightbox[hidden] {
+            display: none;
+        }
+
+        .memory-lightbox img {
+            max-width: 95%;
+            max-height: 85vh;
+            object-fit: contain;
+            border-radius: 12px;
+        }
+
+        .memory-lightbox-close {
+            position: absolute;
+            top: 18px;
+            right: 22px;
+            border: 0;
+            background: transparent;
+            color: white;
+            font-size: 36px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 480px) {
+            .memory-form,
+            .memory-filter-panel,
+            .memory-card {
+                padding: 16px;
+            }
+
+            .memory-toolbar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .memory-toolbar > * {
+                width: 100%;
+                box-sizing: border-box;
+            }
+        }
+    </style>
 </head>
 
-
 <body>
-
-
-    <!-- ==========================================
-     APP HEADER
-     ========================================== -->
-
-<header class="app-header">
-
-    <div class="header-content">
-
-        <div class="app-brand">
-
-            <div class="app-logo">
-                ♥
+    <header class="app-header">
+        <div class="header-content">
+            <div class="app-brand">
+                <div class="app-logo">♥</div>
+                <div>
+                    <h1>Memories</h1>
+                    <p class="tagline">Keep the moments that matter.</p>
+                </div>
             </div>
-
-            <div>
-
-                <h1>
-                    Memories
-                </h1>
-
-                <p class="tagline">
-                    Keep the moments that matter.
-                </p>
-
-            </div>
-
         </div>
-
-    </div>
-
-</header>
-
-
-
-    <!-- ==========================================
-         MAIN CONTENT
-         ========================================== -->
+    </header>
 
     <main class="app-container">
-
-
-        <!-- ======================================
-             PAGE INTRODUCTION
-             ====================================== -->
-
         <section>
-
-            <p class="section-label">
-                YOUR MEMORIES
-            </p>
-
-            <h2 class="page-heading">
-                Moments worth remembering
-            </h2>
-
+            <p class="section-label">YOUR MEMORIES</p>
+            <h2 class="page-heading">Moments worth remembering</h2>
+            <p>Some moments deserve a place to live forever. ❤️</p>
         </section>
 
-
-
-        <!-- ======================================
-             ADD MEMORY FORM
-             ====================================== -->
-
-        <section class="memory-form">
-
-
-            <!-- MEMORY TITLE -->
+        <section class="memory-form" id="memory-form">
+            <h2 id="memory-form-heading">Create a memory ✨</h2>
 
             <div class="form-group">
-
-                <label for="memory-title">
-                    Title
-                </label>
-
-                <input
-                    type="text"
-                    id="memory-title"
-                    placeholder="Example: Our first trip"
-                >
-
+                <label for="memory-title">Memory title</label>
+                <input id="memory-title" type="text"
+                       maxlength="120" placeholder="Example: Our first trip">
             </div>
-
-
-
-            <!-- MEMORY DATE -->
 
             <div class="form-group">
-
-                <label for="memory-date">
-                    Date
-                </label>
-
-                <input
-                    type="date"
-                    id="memory-date"
-                >
-
+                <label for="memory-date">Date of the memory</label>
+                <input id="memory-date" type="date">
             </div>
-
-
-
-            <!-- MEMORY NOTE -->
 
             <div class="form-group">
-
-                <label for="memory-note">
-                    Memory
-                </label>
-
-                <textarea
-                    id="memory-note"
-                    rows="4"
-                    placeholder="Write something you want to remember..."
-                ></textarea>
-
+                <label for="memory-note">Your story</label>
+                <textarea id="memory-note" rows="4"
+                          maxlength="10000"
+                          placeholder="Write something you want to remember..."></textarea>
             </div>
 
+            <div class="form-group">
+                <label for="memory-photos">Photos (up to 5)</label>
+                <input id="memory-photos" type="file"
+                       accept="image/*" multiple>
+                <p class="memory-photo-input-note">
+                    Photos are resized before saving to help conserve browser storage.
+                </p>
+                <div id="memory-photo-preview" class="memory-preview-grid"></div>
+            </div>
 
-
-            <!-- SAVE MEMORY BUTTON -->
-
-            <button
-                type="button"
-                id="save-memory"
-                class="primary-button"
-            >
-                Save Memory
+            <button type="button" id="save-memory" class="primary-button">
+                ❤️ Save Memory
             </button>
-
-
+            <button type="button" id="cancel-memory-edit"
+                    class="secondary-button" hidden>
+                Cancel edit
+            </button>
+            <p id="memory-form-status" role="status" aria-live="polite"></p>
         </section>
-
-
-
-        <!-- ======================================
-             SAVED MEMORIES
-             ====================================== -->
 
         <section>
-
             <div class="section-heading">
-
                 <div>
-
-                    <p class="section-label">
-                        SAVED
-                    </p>
-
-                    <h2>
-                        Your Memories
-                    </h2>
-
+                    <p class="section-label">YOUR STORY</p>
+                    <h2>Memory Journal 📸</h2>
                 </div>
-
             </div>
 
-
-            <!--
-                JavaScript will display
-                saved memories here.
-            -->
-
-            <div id="memory-list">
-
-                <!-- Memories appear here -->
-
+            <div class="memory-toolbar">
+                <button type="button" id="toggle-memory-filters"
+                        class="secondary-button" aria-expanded="false"
+                        aria-controls="memory-filter-panel">
+                    🔍 Search & Filters
+                </button>
+                <button type="button" id="new-memory-button"
+                        class="primary-button">
+                    ＋ New Memory
+                </button>
             </div>
 
+            <div id="memory-filter-panel" class="memory-filter-panel" hidden>
+                <h2>Find a memory</h2>
+
+                <label for="memory-search">Search title or story</label>
+                <input id="memory-search" type="search"
+                       placeholder="e.g. birthday, trip, family">
+
+                <label for="memory-month-filter">Month</label>
+                <select id="memory-month-filter">
+                    <option value="all">All months</option>
+                    <option value="0">January</option>
+                    <option value="1">February</option>
+                    <option value="2">March</option>
+                    <option value="3">April</option>
+                    <option value="4">May</option>
+                    <option value="5">June</option>
+                    <option value="6">July</option>
+                    <option value="7">August</option>
+                    <option value="8">September</option>
+                    <option value="9">October</option>
+                    <option value="10">November</option>
+                    <option value="11">December</option>
+                </select>
+
+                <label for="memory-year-filter">Year</label>
+                <select id="memory-year-filter">
+                    <option value="all">All years</option>
+                </select>
+
+                <button type="button" id="reset-memory-filters"
+                        class="secondary-button">
+                    Reset filters
+                </button>
+            </div>
+
+            <p id="memory-count" class="memory-count"></p>
+            <div id="memory-list" aria-live="polite"></div>
         </section>
-
-
     </main>
 
-
-
-    <!-- ==========================================
-         BOTTOM NAVIGATION
-         ========================================== -->
+    <div id="memory-lightbox" class="memory-lightbox"
+         role="dialog" aria-modal="true"
+         aria-label="Memory photo viewer" hidden>
+        <button type="button" class="memory-lightbox-close"
+                id="memory-lightbox-close" aria-label="Close photo">×</button>
+        <img id="memory-lightbox-image" src="" alt="Full-size memory">
+    </div>
 
     <nav class="bottom-nav">
-
-
-        <!-- HOME -->
-
-        <a
-            href="../index.html"
-            class="nav-item"
-        >
-
-            <span>⌂</span>
-
-            <small>
-                Home
-            </small>
-
+        <a href="../index.html" class="nav-item">
+            <span>⌂</span><small>Home</small>
         </a>
-
-
-
-        <!-- ADD -->
-
-        <a
-            href="add.html"
-            class="nav-item"
-        >
-
-            <span>＋</span>
-
-            <small>
-                Add
-            </small>
-
+        <a href="add.html" class="nav-item">
+            <span>＋</span><small>Add</small>
         </a>
-
-
-
-        <!-- MEMORIES -->
-
-        <a
-            href="memories.html"
-            class="nav-item active"
-        >
-
-            <span>♥</span>
-
-            <small>
-                Memories
-            </small>
-
+        <a href="memories.html" class="nav-item active">
+            <span>♥</span><small>Memories</small>
         </a>
-
-
         <a href="../settings.html" class="nav-item">
-    <span>⚙</span>
-    <small>Settings</small>
-</a>
-
-
+            <span>⚙</span><small>Settings</small>
+        </a>
     </nav>
 
-
-
-    <!-- ==========================================
-         JAVASCRIPT
-         ========================================== -->
-
     <script src="../js/memories.js"></script>
-
-
 </body>
-
 </html>
