@@ -1,0 +1,28 @@
+{
+  "name": "new",
+  "version": "1.0.0",
+  "description": "Remember a Day — A simple personal memory and occasion reminder app to keep track of birthdays, anniversaries, important dates, gifts, notes, and special memories. Built with HTML, CSS, and JavaScript with PWA support.",
+  "main": "sw.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AjayPuma/Remember_The_Day.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/AjayPuma/Remember_The_Day/issues"
+  },
+  "homepage": "https://github.com/AjayPuma/Remember_The_Day#readme",
+  "dependencies": {
+    "@capacitor/android": "^8.6.0",
+    "@capacitor/core": "^8.6.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.6.0"
+  }
+}

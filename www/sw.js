@@ -5,7 +5,7 @@
    Safer updates + offline fallback
    ========================================== */
 
-const CACHE_NAME = "remember-a-day-v6";
+const CACHE_NAME = "remember-a-day-v7";
 
 const FILES_TO_CACHE = [
     "./",
@@ -23,8 +23,10 @@ const FILES_TO_CACHE = [
     "./pages/festivals.html",
     "./pages/important-days.html",
     "./pages/public-holidays.html",
+    "./pages/surprise-studio.html",
 
     "./css/style.css",
+    "./css/surprise-studio.css",
 
     "./js/app.js",
     "./js/storage.js",
@@ -35,6 +37,8 @@ const FILES_TO_CACHE = [
     "./js/timeline.js",
     "./js/calendar-data.js",
     "./js/home-calendar.js",
+    "./js/supabase-config.js",
+    "./js/surprise-studio.js",
 
     "./data/festivals.json",
     "./data/important-days.json",

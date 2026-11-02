@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Remember a Day</string>
+    <string name="title_activity_main">Remember a Day</string>
+    <string name="package_name">com.rememberaday.app</string>
+    <string name="custom_url_scheme">com.rememberaday.app</string>
+</resources>
