@@ -1,0 +1,1923 @@
+/* ==========================================
+   REMEMBER A DAY
+   MAIN STYLESHEET
+   ========================================== */
+
+/* ==========================================
+   1. GLOBAL SETTINGS
+   ========================================== */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --background: #F5F0E6; /* Warm ivory */
+  --card: #FFFFFF;
+  --text: #19365B;       /* Deep editorial blue */
+  --muted: #687386;
+  --accent: #FF7048;     /* Coral orange */
+  --border: #E5DED2;
+  --shadow: 0 8px 25px rgba(25, 54, 91, 0.08);
+  --radius: 18px;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: var(--background);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ==========================================
+   2. HEADER
+   ========================================== */
+
+.app-header {
+  padding: 35px 20px 25px;
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+}
+
+.header-content {
+  max-width: 650px;
+  margin: auto;
+}
+
+.app-header h1 {
+  font-family: Georgia, serif;
+  font-size: 30px;
+  margin-bottom: 6px;
+}
+
+.tagline {
+  color: var(--muted);
+  font-size: 15px;
+}
+
+/* ==========================================
+   3. MAIN CONTAINER
+   ========================================== */
+
+.app-container {
+  width: 100%;
+  max-width: 650px;
+  margin: auto;
+  padding: 25px 18px 100px;
+}
+
+/* ==========================================
+   4. SECTION LABELS
+   ========================================== */
+
+.section-label {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+  margin-bottom: 7px;
+}
+
+/* ==========================================
+   5. TODAY SECTION
+   ========================================== */
+
+.today-section {
+  margin-bottom: 25px;
+}
+
+.today-section h2 {
+  font-family: Georgia, serif;
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.today-section p:last-child {
+  color: var(--muted);
+}
+
+/* ==========================================
+   6. QUICK ACTIONS
+   ========================================== */
+
+.quick-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 35px;
+}
+
+.action-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  text-decoration: none;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s ease;
+}
+
+.action-card:hover {
+  transform: translateY(-2px);
+}
+
+.action-icon {
+  font-size: 24px;
+  color: var(--accent);
+}
+
+/* ==========================================
+   7. SECTION HEADING
+   ========================================== */
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.section-heading h2 {
+  font-family: Georgia, serif;
+  font-size: 23px;
+}
+
+.text-button {
+  border: none;
+  background: transparent;
+  color: var(--accent);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* ==========================================
+   8. EMPTY STATE
+   ========================================== */
+
+.empty-state {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 35px 22px;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+
+.empty-icon {
+  font-size: 40px;
+  margin-bottom: 12px;
+}
+
+.empty-state h3 {
+  margin-bottom: 8px;
+}
+
+.empty-state p {
+  color: var(--muted);
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+/* ==========================================
+   9. BUTTONS
+   ========================================== */
+
+.primary-button {
+  display: inline-block;
+  background: var(--accent);
+  color: white;
+  padding: 12px 18px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* ==========================================
+   10. BOTTOM NAVIGATION
+   ========================================== */
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  height: 70px;
+
+  background: var(--card);
+  border-top: 1px solid var(--border);
+
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.nav-item {
+  min-width: 60px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-decoration: none;
+  color: var(--muted);
+
+  font-size: 20px;
+}
+
+.nav-item small {
+  font-size: 11px;
+  margin-top: 3px;
+}
+
+.nav-item.active {
+  color: var(--accent);
+}
+
+/* ==========================================
+   11. MOBILE RESPONSIVE
+   ========================================== */
+
+@media (max-width: 500px) {
+  .app-header h1 {
+    font-size: 27px;
+  }
+
+  .today-section h2 {
+    font-size: 25px;
+  }
+
+  .bottom-nav {
+    gap: 40px;
+  }
+}
+
+/* ==========================================
+   EVENT CARDS
+   ========================================== */
+
+.event-card {
+  background: var(--card);
+
+  border: 1px solid var(--border);
+
+  border-radius: var(--radius);
+
+  padding: 14px;
+
+  margin-bottom: 12px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  box-shadow: var(--shadow);
+}
+
+.event-type {
+  font-size: 11px;
+  color: var(--accent);
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.event-info h3 {
+  margin: 5px 0;
+  font-size: 18px;
+}
+
+.event-info p {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.event-timing {
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: bold;
+  text-align: right;
+}
+
+/* ==========================================
+   FORM STYLES
+   ========================================== */
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+
+  padding: 13px 14px;
+
+  border: 1px solid var(--border);
+  border-radius: 12px;
+
+  background: var(--card);
+  color: var(--text);
+
+  font-size: 15px;
+
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--accent);
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+.save-button {
+  width: 100%;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+/* ==========================================
+   EVENT ACTIONS
+   ========================================== */
+
+.event-actions {
+  text-align: right;
+}
+
+.event-actions strong {
+  display: block;
+  color: var(--accent);
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.card-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.card-buttons button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 15px;
+  padding: 4px;
+}
+
+/* ==========================================
+   MEMORY PAGE
+   ========================================== */
+
+.page-heading {
+  font-family: Georgia, serif;
+  font-size: 25px;
+  margin-bottom: 25px;
+}
+
+.memory-form {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 25px;
+  box-shadow: var(--shadow);
+}
+
+.memory-form .primary-button {
+  border: none;
+  cursor: pointer;
+}
+
+.memory-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow);
+}
+
+.memory-card h3 {
+  font-family: Georgia, serif;
+  margin: 8px 0;
+}
+
+.memory-card p {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ==========================================
+   REMINDER CARDS
+   ========================================== */
+
+.reminders-section {
+  margin-bottom: 35px;
+}
+
+.reminder-card {
+  display: flex;
+  align-items: center;
+
+  gap: 15px;
+
+  background: var(--card);
+
+  border: 1px solid var(--border);
+
+  border-radius: var(--radius);
+
+  padding: 16px;
+
+  margin-bottom: 10px;
+
+  box-shadow: var(--shadow);
+}
+
+.reminder-icon {
+  width: 45px;
+  height: 45px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #fff0eb;
+
+  font-size: 21px;
+}
+
+.reminder-info h3 {
+  margin-bottom: 4px;
+
+  font-size: 16px;
+}
+
+.reminder-info p {
+  color: var(--muted);
+
+  font-size: 13px;
+
+  margin-bottom: 4px;
+}
+
+.reminder-info small {
+  color: var(--accent);
+
+  font-size: 12px;
+}
+
+/* ==========================================
+   SEARCH & FILTER
+   ========================================== */
+
+.event-controls {
+  display: grid;
+
+  grid-template-columns: 1fr 140px;
+
+  gap: 10px;
+
+  margin-bottom: 15px;
+}
+
+.event-controls input,
+.event-controls select {
+  width: 100%;
+
+  padding: 12px 13px;
+
+  border: 1px solid var(--border);
+
+  border-radius: 12px;
+
+  background: var(--card);
+
+  color: var(--text);
+
+  font-size: 14px;
+
+  outline: none;
+}
+
+.event-controls input:focus,
+.event-controls select:focus {
+  border-color: var(--accent);
+}
+
+@media (max-width: 500px) {
+  .event-controls {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================
+   CALENDAR
+   ========================================== */
+
+.calendar-section {
+  background: var(--card);
+
+  border: 1px solid var(--border);
+
+  border-radius: var(--radius);
+
+  padding: 18px;
+
+  margin-bottom: 35px;
+
+  box-shadow: var(--shadow);
+}
+
+/* ==========================================
+   CALENDAR HEADER
+   ========================================== */
+
+.calendar-header {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-bottom: 20px;
+}
+
+.calendar-header h2 {
+  font-family: Georgia, serif;
+
+  font-size: 20px;
+}
+
+.calendar-button {
+  width: 35px;
+  height: 35px;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background: var(--background);
+
+  color: var(--text);
+
+  font-size: 25px;
+
+  cursor: pointer;
+}
+
+/* ==========================================
+   WEEK DAYS
+   ========================================== */
+
+.calendar-weekdays,
+.calendar-days {
+  display: grid;
+
+  grid-template-columns: repeat(7, 1fr);
+
+  gap: 5px;
+}
+
+.calendar-weekdays {
+  margin-bottom: 8px;
+}
+
+.calendar-weekdays span {
+  text-align: center;
+
+  color: var(--muted);
+
+  font-size: 11px;
+
+  font-weight: bold;
+}
+
+/* ==========================================
+   CALENDAR DAY
+   ========================================== */
+
+.calendar-day {
+  min-height: 42px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  position: relative;
+
+  border-radius: 10px;
+
+  cursor: default;
+}
+
+.calendar-day.empty {
+  visibility: hidden;
+}
+
+.day-number {
+  font-size: 13px;
+}
+
+/* ==========================================
+   TODAY
+   ========================================== */
+
+.calendar-day.today {
+  background: var(--accent);
+
+  color: white;
+
+  font-weight: bold;
+}
+
+/* ==========================================
+   EVENT DAY
+   ========================================== */
+
+.calendar-day.has-event {
+  cursor: pointer;
+
+  background: #fff1eb;
+}
+
+.calendar-day.has-event.today {
+  background: var(--accent);
+}
+
+.event-dot {
+  width: 5px;
+
+  height: 5px;
+
+  border-radius: 50%;
+
+  background: var(--accent);
+
+  position: absolute;
+
+  bottom: 5px;
+}
+
+.calendar-day.today .event-dot {
+  background: white;
+}
+
+/* ==========================================
+   GIFT SECTION
+   ========================================== */
+
+.gift-section {
+  margin-top: 30px;
+
+  padding-top: 20px;
+
+  border-top: 1px solid var(--border);
+}
+
+/* ==========================================
+   EVENT GIFT
+   ========================================== */
+
+.event-gift {
+  margin-top: 8px;
+
+  color: var(--muted);
+
+  font-size: 12px;
+}
+
+/* ==========================================
+   PHOTO PREVIEW
+   ========================================== */
+
+.input-help {
+  display: block;
+
+  margin-top: 6px;
+
+  color: var(--muted);
+
+  font-size: 12px;
+}
+
+.photo-preview {
+  margin-top: 10px;
+}
+
+.photo-preview img {
+  width: 100%;
+
+  max-height: 280px;
+
+  object-fit: cover;
+
+  border-radius: var(--radius);
+
+  display: block;
+}
+
+/* ==========================================
+   EVENT PHOTO
+   ========================================== */
+
+.event-photo {
+  width: 60px;
+
+  height: 60px;
+
+  object-fit: cover;
+
+  border-radius: 12px;
+
+  flex-shrink: 0;
+}
+
+/* ==========================================
+   BACKUP & RESTORE
+   ========================================== */
+
+.backup-section {
+  margin-top: 35px;
+
+  padding: 20px;
+
+  background: var(--card);
+
+  border: 1px solid var(--border);
+
+  border-radius: var(--radius);
+
+  box-shadow: var(--shadow);
+}
+
+.backup-section h2 {
+  font-family: Georgia, serif;
+
+  font-size: 22px;
+
+  margin-bottom: 8px;
+}
+
+.backup-description {
+  color: var(--muted);
+
+  font-size: 13px;
+
+  line-height: 1.5;
+
+  margin-bottom: 18px;
+}
+
+.backup-actions {
+  display: flex;
+
+  gap: 10px;
+
+  flex-wrap: wrap;
+}
+
+.secondary-button {
+  display: inline-block;
+
+  padding: 11px 16px;
+
+  border: 1px solid var(--border);
+
+  border-radius: 12px;
+
+  background: var(--background);
+
+  color: var(--text);
+
+  font-size: 14px;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+  text-decoration: none;
+}
+
+.secondary-button:hover {
+  border-color: var(--accent);
+}
+
+@media (max-width: 500px) {
+  .backup-actions {
+    flex-direction: column;
+  }
+
+  .secondary-button {
+    width: 100%;
+
+    text-align: center;
+  }
+}
+
+/* ==========================================
+   UI POLISH
+   ========================================== */
+
+/* ==========================================
+   APP BRAND
+   ========================================== */
+
+.app-brand {
+  display: flex;
+
+  align-items: center;
+
+  gap: 13px;
+}
+
+.app-logo {
+  width: 46px;
+
+  height: 46px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border-radius: 14px;
+
+  background: var(--accent);
+
+  color: white;
+
+  font-size: 22px;
+
+  box-shadow: 0 6px 15px rgba(224, 90, 43, 0.25);
+}
+
+.app-header h1 {
+  font-size: 28px;
+
+  line-height: 1.1;
+}
+
+/* ==========================================
+   PAGE TRANSITION
+   ========================================== */
+
+body {
+  animation: pageFade 0.25s ease;
+}
+
+@keyframes pageFade {
+  from {
+    opacity: 0;
+
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================
+   BETTER CARDS
+   ========================================== */
+
+.action-card,
+.event-card,
+.memory-card,
+.reminder-card,
+.empty-state,
+.calendar-section,
+.memory-form,
+.backup-section {
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.action-card:hover,
+.event-card:hover,
+.memory-card:hover,
+.reminder-card:hover {
+  transform: translateY(-2px);
+
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* ==========================================
+   BUTTON POLISH
+   ========================================== */
+
+.primary-button {
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.primary-button:hover {
+  transform: translateY(-1px);
+
+  box-shadow: 0 6px 16px rgba(224, 90, 43, 0.25);
+}
+
+.primary-button:active {
+  transform: scale(0.98);
+}
+
+/* ==========================================
+   INPUT POLISH
+   ========================================== */
+
+.form-group input,
+.form-group select,
+.form-group textarea,
+.event-controls input,
+.event-controls select {
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus,
+.event-controls input:focus,
+.event-controls select:focus {
+  border-color: var(--accent);
+
+  box-shadow: 0 0 0 3px rgba(224, 90, 43, 0.1);
+}
+
+/* ==========================================
+   BOTTOM NAVIGATION
+   ========================================== */
+
+.bottom-nav {
+  z-index: 100;
+
+  backdrop-filter: blur(12px);
+
+  -webkit-backdrop-filter: blur(12px);
+
+  box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.04);
+}
+
+.nav-item {
+  transition:
+    color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.nav-item:hover {
+  transform: translateY(-2px);
+}
+
+/* ==========================================
+   MOBILE TOUCH EXPERIENCE
+   ========================================== */
+
+button,
+a,
+select,
+input {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ==========================================
+   MOBILE LAYOUT
+   ========================================== */
+
+@media (max-width: 650px) {
+  .app-header {
+    padding: 24px 18px 20px;
+  }
+
+  .app-container {
+    padding: 20px 15px 100px;
+  }
+
+  .app-header h1 {
+    font-size: 24px;
+  }
+
+  .app-logo {
+    width: 42px;
+
+    height: 42px;
+
+    font-size: 19px;
+  }
+
+  .action-card {
+    padding: 17px;
+  }
+
+  .event-card {
+    padding: 13px;
+  }
+
+  .event-info h3 {
+    font-size: 16px;
+  }
+
+  .event-timing {
+    font-size: 12px;
+  }
+
+  .bottom-nav {
+    height: 72px;
+
+    padding-left: 15px;
+
+    padding-right: 15px;
+  }
+
+  .nav-item {
+    flex: 1;
+
+    max-width: 90px;
+  }
+}
+
+/* ==========================================
+   VERY SMALL PHONES
+   ========================================== */
+
+@media (max-width: 380px) {
+  .quick-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .event-card {
+    align-items: flex-start;
+  }
+
+  .event-photo {
+    width: 50px;
+
+    height: 50px;
+  }
+
+  .event-actions strong {
+    font-size: 11px;
+  }
+}
+
+/* ==========================================
+   APP-LIKE BOTTOM NAV
+   ========================================== */
+
+.bottom-nav {
+  max-width: 650px;
+
+  margin: auto;
+
+  left: 50%;
+
+  right: auto;
+
+  width: 100%;
+
+  transform: translateX(-50%);
+
+  border-radius: 18px 18px 0 0;
+}
+
+.nav-item {
+  position: relative;
+}
+
+.nav-item.active::before {
+  content: "";
+
+  position: absolute;
+
+  top: 6px;
+
+  width: 5px;
+
+  height: 5px;
+
+  border-radius: 50%;
+
+  background: var(--accent);
+}
+
+/* ==========================================
+   ADD NAVIGATION BUTTON
+   ========================================== */
+
+.nav-item[href="pages/add.html"] span,
+.nav-item[href="add.html"] span {
+  width: 34px;
+
+  height: 34px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border-radius: 11px;
+
+  background: var(--accent);
+
+  color: white;
+
+  font-size: 22px;
+}
+
+/* ==========================================
+   TODAY CARD
+   ========================================== */
+
+.today-card {
+  background: var(--card);
+
+  border: 1px solid var(--border);
+
+  border-radius: var(--radius);
+
+  padding: 22px;
+
+  box-shadow: var(--shadow);
+
+  margin-bottom: 25px;
+}
+
+/* ==========================================
+   DARK MODE
+   ========================================== */
+
+body.dark-mode {
+  --background: #151515;
+
+  --card: #202020;
+
+  --text: #f5f5f5;
+
+  --muted: #a5a5a5;
+
+  --border: #333333;
+
+  --shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* ==========================================
+   DARK MODE SPECIAL ELEMENTS
+   ========================================== */
+
+body.dark-mode .calendar-day.has-event {
+  background: #33241e;
+}
+
+body.dark-mode .reminder-icon {
+  background: #33241e;
+}
+
+body.dark-mode .event-controls input,
+body.dark-mode .event-controls select {
+  background: var(--card);
+}
+
+body.dark-mode .secondary-button {
+  background: var(--card);
+}
+
+body.dark-mode .calendar-button {
+  background: #2b2b2b;
+
+  color: var(--text);
+}
+
+/* ==========================================
+   SETTINGS CARDS
+   ========================================== */
+
+.settings-card {
+  background: var(--card);
+
+  border: 1px solid var(--border);
+
+  border-radius: var(--radius);
+
+  padding: 20px;
+
+  margin-bottom: 15px;
+
+  box-shadow: var(--shadow);
+}
+
+.settings-card h2 {
+  font-family: Georgia, serif;
+
+  font-size: 21px;
+
+  margin-bottom: 15px;
+}
+
+.setting-row {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  gap: 20px;
+}
+
+.setting-row strong {
+  display: block;
+
+  margin-bottom: 5px;
+}
+
+.setting-row p,
+.setting-description {
+  color: var(--muted);
+
+  font-size: 13px;
+
+  line-height: 1.5;
+}
+
+.version {
+  margin-top: 15px;
+
+  color: var(--muted);
+
+  font-size: 12px;
+}
+
+/* ==========================================
+   TOGGLE SWITCH
+   ========================================== */
+
+.switch {
+  position: relative;
+
+  width: 50px;
+
+  height: 28px;
+
+  flex-shrink: 0;
+}
+
+.switch input {
+  display: none;
+}
+
+.slider {
+  position: absolute;
+
+  inset: 0;
+
+  background: #ccc;
+
+  border-radius: 30px;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.slider::before {
+  content: "";
+
+  position: absolute;
+
+  width: 22px;
+
+  height: 22px;
+
+  left: 3px;
+
+  top: 3px;
+
+  background: white;
+
+  border-radius: 50%;
+
+  transition: 0.2s;
+}
+
+.switch input:checked + .slider {
+  background: var(--accent);
+}
+
+.switch input:checked + .slider::before {
+  transform: translateX(22px);
+}
+
+
+
+/* Calendar page countdown */
+.event-countdown {
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-top: 8px;
+}
+
+.event-card {
+    margin-bottom: 14px;
+}
+
+
+/* Countdown on calendar pages */
+.event-countdown {
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-top: 8px;
+}
+
+.event-card {
+    margin-bottom: 14px;
+}
+
+.upcoming-section {
+  margin: 24px 0;
+}
+
+.upcoming-section h2 {
+  margin-bottom: 16px;
+}
+
+#upcoming-festivals {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+#upcoming-festivals .event-card {
+  padding: 16px;
+  border-radius: 14px;
+  background: var(--card-bg, #fff);
+  border: 1px solid var(--border-color, #e5e7eb);
+}
+
+#upcoming-festivals .event-card h3 {
+  margin-top: 0;
+}
+
+
+.memory-photos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.memory-photos img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+@media (max-width: 480px) {
+  .memory-photos img {
+    height: 100px;
+  }
+}
+
+
+/* Memory Timeline and multi-photo memories */
+.memory-photo-grid,
+.timeline-photos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 10px;
+    margin: 12px 0;
+}
+
+.memory-photo-grid .memory-photo {
+    display: block;
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.birthday-age {
+    font-weight: 700;
+    color: var(--accent, #c84e2a);
+}
+
+.timeline-card {
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 480px) {
+    .memory-photo-grid .memory-photo {
+        height: 105px;
+    }
+}
+
+
+
+
+/* ==========================================
+   WARM IVORY + EDITORIAL BLUE + CORAL
+   ========================================== */
+
+.app-header {
+  background: var(--background);
+}
+
+.app-header h1,
+.today-section h2,
+.section-heading h2,
+.page-heading,
+.calendar-header h2 {
+  color: var(--text);
+}
+
+.app-logo {
+  background: var(--text);
+  box-shadow: 0 6px 15px rgba(25, 54, 91, 0.2);
+}
+
+.reminder-icon {
+  background: #FCE1D8;
+}
+
+.calendar-day.has-event {
+  background: #E9EDF4;
+}
+
+.calendar-day.today,
+.calendar-day.has-event.today {
+  background: var(--text);
+  color: #FFFFFF;
+}
+
+.event-dot {
+  background: var(--accent);
+}
+
+
+/* ==========================================
+   REMEMBER A DAY — LAYOUT REFINEMENT
+   ========================================== */
+
+/* Give desktop screens better use of space */
+.header-content {
+  max-width: 960px;
+}
+
+.app-container {
+  max-width: 960px;
+  padding: 28px 24px 125px;
+}
+
+/* Today section */
+.today-section {
+  margin-bottom: 28px;
+}
+
+.today-section h2 {
+  line-height: 1.25;
+}
+
+/* Consistent shortcut grid */
+.quick-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 36px;
+  align-items: stretch;
+}
+
+.action-card {
+  min-width: 0;
+  min-height: 104px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-radius: 18px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  text-decoration: none;
+  box-shadow: var(--shadow);
+  overflow-wrap: anywhere;
+}
+
+.action-icon {
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: #FCE1D8;
+  color: var(--accent);
+  font-size: 23px;
+}
+
+.action-copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.action-copy strong {
+  font-size: 16px;
+  line-height: 1.35;
+  color: var(--text);
+}
+
+.action-copy small {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+/* Comfortable section spacing */
+.reminders-section,
+.upcoming-section,
+.calendar-section,
+.backup-section {
+  margin-bottom: 28px;
+}
+
+.section-heading {
+  gap: 12px;
+}
+
+#upcoming-festivals {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+/* Fixed bottom navigation */
+.bottom-nav {
+  position: fixed;
+  z-index: 1000;
+  bottom: 0;
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 960px;
+  height: calc(76px + env(safe-area-inset-bottom));
+  padding: 8px 16px calc(8px + env(safe-area-inset-bottom));
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid var(--border);
+  border-bottom: none;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -8px 28px rgba(25, 54, 91, 0.09);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.nav-item {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  max-width: 150px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 22px;
+  border-radius: 12px;
+}
+
+.nav-item small {
+  font-size: 12px;
+  margin-top: 0;
+}
+
+.nav-item.active {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.nav-item.active::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* Remove the special raised Add button styling */
+.nav-item[href="pages/add.html"] span,
+.nav-item[href="add.html"] span {
+  width: auto;
+  height: auto;
+  display: inline;
+  background: transparent;
+  color: inherit;
+  border-radius: 0;
+  font-size: 24px;
+}
+
+/* Tablet and mobile */
+@media (max-width: 650px) {
+  .header-content {
+    max-width: 100%;
+  }
+
+  .app-container {
+    padding: 22px 16px 120px;
+  }
+
+  .quick-actions {
+    gap: 12px;
+  }
+
+  .action-card {
+    min-height: 100px;
+    padding: 15px;
+    gap: 11px;
+  }
+
+  .action-icon {
+    flex-basis: 36px;
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+  }
+
+  .action-copy strong {
+    font-size: 14px;
+  }
+
+  .action-copy small {
+    font-size: 12px;
+  }
+
+  .bottom-nav {
+    border-radius: 18px 18px 0 0;
+  }
+}
+
+/* Small phones */
+@media (max-width: 380px) {
+  .app-container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .quick-actions {
+    gap: 9px;
+  }
+
+  .action-card {
+    padding: 12px 10px;
+    gap: 8px;
+  }
+
+  .action-icon {
+    flex-basis: 30px;
+    width: 30px;
+    height: 30px;
+    font-size: 17px;
+  }
+
+  .action-copy strong {
+    font-size: 13px;
+  }
+
+  .action-copy small {
+    font-size: 11px;
+  }
+
+  .nav-item small {
+    font-size: 11px;
+  }
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  body {
+    animation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
+/* ==========================================
+   OCCASION FOLDERS & COMBINED HOLIDAYS
+   ========================================== */
+.category-action { min-height: 94px; }
+.back-link { display: inline-block; margin-bottom: 18px; color: var(--accent); text-decoration: none; font-weight: 700; }
+.folder-toolbar { display: flex; gap: 12px; align-items: center; margin-bottom: 18px; }
+.folder-toolbar input { flex: 1; min-width: 0; }
+.folder-note { color: var(--muted); font-size: 13px; line-height: 1.5; margin-bottom: 18px; }
+.folder-extra { margin: 8px 0; color: var(--accent); font-size: 14px; font-weight: 600; }
+.holiday-filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+.filter-chip { border: 1px solid var(--border); border-radius: 999px; padding: 10px 14px; background: var(--card); color: var(--text); cursor: pointer; font: inherit; }
+.filter-chip.active { background: var(--text); border-color: var(--text); color: var(--card); }
+.holiday-card { align-items: center; gap: 12px; }
+.holiday-card .event-info { flex: 1; min-width: 0; }
+.holiday-card h2 { font-size: 18px; margin: 8px 0; }
+.holiday-card .event-countdown { white-space: nowrap; color: var(--accent); }
+.folder-toolbar .primary-button { white-space: nowrap; }
+@media (max-width: 460px) {
+  .folder-toolbar { align-items: stretch; flex-direction: column; }
+  .folder-toolbar .primary-button { text-align: center; }
+  .holiday-card { align-items: flex-start; flex-direction: column; }
+}
+
+
+/* Search icon and expandable occasion filters */
+.search-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  background: var(--card);
+  color: var(--text);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.search-icon-button:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.search-icon-button svg {
+  width: 21px;
+  height: 21px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.folder-filter-panel {
+  padding: 20px;
+  margin: 0 0 20px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  animation: filterPanelIn 0.2s ease;
+}
+
+.folder-filter-panel[hidden] {
+  display: none;
+}
+
+.filter-panel-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.filter-panel-heading h2 {
+  font-family: Georgia, serif;
+  font-size: 21px;
+  margin-bottom: 5px;
+}
+
+.filter-panel-heading p {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.filter-close-button {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.folder-filter-panel > label {
+  display: block;
+  margin: 14px 0 7px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.folder-filter-panel input,
+.folder-filter-panel select {
+  display: block;
+  width: 100%;
+  min-height: 46px;
+  padding: 12px 13px;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  background: var(--background);
+  color: var(--text);
+  font: inherit;
+  outline: none;
+}
+
+.folder-filter-panel input:focus,
+.folder-filter-panel select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(255, 112, 72, 0.12);
+}
+
+#reset-folder-filters {
+  margin-top: 18px;
+}
+
+@keyframes filterPanelIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 460px) {
+  .folder-toolbar {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .search-icon-button {
+    flex: 1;
+    padding: 12px 10px;
+    font-size: 13px;
+  }
+
+  .folder-toolbar .primary-button {
+    white-space: nowrap;
+    padding: 12px;
+    font-size: 13px;
+  }
+}
+
+body.dark-mode .folder-filter-panel input,
+body.dark-mode .folder-filter-panel select {
+  background: var(--card);
+  color: var(--text);
+}

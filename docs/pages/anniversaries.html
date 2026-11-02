@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#19365B">
+  <title>Anniversaries | Remember a Day</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body data-folder="anniversaries">
+  <header class="app-header">
+    <div class="header-content">
+      <a class="back-link" href="../index.html">← Home</a>
+      <p class="section-label" id="folder-label">YOUR SPECIAL DATES</p>
+      <h1 id="folder-title">💍 Anniversaries</h1>
+      <p class="tagline" id="folder-description">Every moment matters.</p>
+    </div>
+  </header>
+  <main class="app-container">
+    
+<div class="folder-toolbar">
+  <button
+    type="button"
+    id="toggle-folder-filters"
+    class="search-icon-button"
+    aria-label="Open search and filters"
+    aria-expanded="false"
+    aria-controls="folder-filter-panel"
+  >
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="10.8" cy="10.8" r="6.8"></circle>
+      <path d="m16 16 5 5"></path>
+    </svg>
+    <span>Search & Filters</span>
+  </button>
+
+  <a href="add.html" class="primary-button">＋ Add Occasion</a>
+</div>
+
+<div id="folder-filter-panel" class="folder-filter-panel" hidden>
+  <div class="filter-panel-heading">
+    <div>
+      <h2>Find an occasion</h2>
+      <p>Search and narrow down your dates.</p>
+    </div>
+    <button type="button" id="close-folder-filters"
+      class="filter-close-button" aria-label="Close filters">×</button>
+  </div>
+
+  <label for="folder-search">Search by name or notes</label>
+  <input id="folder-search" type="search"
+    placeholder="e.g. Mom's birthday">
+
+  <label for="folder-category">Category</label>
+  <select id="folder-category">
+    <option value="all">All categories</option>
+  </select>
+
+  <label for="folder-month">Month</label>
+  <select id="folder-month">
+    <option value="all">All months</option>
+    <option value="0">January</option>
+    <option value="1">February</option>
+    <option value="2">March</option>
+    <option value="3">April</option>
+    <option value="4">May</option>
+    <option value="5">June</option>
+    <option value="6">July</option>
+    <option value="7">August</option>
+    <option value="8">September</option>
+    <option value="9">October</option>
+    <option value="10">November</option>
+    <option value="11">December</option>
+  </select>
+
+  <button type="button" id="reset-folder-filters"
+    class="secondary-button">Reset filters</button>
+</div>
+
+    <p class="folder-note">Dates repeat automatically every year for birthdays and anniversaries. Countdown is calculated from today's date.</p>
+    <section id="occasion-list" aria-live="polite"></section>
+  </main>
+  <nav class="bottom-nav" aria-label="Main navigation">
+    <a href="../index.html" class="nav-item"><span>⌂</span><small>Home</small></a>
+    <a href="add.html" class="nav-item"><span>＋</span><small>Add</small></a>
+    <a href="memories.html" class="nav-item"><span>♥</span><small>Memories</small></a>
+    <a href="../settings.html" class="nav-item"><span>⚙</span><small>Settings</small></a>
+  </nav>
+  <script src="../js/storage.js"></script>
+  <script src="../js/events.js"></script>
+  <script src="../js/categories.js"></script>
+</body>
+</html>

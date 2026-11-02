@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#19365B">
+<title>Surprise Studio | Remember a Day</title>
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/surprise-studio.css">
+</head>
+<body class="studio-body">
+<header class="studio-header">
+  <a class="studio-back" href="../index.html">← Home</a>
+  <div><p class="studio-eyebrow">REMEMBER A DAY PRESENTS</p><h1>Surprise Studio <span>✦</span></h1>
+  <p>Make a little happiness for someone.</p></div>
+  <button id="my-surprises" class="studio-ghost" type="button">My creations</button>
+</header>
+<main class="studio-wrap">
+  <div id="shared-view" class="shared-view" hidden></div>
+  <section id="studio-app">
+    <nav class="studio-tabs" aria-label="Surprise types">
+      <button class="studio-tab active" data-panel="cards">💌 Gift cards</button>
+      <button class="studio-tab" data-panel="giftbox">🎁 Gift box</button>
+      <button class="studio-tab" data-panel="memory">📸 Photo memories</button>
+    </nav>
+
+    <section class="studio-panel active" id="panel-cards">
+      <div class="studio-intro"><div><p class="studio-eyebrow">DESIGNED TO DELIGHT</p><h2>Choose your card</h2><p>Start with a design, then make every detail yours.</p></div><span class="intro-sparkle">✧</span></div>
+      <div class="template-toolbar">
+        <input id="template-search" type="search" placeholder="Search designs..." aria-label="Search designs">
+        <div class="template-filters" id="template-filters">
+          <button class="filter-chip active" data-filter="all">All</button><button class="filter-chip" data-filter="birthday">Birthday</button><button class="filter-chip" data-filter="love">Love</button><button class="filter-chip" data-filter="friendship">Friendship</button><button class="filter-chip" data-filter="celebration">Celebration</button><button class="filter-chip" data-filter="thanks">Thanks</button>
+        </div>
+      </div>
+      <div class="studio-editor-grid">
+        <div><div class="template-grid" id="template-grid"></div></div>
+        <aside class="editor-panel">
+          <div class="editor-heading"><p class="studio-eyebrow">PERSONALISE IT</p><h3>Your card details</h3></div>
+          <label>Recipient's name<input id="to-name" maxlength="45" placeholder="Dear Alex"></label>
+          <label>Your name<input id="from-name" maxlength="45" placeholder="With love, Sam"></label>
+          <label>Heading<input id="card-heading" maxlength="55" value="Happy Birthday!"></label>
+          <label>Your message<textarea id="card-message" maxlength="260" rows="4">Wishing you a day filled with love, laughter and beautiful moments.</textarea></label>
+          <label>Occasion date<input id="card-date" type="date"></label>
+          <label>Upload photos <span class="muted">(up to 4)</span><input id="card-photos" type="file" accept="image/*" multiple></label>
+          <div id="card-photo-status" class="field-hint">Photos become part of your card design.</div>
+          <label>Colour mood<select id="card-palette"><option value="original">Template colours</option><option value="rose">Rose & blush</option><option value="navy">Midnight & gold</option><option value="sage">Sage & cream</option><option value="lavender">Lilac dream</option><option value="sunset">Peach sunset</option></select></label>
+          <label class="check-row"><input type="checkbox" id="card-motion" checked> Add gentle animation</label>
+          <div class="editor-actions"><button class="studio-primary" id="download-card">Download PNG ↓</button><button class="studio-secondary" id="share-card">Share card ↗</button><button class="studio-link" id="save-card-link">Create shareable link</button></div>
+          <p class="field-hint" id="studio-status" role="status">Choose any design to begin.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="studio-panel" id="panel-giftbox">
+      <div class="studio-intro"><div><p class="studio-eyebrow">A SURPRISE INSIDE</p><h2>Build a gift box</h2><p>They tap the gift. The ribbon opens. Your message appears.</p></div><span class="intro-sparkle">🎀</span></div>
+      <div class="giftbox-layout">
+        <div class="giftbox-preview-wrap"><div id="giftbox-stage" class="giftbox-stage theme-rose">
+          <div class="gift-confetti" aria-hidden="true">✦　·　✧　·　✦</div>
+          <button id="giftbox-open" class="giftbox-art" type="button" aria-label="Open the surprise gift"><span class="gift-lid"></span><span class="gift-body"></span><span class="gift-ribbon-v"></span><span class="gift-ribbon-h"></span><span class="gift-bow">🎀</span></button>
+          <p id="giftbox-hint">Tap the gift to preview the surprise</p>
+          <div id="giftbox-reveal" class="giftbox-reveal" hidden><span>✨ A LITTLE SURPRISE ✨</span><h3 id="giftbox-reveal-title">For someone special</h3><p id="giftbox-reveal-message"></p><small id="giftbox-reveal-from"></small></div>
+        </div></div>
+        <div class="editor-panel"><div class="editor-heading"><p class="studio-eyebrow">MAKE IT PERSONAL</p><h3>Gift box details</h3></div>
+          <label>Recipient's name<input id="box-to" maxlength="45" placeholder="Someone special"></label>
+          <label>Surprise title<input id="box-title" maxlength="55" value="A little something for you"></label>
+          <label>Message inside<textarea id="box-message" maxlength="500" rows="5" placeholder="Write a message from your heart..."></textarea></label>
+          <label>From<input id="box-from" maxlength="45" placeholder="Your name"></label>
+          <label>Gift wrap<select id="box-theme"><option value="rose">Rose pink</option><option value="navy">Midnight blue</option><option value="lilac">Lavender</option><option value="sage">Sage green</option><option value="gold">Golden celebration</option></select></label>
+          <label>Optional photos<input id="box-photos" type="file" accept="image/*" multiple></label>
+          <label>Optional music (MP3)<input id="box-music" type="file" accept="audio/mpeg,audio/mp3"></label>
+          <div class="editor-actions"><button class="studio-primary" id="box-preview">Preview opening ↗</button><button class="studio-secondary" id="box-share">Create surprise link</button></div><p class="field-hint" id="box-status" role="status">A shareable link needs Supabase setup.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="studio-panel" id="panel-memory">
+      <div class="studio-intro"><div><p class="studio-eyebrow">LITTLE MOMENTS, BIG FEELINGS</p><h2>Make a photo memory</h2><p>Turn your favourite pictures into a shareable keepsake.</p></div><span class="intro-sparkle">♡</span></div>
+      <div class="memory-maker">
+        <div class="memory-preview" id="memory-preview"><div class="memory-paper"><p class="studio-eyebrow">A MOMENT TO KEEP</p><h2 id="memory-preview-title">Our favourite moments</h2><div id="memory-preview-photos" class="memory-photo-grid"><div class="memory-placeholder">Your photos will appear here</div></div><p id="memory-preview-caption">Some moments deserve to last forever.</p><small id="memory-preview-date"></small></div></div>
+        <div class="editor-panel"><div class="editor-heading"><p class="studio-eyebrow">YOUR MEMORY</p><h3>Arrange your story</h3></div>
+          <label>Memory title<input id="memory-title" maxlength="65" value="Our favourite moments"></label>
+          <label>Caption<textarea id="memory-caption" maxlength="300" rows="4">Some moments deserve to last forever.</textarea></label>
+          <label>Memory date<input id="memory-date" type="date"></label>
+          <label>Choose photos (up to 8)<input id="memory-photos" type="file" accept="image/*" multiple></label>
+          <label>Layout<select id="memory-layout"><option value="collage">Scrapbook collage</option><option value="polaroid">Polaroid wall</option><option value="film">Film strip</option></select></label>
+          <div class="editor-actions"><button class="studio-primary" id="download-memory">Download memory PNG ↓</button><button class="studio-secondary" id="share-memory">Create shareable link</button></div><p class="field-hint" id="memory-status" role="status">Add photos to make your memory.</p>
+        </div>
+      </div>
+    </section>
+  </section>
+</main>
+<nav class="studio-bottom-nav"><a href="../index.html">⌂<small>Home</small></a><a href="add.html">＋<small>Add</small></a><a href="memories.html">♥<small>Memories</small></a><a class="selected" href="surprise-studio.html">✦<small>Studio</small></a><a href="../settings.html">⚙<small>Settings</small></a></nav>
+<script src="../js/supabase-config.js"></script><script src="../js/surprise-studio.js"></script>
+</body></html>

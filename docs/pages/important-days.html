@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Important Days | Remember a Day</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <main class="app-container">
+        <header class="page-header">
+            <a href="../index.html">← Back</a>
+            <p class="section-label">DAYS THAT MATTER</p>
+            <h1>🇮🇳 Important Days</h1>
+            <p>National, international and special days.</p>
+        </header>
+        <section id="important-list">Loading important days...</section>
+    </main>
+
+    <script src="../js/calendar-data.js"></script>
+    <script>
+        const list = document.getElementById("important-list");
+
+        CalendarData.getUpcoming(365).then(events => {
+            const items = events.filter(e => e.section === "important-day");
+
+            if (!items.length) {
+                list.innerHTML = "<p>No upcoming days found.</p>";
+                return;
+            }
+
+            list.innerHTML = items.map(event => `
+                <article class="event-card">
+                    <h2>${event.emoji || "📅"} ${event.name}</h2>
+                    <p>${event.date.toLocaleDateString("en-IN", {
+                        day: "numeric", month: "long", year: "numeric"
+                    })}</p>
+                    <p class="event-countdown">
+                        ${event.daysUntil === 0 ? "🎉 Today!" :
+                          `⏳ ${event.daysUntil} days to go`}
+                    </p>
+                    <small>${event.category || "Important day"}</small>
+                </article>
+            `).join("");
+        }).catch(error => {
+            console.error(error);
+            list.innerHTML = "<p>Unable to load important days.</p>";
+        });
+    </script>
+</body>
+</html>

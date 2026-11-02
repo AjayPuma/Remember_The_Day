@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Public Holidays | Remember a Day</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <main class="app-container">
+        <header class="page-header">
+            <a href="../index.html">← Back</a>
+            <p class="section-label">PLAN AHEAD</p>
+            <h1>🏖️ Public Holidays</h1>
+            <p>Upcoming holidays in your calendar.</p>
+        </header>
+        <section id="holiday-list">Loading public holidays...</section>
+    </main>
+
+    <script src="../js/calendar-data.js"></script>
+    <script>
+        const list = document.getElementById("holiday-list");
+
+        CalendarData.loadAll().then(data => {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            const holidays = data.publicHolidays.map(item => {
+                const [year, month, day] = item.date.split("-").map(Number);
+                const date = new Date(year, month - 1, day);
+
+                return {
+                    ...item,
+                    date,
+                    daysUntil: Math.round((date - today) / 86400000)
+                };
+            }).filter(item => item.daysUntil >= 0);
+
+            if (!holidays.length) {
+                list.innerHTML = "<p>No upcoming holidays found.</p>";
+                return;
+            }
+
+            list.innerHTML = holidays.map(item => `
+                <article class="event-card">
+                    <h2>🇮🇳 ${item.name}</h2>
+                    <p>${item.date.toLocaleDateString("en-IN", {
+                        day: "numeric", month: "long", year: "numeric"
+                    })}</p>
+                    <p class="event-countdown">
+                        ${item.daysUntil === 0 ? "🎉 Today!" :
+                          `⏳ ${item.daysUntil} days to go`}
+                    </p>
+                </article>
+            `).join("");
+        }).catch(error => {
+            console.error(error);
+            list.innerHTML = "<p>Unable to load public holidays.</p>";
+        });
+    </script>
+</body>
+</html>

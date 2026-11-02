@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#19365B">
+  <title>Holidays & Important Days | Remember a Day</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-content">
+      <a class="back-link" href="../index.html">← Home</a>
+      <p class="section-label">CELEBRATE & PLAN AHEAD</p>
+      <h1>🗓️ Holidays & Important Days</h1>
+      <p class="tagline">Festivals, public holidays and meaningful days—all in one place.</p>
+    </div>
+  </header>
+  <main class="app-container">
+    <div class="holiday-filters" role="group" aria-label="Filter holiday types">
+      <button class="filter-chip active" data-filter="all">All</button>
+      <button class="filter-chip" data-filter="festival">🪔 Festivals</button>
+      <button class="filter-chip" data-filter="public-holiday">🇮🇳 Public Holidays</button>
+      <button class="filter-chip" data-filter="important-day">⭐ Important Days</button>
+    </div>
+    <section id="holiday-list" aria-live="polite"><p>Loading dates...</p></section>
+  </main>
+  <nav class="bottom-nav" aria-label="Main navigation">
+    <a href="../index.html" class="nav-item"><span>⌂</span><small>Home</small></a>
+    <a href="add.html" class="nav-item"><span>＋</span><small>Add</small></a>
+    <a href="memories.html" class="nav-item"><span>♥</span><small>Memories</small></a>
+    <a href="../settings.html" class="nav-item"><span>⚙</span><small>Settings</small></a>
+  </nav>
+  <script src="../js/calendar-data.js"></script>
+  <script>
+    const holidayList = document.getElementById("holiday-list");
+    const filterButtons = [...document.querySelectorAll("[data-filter]")];
+    let allHolidayItems = [];
+    let activeFilter = "all";
+
+    function renderHolidayItems() {
+      const items = allHolidayItems.filter(item => activeFilter === "all" || item.section === activeFilter);
+      if (!items.length) {
+        holidayList.innerHTML = '<div class="empty-state"><div class="empty-icon">🗓️</div><h3>No dates found</h3><p>There are no upcoming dates in this section.</p></div>';
+        return;
+      }
+      holidayList.innerHTML = items.map(item => `
+        <article class="event-card holiday-card">
+          <div class="event-info">
+            <span class="event-type">${item.section === "festival" ? "🪔 Festival" : item.section === "public-holiday" ? "🇮🇳 Public Holiday" : "⭐ Important Day"}</span>
+            <h2>${item.emoji || (item.section === "public-holiday" ? "🇮🇳" : "📅")} ${item.name}</h2>
+            <p>${item.date.toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" })}</p>
+          </div>
+          <strong class="event-countdown">${item.daysUntil === 0 ? "🎉 Today!" : `⏳ ${item.daysUntil} days to go`}</strong>
+        </article>
+      `).join("");
+    }
+
+    filterButtons.forEach(button => button.addEventListener("click", () => {
+      activeFilter = button.dataset.filter;
+      filterButtons.forEach(item => item.classList.toggle("active", item === button));
+      renderHolidayItems();
+    }));
+
+    CalendarData.getUpcoming(1095).then(items => {
+      allHolidayItems = items;
+      renderHolidayItems();
+    }).catch(error => {
+      console.error("Unable to load holiday data:", error);
+      holidayList.innerHTML = "<p>Unable to load holiday dates. Please reload the page.</p>";
+    });
+  </script>
+</body>
+</html>
