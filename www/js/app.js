@@ -16,11 +16,43 @@
 
 let calendarDate = new Date();
 
+
+let calendarReferenceEvents = [];
+
+async function loadCalendarReferenceEvents() {
+    if (!window.CalendarData) return;
+
+    try {
+        const items = await CalendarData.getUpcoming(3650);
+
+        calendarReferenceEvents = items.map(item => {
+            const sectionLabels = {
+                festival: "Festival",
+                "important-day": "Important Day",
+                "public-holiday": "Public Holiday"
+            };
+
+            return {
+                name: item.name || item.title || item.label || "Special Day",
+                date: item.date,
+                type: sectionLabels[item.section] || "Special Day",
+                section: item.section
+            };
+        }).filter(item => parseLocalDate(item.date));
+
+        renderCalendar();
+
+    } catch (error) {
+        console.error("Could not load calendar reference events:", error);
+    }
+}
+
+
 /* ==========================================
    INITIALIZE APPLICATION
    ========================================== */
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     showToday();
     showUpcomingEvents();
     showReminders();
@@ -31,6 +63,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     renderCalendar();
     updateOccasionCategoryCounts();
+
+    // Load festivals, important days and public holidays.
+    await loadCalendarReferenceEvents();
 });
 
 /* ==========================================
@@ -55,12 +90,17 @@ function showToday() {
    SHOW UPCOMING EVENTS
    ========================================== */
 
+
 function showUpcomingEvents(searchText = "", filterType = "all") {
     const container = document.getElementById("upcoming-events");
     if (!container) return;
 
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
     let events = getEvents();
 
+    // Search
     if (searchText.trim() !== "") {
         const search = searchText.toLowerCase().trim();
 
@@ -70,11 +110,14 @@ function showUpcomingEvents(searchText = "", filterType = "all") {
         );
     }
 
+    // Category filter
     if (filterType !== "all") {
-        events = events.filter(event => event.type === filterType);
+        events = events.filter(event =>
+            String(event.type || "").toLowerCase() === filterType.toLowerCase()
+        );
     }
 
-    if (events.length === 0) {
+    if (!events.length) {
         container.innerHTML = `
             <div class="empty-state">
                 <div class="empty-icon">📅</div>
@@ -82,16 +125,73 @@ function showUpcomingEvents(searchText = "", filterType = "all") {
                 <p>Try another search or filter.</p>
             </div>
         `;
+
+        updateEventCount(0);
         return;
     }
 
-    events.sort((a, b) => getNextOccurrence(a) - getNextOccurrence(b));
+    // Sort by next occurrence
+    events.sort((a, b) =>
+        getNextOccurrence(a) - getNextOccurrence(b)
+    );
 
-    container.innerHTML = events
-        .slice(0, 20)
-        .map(createEventCard)
-        .join("");
+    const todaysEvents = [];
+    const upcomingEvents = [];
+
+    events.forEach(event => {
+        const nextDate = getNextOccurrence(event);
+        const date = new Date(nextDate);
+        date.setHours(0, 0, 0, 0);
+
+        if (date.getTime() === today.getTime()) {
+            todaysEvents.push(event);
+        } else {
+            upcomingEvents.push(event);
+        }
+    });
+
+    const renderGroup = (title, items, icon) => {
+        if (!items.length) return "";
+
+
+
+return `
+    <section class="event-group ${
+        title === "Happening Today"
+            ? "today-event-group"
+            : "coming-up-event-group"
+    }">
+        <div class="event-group-heading">
+            <span>${icon}</span>
+            <h2>${title}</h2>
+            <small>${items.length}</small>
+        </div>
+
+        <div class="event-group-grid">
+            ${items.map(createEventCard).join("")}
+        </div>
+    </section>
+`;
+
+
+    };
+
+    container.innerHTML =
+        // renderGroup("Happening Today", todaysEvents, "🎉") +
+        renderGroup("Coming Up", upcomingEvents.slice(0, 20), "🗓️");
+
+    updateEventCount(events.length);
 }
+
+function updateEventCount(count) {
+    const label = document.getElementById("event-count-label");
+
+    if (label) {
+        label.textContent =
+            `${count} ${count === 1 ? "occasion" : "occasions"} saved`;
+    }
+}
+
 
 /* ==========================================
    SHOW UPCOMING REMINDERS
@@ -383,7 +483,7 @@ if (filterSelect) {
             gap: 12px;
             padding: 15px;
             border: 1px solid rgba(25, 54, 91, 0.09);
-            border-radius: 16px;
+                        border-radius: 16px;
             background: #FFFFFF;
         }
 
@@ -507,6 +607,7 @@ if (filterSelect) {
    CALENDAR
    ========================================== */
 
+
 function renderCalendar() {
     const calendarMonth = document.getElementById("calendar-month");
     const calendarDays = document.getElementById("calendar-days");
@@ -524,7 +625,7 @@ function renderCalendar() {
         year: "numeric"
     });
 
-    const events = getEvents();
+    const personalEvents = getEvents();
     let calendarHTML = "";
 
     for (let i = 0; i < firstDay; i++) {
@@ -534,6 +635,7 @@ function renderCalendar() {
     const today = new Date();
 
     for (let day = 1; day <= daysInMonth; day++) {
+
         const dateString =
             `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
 
@@ -542,7 +644,8 @@ function renderCalendar() {
             month === today.getMonth() &&
             year === today.getFullYear();
 
-        const dayEvents = events.filter(event => {
+        // User's saved birthdays and occasions
+        const personalDayEvents = personalEvents.filter(event => {
             const eventDate = parseLocalDate(event.date);
 
             return eventDate &&
@@ -550,18 +653,47 @@ function renderCalendar() {
                 eventDate.getDate() === day;
         });
 
-        const eventClass = dayEvents.length > 0 ? "has-event" : "";
+        // Festivals, important days and public holidays
+        const referenceDayEvents = calendarReferenceEvents.filter(event => {
+            const eventDate = parseLocalDate(event.date);
+
+            return eventDate &&
+                eventDate.getFullYear() === year &&
+                eventDate.getMonth() === month &&
+                eventDate.getDate() === day;
+        });
+
+        const hasEvents =
+            personalDayEvents.length > 0 ||
+            referenceDayEvents.length > 0;
+
+        const eventClass = hasEvents ? "has-event" : "";
+
+        const indicators = `
+            <span class="calendar-indicators">
+                ${personalDayEvents.length > 0
+                    ? `<span class="event-dot personal" title="Your occasions"></span>`
+                    : ""}
+                ${referenceDayEvents.length > 0
+                    ? `<span class="event-dot reference" title="Festival or important day"></span>`
+                    : ""}
+            </span>
+        `;
+
+        const totalEvents =
+            personalDayEvents.length + referenceDayEvents.length;
 
         calendarHTML += `
             <div
                 class="calendar-day ${eventClass} ${isToday ? "today" : ""}"
                 data-date="${dateString}"
-                ${dayEvents.length > 0 ? 'role="button" tabindex="0" aria-label="' +
-                    day + " " + calendarDate.toLocaleDateString("en-IN", { month: "long" }) +
-                    ', occasions: ' + dayEvents.length + '"' : ""}
+                ${hasEvents
+                    ? `role="button" tabindex="0"
+                       aria-label="${day} ${calendarDate.toLocaleDateString("en-IN", { month: "long" })}, ${totalEvents} occasions"`
+                    : ""}
             >
                 <span class="day-number">${day}</span>
-                ${dayEvents.length > 0 ? `<span class="event-dot"></span>` : ""}
+                ${hasEvents ? indicators : ""}
             </div>
         `;
     }
@@ -569,6 +701,7 @@ function renderCalendar() {
     calendarDays.innerHTML = calendarHTML;
 
     calendarDays.querySelectorAll(".calendar-day.has-event").forEach(dayElement => {
+
         const openSelectedDate = () => {
             showCalendarEvents(dayElement.dataset.date);
         };
@@ -583,6 +716,7 @@ function renderCalendar() {
         });
     });
 }
+
 
 /* ==========================================
    DATE PARSING
@@ -661,15 +795,31 @@ function showCalendarEvents(dateString) {
     const selectedDate = parseLocalDate(dateString);
     if (!selectedDate) return;
 
-    const events = getEvents();
 
-    const selectedEvents = events.filter(event => {
-        const eventDate = parseLocalDate(event.date);
+const personalEvents = getEvents();
 
-        return eventDate &&
-            eventDate.getMonth() === selectedDate.getMonth() &&
-            eventDate.getDate() === selectedDate.getDate();
-    });
+const selectedPersonalEvents = personalEvents.filter(event => {
+    const eventDate = parseLocalDate(event.date);
+
+    return eventDate &&
+        eventDate.getMonth() === selectedDate.getMonth() &&
+        eventDate.getDate() === selectedDate.getDate();
+});
+
+const selectedReferenceEvents = calendarReferenceEvents.filter(event => {
+    const eventDate = parseLocalDate(event.date);
+
+    return eventDate &&
+        eventDate.getFullYear() === selectedDate.getFullYear() &&
+        eventDate.getMonth() === selectedDate.getMonth() &&
+        eventDate.getDate() === selectedDate.getDate();
+});
+
+const selectedEvents = [
+    ...selectedPersonalEvents,
+    ...selectedReferenceEvents
+];
+
 
     // Remove any previous calendar modal before opening a new one.
     closeCalendarEventsModal();
@@ -753,7 +903,7 @@ function showCalendarEvents(dateString) {
 
     const closeButton = overlay.querySelector(".occasion-modal-close");
     const doneButton = overlay.querySelector(".occasion-modal-done");
-    const modal = overlay.querySelector(".occasion-modal");
+        const modal = overlay.querySelector(".occasion-modal");
 
     closeButton.addEventListener("click", closeCalendarEventsModal);
     doneButton.addEventListener("click", closeCalendarEventsModal);
@@ -908,4 +1058,218 @@ function updateOccasionCategoryCounts() {
         customCount.textContent =
             `${events.filter(event => !isBirthday(event) && !isAnniversary(event)).length} saved`;
     }
+}
+
+
+/* =====================================
+   EVENT CARD CLICK - OPEN DETAILS
+   ===================================== */
+
+document.addEventListener("click", function (e) {
+    const card = e.target.closest(
+        "#upcoming-events .event-card[data-event-id]"
+    );
+
+    if (!card) return;
+
+    // Don't open details when editing or deleting
+    if (e.target.closest(".card-buttons, button, a")) return;
+
+    openEventDetails(card.dataset.eventId);
+});
+
+
+function openEventDetails(id) {
+
+    const event = getEvents().find(
+        item => String(item.id) === String(id)
+    );
+
+    if (!event) {
+        console.error("Event not found:", id);
+        return;
+    }
+
+    document.getElementById("event-details-overlay")?.remove();
+
+    const nextDate = getNextOccurrence(event);
+    const days = getDaysUntil(event.date, event);
+
+    const safe = value => String(value || "").replace(
+        /[&<>"']/g,
+        char => ({
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;"
+        })[char]
+    );
+
+    const overlay = document.createElement("div");
+    overlay.id = "event-details-overlay";
+    overlay.className = "event-details-overlay";
+
+    overlay.innerHTML = `
+        <section class="event-details-modal">
+
+            <header class="event-details-header">
+                <button class="event-details-close" type="button">×</button>
+
+                <span class="event-details-category">
+                    ${safe(event.type)}
+                </span>
+
+                <h2>${safe(event.name)}</h2>
+
+                <p>▣ ${formatDate(nextDate)}</p>
+            </header>
+
+            <div class="event-details-content">
+
+                <section class="event-countdown">
+                    <div>
+                        <span>STATUS & COUNTDOWN</span>
+                        <strong>
+                            ${days === 0 ? "Today 🎉" :
+                              days === 1 ? "Tomorrow" :
+                              `In ${days} Days`}
+                        </strong>
+                    </div>
+
+                    <span class="event-reminder-pill">
+                        🔔 ${event.reminder && event.reminder !== "none"
+                            ? safe(event.reminder) + " days before"
+                            : "Reminder"}
+                    </span>
+                </section>
+
+                <section class="event-description">
+                    <h3>DESCRIPTION & NOTES</h3>
+                    <p>${safe(event.notes || "No description added yet.")}</p>
+                </section>
+
+
+${(() => {
+    const photos = Array.isArray(event.photos) && event.photos.length
+        ? event.photos
+        : event.photo ? [event.photo] : [];
+
+    return photos.length ? `
+        <section class="event-attached-photos">
+            <h3>ATTACHED PHOTO MEMORIES</h3>
+
+            <div class="event-photo-gallery">
+                ${photos.map((photo, index) => `
+                    <img
+                        src="${safe(photo)}"
+                        alt="${safe(event.name)} memory ${index + 1}"
+                        class="event-gallery-image"
+                    >
+                `).join("")}
+            </div>
+        </section>
+    ` : "";
+})()}
+
+${event.voiceNote?.data ? `
+    <section class="event-voice-note">
+        <h3>🎙️ ATTACHED VOICE NOTE</h3>
+
+        <div class="event-voice-player">
+            <span class="event-voice-icon">🎤</span>
+
+            <div class="event-voice-info">
+                <strong>Personal Voice Memory</strong>
+                <audio controls preload="metadata">
+                    <source
+                        src="${safe(event.voiceNote.data)}"
+                        type="${safe(event.voiceNote.mimeType || "audio/webm")}"
+                    >
+                </audio>
+            </div>
+        </div>
+    </section>
+` : ""}
+
+
+                ${event.gift?.idea ? `
+                    <section class="event-gift-details">
+                        <h3>GIFT DETAILS</h3>
+                        <p>🎁 ${safe(event.gift.idea)}</p>
+                    </section>
+                ` : ""}
+
+            </div>
+
+            <footer class="event-details-footer">
+                <button class="event-delete-button" type="button">
+                    🗑 Delete
+                </button>
+
+                <div>
+                    <button class="event-share-button" type="button">
+                        ↗ Share
+                    </button>
+
+                    <button class="event-edit-button" type="button">
+                        Edit Occasion
+                    </button>
+                </div>
+            </footer>
+
+        </section>
+    `;
+
+    document.body.appendChild(overlay);
+    document.body.classList.add("event-details-open");
+
+    overlay.querySelector(".event-details-close")
+        .addEventListener("click", closeEventDetails);
+
+    overlay.addEventListener("click", e => {
+        if (e.target === overlay) closeEventDetails();
+    });
+
+    overlay.querySelector(".event-edit-button")
+        .addEventListener("click", () => editEvent(event.id));
+
+    overlay.querySelector(".event-delete-button")
+        .addEventListener("click", () => {
+            closeEventDetails();
+            removeEvent(event.id);
+        });
+
+    overlay.querySelector(".event-share-button")
+        .addEventListener("click", async () => {
+            const text = `${event.name}\n${formatDate(nextDate)}\n${event.notes || ""}`;
+
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: event.name,
+                        text
+                    });
+                } catch (error) {
+                    if (error.name !== "AbortError") console.error(error);
+                }
+            } else if (navigator.clipboard) {
+                await navigator.clipboard.writeText(text);
+                alert("Event details copied!");
+            }
+        });
+
+    document.addEventListener("keydown", eventModalEscape);
+}
+
+
+function closeEventDetails() {
+    document.getElementById("event-details-overlay")?.remove();
+    document.body.classList.remove("event-details-open");
+    document.removeEventListener("keydown", eventModalEscape);
+}
+
+
+function eventModalEscape(e) {
+    if (e.key === "Escape") closeEventDetails();
 }

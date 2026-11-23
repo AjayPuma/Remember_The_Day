@@ -3,71 +3,298 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#19365B">
-  <title>Holidays & Important Days | Remember a Day</title>
+  <title>Public Holidays | Remember-a-Day</title>
+  <meta name="theme-color" content="#6d4aff">
   <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/festival.css">
 </head>
-<body>
-  <header class="app-header">
-    <div class="header-content">
-      <a class="back-link" href="../index.html">← Home</a>
-      <p class="section-label">CELEBRATE & PLAN AHEAD</p>
-      <h1>🗓️ Holidays & Important Days</h1>
-      <p class="tagline">Festivals, public holidays and meaningful days—all in one place.</p>
+<body class="festival-page">
+
+  <header class="festival-topbar">
+    <div class="festival-topbar-inner">
+      <a href="../index.html" class="back-pill">← Home</a>
+
+      <div class="festival-top-actions">
+        <button type="button" id="theme-toggle" class="icon-pill-btn" aria-label="Toggle dark mode">☾</button>
+        <a href="surprise-studio.html" class="studio-pill-btn">✨ Surprise Studio</a>
+      </div>
     </div>
   </header>
-  <main class="app-container">
-    <div class="holiday-filters" role="group" aria-label="Filter holiday types">
-      <button class="filter-chip active" data-filter="all">All</button>
-      <button class="filter-chip" data-filter="festival">🪔 Festivals</button>
-      <button class="filter-chip" data-filter="public-holiday">🇮🇳 Public Holidays</button>
-      <button class="filter-chip" data-filter="important-day">⭐ Important Days</button>
-    </div>
-    <section id="holiday-list" aria-live="polite"><p>Loading dates...</p></section>
+
+  <main class="app-container festival-container">
+
+    <!-- HERO HEADER -->
+    <section class="festival-hero">
+      <div class="festival-hero-copy">
+        <span class="festival-eyebrow">NATIONAL, CENTRAL &amp; STATE CALENDARS</span>
+        <h1>🇮🇳 Public Holidays</h1>
+        <p>Filter national holidays, central gazetted days, and state-specific holidays across India.</p>
+      </div>
+
+      <!-- NEXT HOLIDAY SPOTLIGHT -->
+      <div id="next-festival-spotlight" class="festival-spotlight" hidden>
+        <span class="spotlight-tag">✦ UP NEXT</span>
+        <div class="spotlight-main">
+          <span id="spotlight-emoji" class="spotlight-emoji">🇮🇳</span>
+          <div>
+            <h2 id="spotlight-name">Loading...</h2>
+            <p id="spotlight-date"></p>
+          </div>
+        </div>
+        <div class="spotlight-footer">
+          <span id="spotlight-countdown" class="spotlight-countdown"></span>
+          <a id="spotlight-cta" href="surprise-studio.html" class="spotlight-btn">✨ Make Greeting Card →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE SEARCH, STATE DROPDOWN & TYPE CHIPS -->
+    <section class="festival-controls" aria-label="Filter public holidays">
+      <label class="festival-search">
+        <span aria-hidden="true">⌕</span>
+        <input type="search" id="holiday-search-input" placeholder="Search Republic Day, Ugadi, Holi..." aria-label="Search public holidays">
+      </label>
+
+      <select id="state-filter" class="state-select-dropdown" aria-label="Select state or region">
+        <option value="all">All States &amp; Regions</option>
+        <option value="all-india">All India (National &amp; Central)</option>
+        <option value="andhra-pradesh">Andhra Pradesh</option>
+        <option value="telangana">Telangana</option>
+        <option value="andaman-and-nicobar">Andaman and Nicobar Islands</option>
+        <option value="arunachal-pradesh">Arunachal Pradesh</option>
+        <option value="assam">Assam</option>
+        <option value="bihar">Bihar</option>
+        <option value="chandigarh">Chandigarh</option>
+        <option value="chhattisgarh">Chhattisgarh</option>
+        <option value="dadra-nagar-haveli-daman-diu">Dadra and Nagar Haveli and Daman and Diu</option>
+        <option value="delhi">Delhi</option>
+        <option value="goa">Goa</option>
+        <option value="gujarat">Gujarat</option>
+        <option value="haryana">Haryana</option>
+        <option value="himachal-pradesh">Himachal Pradesh</option>
+        <option value="jammu-and-kashmir">Jammu and Kashmir</option>
+        <option value="jharkhand">Jharkhand</option>
+        <option value="karnataka">Karnataka</option>
+        <option value="kerala">Kerala</option>
+        <option value="ladakh">Ladakh</option>
+        <option value="lakshadweep">Lakshadweep</option>
+        <option value="madhya-pradesh">Madhya Pradesh</option>
+        <option value="maharashtra">Maharashtra</option>
+        <option value="manipur">Manipur</option>
+        <option value="meghalaya">Meghalaya</option>
+        <option value="mizoram">Mizoram</option>
+        <option value="nagaland">Nagaland</option>
+        <option value="odisha">Odisha</option>
+        <option value="puducherry">Puducherry</option>
+        <option value="punjab">Punjab</option>
+        <option value="rajasthan">Rajasthan</option>
+        <option value="sikkim">Sikkim</option>
+        <option value="tamil-nadu">Tamil Nadu</option>
+        <option value="tripura">Tripura</option>
+        <option value="uttar-pradesh">Uttar Pradesh</option>
+        <option value="uttarakhand">Uttarakhand</option>
+        <option value="west-bengal">West Bengal</option>
+      </select>
+
+      <div class="festival-chips" role="group" aria-label="Holiday type filters">
+        <button type="button" class="fest-chip active" data-type="all">All Types</button>
+        <button type="button" class="fest-chip" data-type="national">National</button>
+        <button type="button" class="fest-chip" data-type="gazetted">Gazetted</button>
+        <button type="button" class="fest-chip" data-type="state">State</button>
+        <button type="button" class="fest-chip" data-type="restricted">Restricted</button>
+      </div>
+
+      <p id="holiday-count" class="festival-count">Loading holidays...</p>
+    </section>
+
+    <!-- HOLIDAY CARDS GRID -->
+    <section id="holiday-list" class="festival-grid" aria-live="polite">
+      <div class="festival-skeleton">Loading holidays...</div>
+    </section>
+
   </main>
+
   <nav class="bottom-nav" aria-label="Main navigation">
-    <a href="../index.html" class="nav-item"><span>⌂</span><small>Home</small></a>
-    <a href="add.html" class="nav-item"><span>＋</span><small>Add</small></a>
-    <a href="memories.html" class="nav-item"><span>♥</span><small>Memories</small></a>
-    <a href="../settings.html" class="nav-item"><span>⚙</span><small>Settings</small></a>
+    <a href="../index.html" class="nav-item">
+      <span>⌂</span>
+      <small>Home</small>
+    </a>
+    <a href="add.html" class="nav-item">
+      <span>＋</span>
+      <small>New Day</small>
+    </a>
+    <a href="memories.html" class="nav-item">
+      <span>♡</span>
+      <small>Memories</small>
+    </a>
+    <a href="timeline.html" class="nav-item">
+      <span>◷</span>
+      <small>Timeline</small>
+    </a>
+    <a href="../settings.html" class="nav-item">
+      <span>⚙</span>
+      <small>Settings</small>
+    </a>
   </nav>
+
   <script src="../js/calendar-data.js"></script>
   <script>
-    const holidayList = document.getElementById("holiday-list");
-    const filterButtons = [...document.querySelectorAll("[data-filter]")];
-    let allHolidayItems = [];
-    let activeFilter = "all";
-
-    function renderHolidayItems() {
-      const items = allHolidayItems.filter(item => activeFilter === "all" || item.section === activeFilter);
-      if (!items.length) {
-        holidayList.innerHTML = '<div class="empty-state"><div class="empty-icon">🗓️</div><h3>No dates found</h3><p>There are no upcoming dates in this section.</p></div>';
-        return;
-      }
-      holidayList.innerHTML = items.map(item => `
-        <article class="event-card holiday-card">
-          <div class="event-info">
-            <span class="event-type">${item.section === "festival" ? "🪔 Festival" : item.section === "public-holiday" ? "🇮🇳 Public Holiday" : "⭐ Important Day"}</span>
-            <h2>${item.emoji || (item.section === "public-holiday" ? "🇮🇳" : "📅")} ${item.name}</h2>
-            <p>${item.date.toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" })}</p>
-          </div>
-          <strong class="event-countdown">${item.daysUntil === 0 ? "🎉 Today!" : `⏳ ${item.daysUntil} days to go`}</strong>
-        </article>
-      `).join("");
+    if (localStorage.getItem("remember-a-day-theme") === "dark") {
+      document.body.classList.add("dark-mode");
     }
 
-    filterButtons.forEach(button => button.addEventListener("click", () => {
-      activeFilter = button.dataset.filter;
-      filterButtons.forEach(item => item.classList.toggle("active", item === button));
-      renderHolidayItems();
-    }));
+    const themeBtn = document.getElementById("theme-toggle");
+    const syncThemeIcon = () => {
+      const dark = document.body.classList.contains("dark-mode");
+      themeBtn.textContent = dark ? "☀" : "☾";
+    };
+    syncThemeIcon();
+    themeBtn.addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+      localStorage.setItem("remember-a-day-theme", document.body.classList.contains("dark-mode") ? "dark" : "light");
+      syncThemeIcon();
+    });
 
-    CalendarData.getUpcoming(1095).then(items => {
-      allHolidayItems = items;
-      renderHolidayItems();
+    const list = document.getElementById("holiday-list");
+    const countLabel = document.getElementById("holiday-count");
+    const searchInput = document.getElementById("holiday-search-input");
+    const stateSelect = document.getElementById("state-filter");
+    const chips = [...document.querySelectorAll(".fest-chip")];
+
+    let allHolidays = [];
+    let activeType = "all";
+
+    const getSeasonClass = (dateObj) => {
+      const m = dateObj.getMonth();
+      if (m === 11 || m === 0 || m === 1) return "season-winter";
+      if (m >= 2 && m <= 4) return "season-spring";
+      if (m >= 5 && m <= 8) return "season-monsoon";
+      return "season-autumn";
+    };
+
+    const renderSpotlight = (nextEvent) => {
+      const box = document.getElementById("next-festival-spotlight");
+      if (!nextEvent || !box) return;
+
+      box.hidden = false;
+      document.getElementById("spotlight-emoji").textContent = nextEvent.emoji || "🇮🇳";
+      document.getElementById("spotlight-name").textContent = nextEvent.name;
+      document.getElementById("spotlight-date").textContent = nextEvent.date.toLocaleDateString("en-IN", {
+        weekday: "long", day: "numeric", month: "long", year: "numeric"
+      });
+      document.getElementById("spotlight-countdown").textContent =
+        nextEvent.daysUntil === 0 ? "🎉 Holiday Today!" :
+        nextEvent.daysUntil === 1 ? "✨ Tomorrow!" :
+        `⏳ ${nextEvent.daysUntil} days to go`;
+      document.getElementById("spotlight-cta").href =
+        `surprise-studio.html?occasion=${encodeURIComponent(nextEvent.name)}`;
+    };
+
+    const renderHolidays = () => {
+      const q = searchInput.value.trim().toLowerCase();
+      const selectedRegion = stateSelect.value;
+
+      const filtered = allHolidays.filter(ev => {
+        const region = String(ev.region || "all-india").toLowerCase();
+        const stateLabel = String(ev.stateName || "").toLowerCase();
+        const hType = String(ev.holidayType || "").toLowerCase();
+
+        const matchesQuery = !q ||
+          ev.name.toLowerCase().includes(q) ||
+          stateLabel.includes(q) ||
+          hType.includes(q);
+        if (!matchesQuery) return false;
+
+        if (selectedRegion !== "all") {
+          // Selecting a specific state includes both that state's holidays and all-india holidays
+          if (region !== selectedRegion && region !== "all-india") return false;
+        }
+
+        if (activeType !== "all" && hType !== activeType) return false;
+
+        return true;
+      });
+
+      countLabel.textContent = `Showing ${filtered.length} ${filtered.length === 1 ? "holiday" : "holidays"}`;
+
+      if (!filtered.length) {
+        list.innerHTML = `
+          <div class="festival-empty">
+            <span>🇮🇳</span>
+            <h3>No holidays listed for this filter yet</h3>
+            <p>Try "All States &amp; Regions", "All India", or clear your search.</p>
+          </div>
+        `;
+        return;
+      }
+
+      list.innerHTML = filtered.map((event, idx) => {
+        const dateStr = event.date.toLocaleDateString("en-IN", {
+          day: "numeric", month: "long", year: "numeric"
+        });
+        const weekdayStr = event.date.toLocaleDateString("en-IN", { weekday: "short" });
+        const isoDate = `${event.date.getFullYear()}-${String(event.date.getMonth() + 1).padStart(2, "0")}-${String(event.date.getDate()).padStart(2, "0")}`;
+        const season = getSeasonClass(event.date);
+        const countdownText = event.daysUntil === 0
+          ? "🎉 Today!"
+          : event.daysUntil === 1
+            ? "✨ Tomorrow"
+            : `⏳ ${event.daysUntil} days`;
+        const regionText = event.stateName || (event.region === "all-india" ? "All India" : event.region);
+        const metaTag = `${weekdayStr} · ${regionText}${event.holidayType ? ` · ${event.holidayType}` : ""}`;
+
+        return `
+          <article class="fest-card ${season}" style="animation-delay: ${Math.min(idx * 35, 350)}ms">
+            <div class="fest-card-top">
+              <span class="fest-emoji-badge">${event.emoji || "🇮🇳"}</span>
+              <span class="fest-countdown-pill ${event.daysUntil <= 30 ? "is-soon" : ""}">${countdownText}</span>
+            </div>
+
+            <div class="fest-card-body">
+              <span class="fest-weekday">${metaTag}</span>
+              <h2>${event.name}</h2>
+              <p class="fest-date">${dateStr}</p>
+            </div>
+
+            <div class="fest-card-actions">
+              <a href="surprise-studio.html?occasion=${encodeURIComponent(event.name)}" class="fest-action-primary">
+                ✨ Send Card
+              </a>
+              <a href="add.html?name=${encodeURIComponent(event.name)}&date=${isoDate}&type=Holiday" class="fest-action-secondary" title="Add to My Important Days">
+                ＋ Save
+              </a>
+            </div>
+          </article>
+        `;
+      }).join("");
+    };
+
+    chips.forEach(chip => {
+      chip.addEventListener("click", () => {
+        chips.forEach(c => c.classList.remove("active"));
+        chip.classList.add("active");
+        activeType = chip.dataset.type;
+        renderHolidays();
+      });
+    });
+
+    searchInput.addEventListener("input", renderHolidays);
+    stateSelect.addEventListener("change", renderHolidays);
+
+    CalendarData.getUpcoming(730).then(events => {
+      allHolidays = events.filter(e => e.section === "holiday" || e.section === "public-holiday");
+
+      if (!allHolidays.length) {
+        countLabel.textContent = "0 holidays";
+        list.innerHTML = "<div class='festival-empty'><p>No upcoming public holidays found.</p></div>";
+        return;
+      }
+
+      renderSpotlight(allHolidays[0]);
+      renderHolidays();
     }).catch(error => {
-      console.error("Unable to load holiday data:", error);
-      holidayList.innerHTML = "<p>Unable to load holiday dates. Please reload the page.</p>";
+      console.error(error);
+      list.innerHTML = "<div class='festival-empty'><p>Unable to load public holidays right now.</p></div>";
     });
   </script>
 </body>

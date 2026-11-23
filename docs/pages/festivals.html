@@ -1,51 +1,261 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Festivals | Remember a Day</title>
-    <link rel="stylesheet" href="../css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Festivals | Remember-a-Day</title>
+  <meta name="theme-color" content="#6d4aff">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/festival.css">
 </head>
-<body>
-    <main class="app-container">
-        <header class="page-header">
-            <a href="../index.html">← Back</a>
-            <p class="section-label">CELEBRATE EVERY YEAR</p>
-            <h1>🪔 Festivals</h1>
-            <p>Discover upcoming festivals and celebrations.</p>
-        </header>
-        <section id="festival-list">Loading festivals...</section>
-    </main>
+<body class="festival-page">
 
-    <script src="../js/calendar-data.js"></script>
-    <script>
-        const list = document.getElementById("festival-list");
+  <header class="festival-topbar">
+    <div class="festival-topbar-inner">
+      <a href="../index.html" class="back-pill">← Home</a>
 
-        CalendarData.getUpcoming(1094).then(events => {
-            const festivals = events.filter(e => e.section === "festival");
+      <div class="festival-top-actions">
+        <button type="button" id="theme-toggle" class="icon-pill-btn" aria-label="Toggle dark mode">☾</button>
+        <a href="surprise-studio.html" class="studio-pill-btn">✨ Surprise Studio</a>
+      </div>
+    </div>
+  </header>
 
-            if (!festivals.length) {
-                list.innerHTML = "<p>No dated festivals found yet.</p>";
-                return;
-            }
+  <main class="app-container festival-container">
 
-            list.innerHTML = festivals.map(event => `
-                <article class="event-card">
-                    <h2>${event.emoji || "🎉"} ${event.name}</h2>
-                    <p>${event.date.toLocaleDateString("en-IN", {
-                        day: "numeric", month: "long", year: "numeric"
-                    })}</p>
-                    <p class="event-countdown">
-                        ${event.daysUntil === 0 ? "🎉 Today!" :
-                          `⏳ ${event.daysUntil} days to go`}
-                    </p>
-                </article>
-            `).join("");
-        }).catch(error => {
-            console.error(error);
-            list.innerHTML = "<p>Unable to load festivals.</p>";
+    <!-- HERO HEADER -->
+    <section class="festival-hero">
+      <div class="festival-hero-copy">
+        <span class="festival-eyebrow">CELEBRATE EVERY SEASON</span>
+        <h1>🪔 Festivals &amp; Celebrations</h1>
+        <p>Track upcoming cultural moments across India, filter by tradition, and craft a festive greeting card in one tap.</p>
+      </div>
+
+      <!-- NEXT FESTIVAL SPOTLIGHT -->
+      <div id="next-festival-spotlight" class="festival-spotlight" hidden>
+        <span class="spotlight-tag">✦ UP NEXT</span>
+        <div class="spotlight-main">
+          <span id="spotlight-emoji" class="spotlight-emoji">🎉</span>
+          <div>
+            <h2 id="spotlight-name">Loading...</h2>
+            <p id="spotlight-date"></p>
+          </div>
+        </div>
+        <div class="spotlight-footer">
+          <span id="spotlight-countdown" class="spotlight-countdown"></span>
+          <a id="spotlight-cta" href="surprise-studio.html" class="spotlight-btn">✨ Make Greeting Card →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE FILTER & SEARCH BAR -->
+    <section class="festival-controls" aria-label="Filter festivals">
+      <label class="festival-search">
+        <span aria-hidden="true">⌕</span>
+        <input type="search" id="festival-search-input" placeholder="Search Diwali, Pongal, Ugadi, Eid, Christmas..." aria-label="Search festivals">
+      </label>
+
+      <div class="festival-chips" role="group" aria-label="Category and timeframe filters">
+        <button type="button" class="fest-chip active" data-filter="all">All</button>
+        <button type="button" class="fest-chip" data-filter="30">Next 30 Days</button>
+        <button type="button" class="fest-chip" data-filter="90">Next 90 Days</button>
+        <button type="button" class="fest-chip" data-filter="hindu">Hindu</button>
+        <button type="button" class="fest-chip" data-filter="harvest">Harvest</button>
+        <button type="button" class="fest-chip" data-filter="regional">Regional</button>
+        <button type="button" class="fest-chip" data-filter="islamic">Islamic</button>
+        <button type="button" class="fest-chip" data-filter="christian">Christian</button>
+        <button type="button" class="fest-chip" data-filter="sikh">Sikh</button>
+        <button type="button" class="fest-chip" data-filter="jain">Jain</button>
+        <button type="button" class="fest-chip" data-filter="buddhist">Buddhist</button>
+      </div>
+
+      <p id="festival-count" class="festival-count">Loading festivals...</p>
+    </section>
+
+    <!-- FESTIVAL CARDS GRID -->
+    <section id="festival-list" class="festival-grid" aria-live="polite">
+      <div class="festival-skeleton">Loading festivals...</div>
+    </section>
+
+  </main>
+
+  <nav class="bottom-nav" aria-label="Main navigation">
+    <a href="../index.html" class="nav-item">
+      <span>⌂</span>
+      <small>Home</small>
+    </a>
+    <a href="add.html" class="nav-item">
+      <span>＋</span>
+      <small>New Day</small>
+    </a>
+    <a href="memories.html" class="nav-item">
+      <span>♡</span>
+      <small>Memories</small>
+    </a>
+    <a href="timeline.html" class="nav-item">
+      <span>◷</span>
+      <small>Timeline</small>
+    </a>
+    <a href="../settings.html" class="nav-item">
+      <span>⚙</span>
+      <small>Settings</small>
+    </a>
+  </nav>
+
+  <script src="../js/calendar-data.js"></script>
+  <script>
+    if (localStorage.getItem("remember-a-day-theme") === "dark") {
+      document.body.classList.add("dark-mode");
+    }
+
+    const themeBtn = document.getElementById("theme-toggle");
+    const syncThemeIcon = () => {
+      const dark = document.body.classList.contains("dark-mode");
+      themeBtn.textContent = dark ? "☀" : "☾";
+    };
+    syncThemeIcon();
+    themeBtn.addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+      localStorage.setItem("remember-a-day-theme", document.body.classList.contains("dark-mode") ? "dark" : "light");
+      syncThemeIcon();
+    });
+
+    const list = document.getElementById("festival-list");
+    const countLabel = document.getElementById("festival-count");
+    const searchInput = document.getElementById("festival-search-input");
+    const chips = [...document.querySelectorAll(".fest-chip")];
+
+    let allFestivals = [];
+    let activeFilter = "all";
+
+    const getSeasonClass = (dateObj) => {
+      const m = dateObj.getMonth();
+      if (m === 11 || m === 0 || m === 1) return "season-winter";
+      if (m >= 2 && m <= 4) return "season-spring";
+      if (m >= 5 && m <= 8) return "season-monsoon";
+      return "season-autumn";
+    };
+
+    const renderSpotlight = (nextEvent) => {
+      const box = document.getElementById("next-festival-spotlight");
+      if (!nextEvent || !box) return;
+
+      box.hidden = false;
+      document.getElementById("spotlight-emoji").textContent = nextEvent.emoji || "🪔";
+      document.getElementById("spotlight-name").textContent = nextEvent.name;
+      document.getElementById("spotlight-date").textContent = nextEvent.date.toLocaleDateString("en-IN", {
+        weekday: "long", day: "numeric", month: "long", year: "numeric"
+      });
+      document.getElementById("spotlight-countdown").textContent =
+        nextEvent.daysUntil === 0 ? "🎉 Happening Today!" :
+        nextEvent.daysUntil === 1 ? "✨ Tomorrow!" :
+        `⏳ ${nextEvent.daysUntil} days to go`;
+      document.getElementById("spotlight-cta").href =
+        `surprise-studio.html?occasion=${encodeURIComponent(nextEvent.name)}`;
+    };
+
+    const renderFestivals = () => {
+      const q = searchInput.value.trim().toLowerCase();
+
+      const filtered = allFestivals.filter(ev => {
+        const cat = String(ev.category || "").toLowerCase();
+        const matchesQuery = !q || ev.name.toLowerCase().includes(q) || cat.includes(q);
+        if (!matchesQuery) return false;
+
+        if (activeFilter === "all") return true;
+        if (activeFilter === "30") return ev.daysUntil <= 30;
+        if (activeFilter === "90") return ev.daysUntil <= 90;
+        return cat === activeFilter;
+      });
+
+      countLabel.textContent = `Showing ${filtered.length} ${filtered.length === 1 ? "festival" : "festivals"}`;
+
+      if (!filtered.length) {
+        list.innerHTML = `
+          <div class="festival-empty">
+            <span>🪔</span>
+            <h3>No matching festivals</h3>
+            <p>Try clearing your search or switching the category chip above.</p>
+          </div>
+        `;
+        return;
+      }
+
+      list.innerHTML = filtered.map((event, idx) => {
+        const dateStr = event.date.toLocaleDateString("en-IN", {
+          day: "numeric", month: "long", year: "numeric"
         });
-    </script>
+        const weekdayStr = event.date.toLocaleDateString("en-IN", { weekday: "short" });
+        const isoDate = `${event.date.getFullYear()}-${String(event.date.getMonth() + 1).padStart(2, "0")}-${String(event.date.getDate()).padStart(2, "0")}`;
+        const season = getSeasonClass(event.date);
+        const countdownText = event.daysUntil === 0
+          ? "🎉 Today!"
+          : event.daysUntil === 1
+            ? "✨ Tomorrow"
+            : `⏳ ${event.daysUntil} days`;
+        const metaTag = event.category
+          ? `${weekdayStr} · ${event.category}`
+          : weekdayStr;
+
+        return `
+          <article class="fest-card ${season}" style="animation-delay: ${Math.min(idx * 35, 350)}ms">
+            <div class="fest-card-top">
+              <span class="fest-emoji-badge">${event.emoji || "🪔"}</span>
+              <span class="fest-countdown-pill ${event.daysUntil <= 14 ? "is-soon" : ""}">${countdownText}</span>
+            </div>
+
+            <div class="fest-card-body">
+              <span class="fest-weekday">${metaTag}</span>
+              <h2>${event.name}</h2>
+              <p class="fest-date">${dateStr}</p>
+            </div>
+
+            <div class="fest-card-actions">
+              <a href="surprise-studio.html?occasion=${encodeURIComponent(event.name)}" class="fest-action-primary">
+                ✨ Send Card
+              </a>
+              <a href="add.html?name=${encodeURIComponent(event.name)}&date=${isoDate}&type=Festival" class="fest-action-secondary" title="Add to My Important Days">
+                ＋ Save
+              </a>
+            </div>
+          </article>
+        `;
+      }).join("");
+    };
+
+    chips.forEach(chip => {
+      chip.addEventListener("click", () => {
+        chips.forEach(c => c.classList.remove("active"));
+        chip.classList.add("active");
+        activeFilter = chip.dataset.filter;
+        renderFestivals();
+      });
+    });
+
+    searchInput.addEventListener("input", renderFestivals);
+
+    CalendarData.getUpcoming(1094).then(events => {
+      const seenIds = new Set();
+      allFestivals = events.filter(e => {
+        if (e.section !== "festival") return false;
+        const key = e.id || e.name;
+        if (seenIds.has(key)) return false;
+        seenIds.add(key);
+        return true;
+      });
+
+      if (!allFestivals.length) {
+        countLabel.textContent = "0 festivals";
+        list.innerHTML = "<div class='festival-empty'><p>No dated festivals found yet.</p></div>";
+        return;
+      }
+
+      renderSpotlight(allFestivals[0]);
+      renderFestivals();
+    }).catch(error => {
+      console.error(error);
+      list.innerHTML = "<div class='festival-empty'><p>Unable to load festivals right now.</p></div>";
+    });
+  </script>
 </body>
 </html>

@@ -1,5 +1,5 @@
-/*
- * Remember a Day — Supabase configuration
+﻿/*
+ * Remember a Day â€” Supabase configuration
  */
 window.REMEMBER_SUPABASE = {
   url: "https://trizbynfpvnngcvlapcq.supabase.co",

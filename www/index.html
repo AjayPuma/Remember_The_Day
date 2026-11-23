@@ -1,233 +1,264 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Remember a Day</title>
-
-  <meta name="theme-color" content="#19365B">
-  <meta name="description" content="Remember birthdays, anniversaries, festivals and the moments that matter.">
-
+  <title>Remember-a-Day</title>
+  <meta name="theme-color" content="#6d4aff">
+  <meta name="description" content="Cherish every moment and milestone.">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/home.css">
   <link rel="manifest" href="manifest.json">
 </head>
 
-<body>
-  <!-- APP HEADER -->
-  <header class="app-header">
-    <div class="header-content">
-      <div class="app-brand">
-        <div class="app-logo" aria-hidden="true">♥</div>
-        <div>
-          <h1>Remember a Day</h1>
-          <p class="tagline">Never forget the days that matter.</p>
-        </div>
-      </div>
-    </div>
-  </header>
+<body class="home-dashboard">
 
-  <main class="app-container">
+  <header class="app-header dashboard-header">
+    <div class="header-content dashboard-header-inner">
 
-    <!-- TODAY -->
-    <section class="today-section today-card">
-      <p class="section-label">TODAY</p>
-      <h2 id="today-date">Loading...</h2>
-      <p id="today-message">Let's remember something special.</p>
-    </section>
+      <div class="top-navbar">
+        <a class="app-brand" href="index.html">
+          <span class="app-logo">♥</span>
+          <span class="brand-copy">
+            <strong>Remember-a-Day</strong>
+            <small class="tagline">Cherish every moment &amp; milestone</small>
+          </span>
+        </a>
 
-    <!-- QUICK ACTIONS -->
-    <section class="quick-actions" aria-label="Explore Remember a Day">
+        <label class="global-search">
+          <span aria-hidden="true">⌕</span>
+          <input type="search" id="search-events" placeholder="Search events, memories..." aria-label="Search events">
+        </label>
 
-      <a href="pages/add.html" class="action-card">
-        <span class="action-icon" aria-hidden="true">＋</span>
-        <span class="action-copy">
-          <strong>Add Occasion</strong>
-          <small>Save a date that matters</small>
-        </span>
-      </a>
+        <div class="top-actions">
+          <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">☾</button>
 
-      <a href="pages/surprise-studio.html" class="action-card surprise-action">
-        <span class="action-icon" aria-hidden="true">🎁</span>
-        <span class="action-copy">
-          <strong>Create a Surprise</strong>
-          <small>Cards, gift boxes & memories</small>
-        </span>
-      </a>
-
-      <a href="pages/memories.html" class="action-card">
-        <span class="action-icon" aria-hidden="true">♥</span>
-        <span class="action-copy">
-          <strong>Memories</strong>
-          <small>Keep your special moments</small>
-        </span>
-      </a>
-
-      <!-- <a href="pages/timeline.html" class="action-card"> -->
-
-      <a href="pages/birthdays.html" class="action-card category-action">
-        <span class="action-icon" aria-hidden="true">🎂</span>
-        <span class="action-copy">
-          <strong>Birthdays</strong>
-          <small id="birthday-count">Remember their day</small>
-        </span>
-      </a>
-
-      <a href="pages/anniversaries.html" class="action-card category-action">
-        <span class="action-icon" aria-hidden="true">💍</span>
-        <span class="action-copy">
-          <strong>Anniversaries</strong>
-          <small id="anniversary-count">Celebrate every year</small>
-        </span>
-      </a>
-
-      <a href="pages/custom-occasions.html" class="action-card category-action">
-        <span class="action-icon" aria-hidden="true">✨</span>
-        <span class="action-copy">
-          <strong>Custom Occasions</strong>
-          <small id="custom-count">Your special dates</small>
-        </span>
-      </a>
-
-      <a href="pages/holidays.html" class="action-card category-action">
-        <span class="action-icon" aria-hidden="true">🗓️</span>
-        <span class="action-copy">
-          <strong>Holidays & Important Days</strong>
-          <small>Festivals · Public holidays · Important days</small>
-        </span>
-      </a>
-
-    </section>
-
-    <!-- REMINDERS -->
-    <section class="reminders-section">
-      <div class="section-heading">
-        <div>
-          <p class="section-label">REMINDERS</p>
-          <h2>Don't forget</h2>
-        </div>
-      </div>
-
-      <div id="reminders-container">
-        <div class="empty-state">
-          <div class="empty-icon">🔔</div>
-          <h3>No reminders</h3>
-          <p>Your upcoming reminders will appear here.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- MONTHLY CALENDAR -->
-    <section class="calendar-section">
-      <div class="calendar-header">
-        <button id="previous-month" class="calendar-button"
-                type="button" aria-label="Previous month">‹</button>
-
-        <h2 id="calendar-month">October 2026</h2>
-
-        <button id="next-month" class="calendar-button"
-                type="button" aria-label="Next month">›</button>
-      </div>
-
-      <div class="calendar-weekdays" aria-hidden="true">
-        <span>Sun</span>
-        <span>Mon</span>
-        <span>Tue</span>
-        <span>Wed</span>
-        <span>Thu</span>
-        <span>Fri</span>
-        <span>Sat</span>
-      </div>
-
-      <div id="calendar-days" class="calendar-days">
-        <!-- Calendar generated by JavaScript -->
-      </div>
-    </section>
-
-    <!-- UPCOMING OCCASIONS -->
-    <section class="upcoming-section">
-      <div class="section-heading">
-        <div>
-          <p class="section-label">COMING UP</p>
-          <h2>Important Days</h2>
-        </div>
-
-        <button id="view-all-btn" class="text-button" type="button">
-          View All
-        </button>
-      </div>
-
-      <div class="event-controls">
-        <input type="search" id="search-events"
-              placeholder="Search occasions..." aria-label="Search occasions">
-
-        <select id="filter-events" aria-label="Filter occasions">
-          <option value="all">All occasions</option>
-          <option value="Birthday">Birthdays</option>
-          <option value="Anniversary">Anniversaries</option>
-          <option value="Festival">Festivals</option>
-          <option value="Other">Other</option>
-        </select>
-      </div>
-
-      <div id="upcoming-events" class="events-container">
-        <div class="empty-state">
-          <div class="empty-icon">📅</div>
-          <h3>No occasions yet</h3>
-          <p>Add a birthday, anniversary or any important day you want to remember.</p>
-          <a href="pages/add.html" class="primary-button">
-            Add Your First Occasion
+          <a href="pages/add.html" class="new-day-button">
+            <span>＋</span> Add New
           </a>
         </div>
       </div>
+
+    </div>
+  </header>
+
+
+  <main class="app-container dashboard-main">
+
+    <section class="home-navigation" aria-label="Primary sections">
+      <nav class="home-nav-links" aria-label="Dashboard sections">
+        <!-- <button type="button" class="home-nav-link is-active" data-view="upcoming">
+          ☷ Upcoming
+        </button> -->
+
+        <button type="button" class="home-nav-link" data-view="calendar">
+          ▦ Calendar
+        </button>
+
+        <a href="pages/festival.html" class="home-nav-link">
+          🪔 Festivals
+        </a>
+
+        <a href="pages/important-days.html" class="home-nav-link">
+          📅 Important Days
+        </a>
+
+        <a href="pages/holiday.html" class="home-nav-link">
+          🇮🇳 Holidays
+        </a>
+
+        <a href="pages/surprise-studio.html" class="home-nav-link">
+          🎁 Surprise Hub
+        </a>
+
+        <a href="pages/birthdays.html" class="home-folder-pill">
+        <span>🎂</span>
+        <strong>Birthdays</strong>
+      </a>
+
+      <a href="pages/anniversaries.html" class="home-folder-pill">
+        <span>💍</span>
+        <strong>Anniversaries</strong>
+      </a>
+
+      <a href="pages/custom-occasions.html" class="home-folder-pill">
+        <span>✨</span>
+        <strong>Special Occasions</strong>
+      </a>
+      </nav>
     </section>
 
-    <!-- UPCOMING FESTIVALS -->
-    <section class="upcoming-section">
-      <div class="section-heading">
-        <div>
-          <p class="section-label">CELEBRATE</p>
-          <h2>Upcoming Holidays & Festivals</h2>
+
+    <!-- TODAY — DAILY OVERVIEW -->
+    <section class="today-dashboard-card">
+      <div class="today-date-block">
+        <span class="today-eyebrow">YOUR DAY AT A GLANCE</span>
+        <div id="today-weekday" class="today-weekday">Today</div>
+        <div id="today-full-date" class="today-full-date"></div>
+        <a href="pages/surprise-studio.html" class="today-surprise-cta">✦ Craft a Card or Gift Box →</a>
+      </div>
+
+      <div class="today-highlights">
+        <div class="today-highlight today-special-strip">
+          <span class="today-highlight-icon" aria-hidden="true">🌍</span>
+          <div class="today-special-body">
+            <strong>Special today</strong>
+            <div id="today-special-days">Checking today's observances...</div>
+          </div>
         </div>
-        <a href="pages/holidays.html" class="text-button">
-          View all
+
+        <div class="today-highlight today-personal-highlight">
+          <div id="today-personal-events">
+            Loading today's occasions...
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ON THIS DAY CAPSULE -->
+    <section id="time-capsule-section" class="time-capsule-section">
+      <div class="capsule-heading">
+        <div class="capsule-title-wrap">
+          <span class="capsule-icon" aria-hidden="true">◴</span>
+          <h2 id="capsule-title">ON THIS DAY</h2>
+        </div>
+
+        <a href="pages/timeline.html" class="archive-link">
+          Explore Timeline →
         </a>
       </div>
-
-      <div id="upcoming-festivals">
-        <p>Loading festivals...</p>
+      <div id="time-capsule-list" class="time-capsule-list">
+        <p class="capsule-empty">Your memories from this day will appear here.</p>
       </div>
     </section>
 
+
+
+
+
+    <!-- FILTERS -->
+    <section class="timeline-toolbar" aria-label="Filter events">
+      <div class="category-filters" role="group" aria-label="Event categories">
+        <button class="category-filter active" type="button" data-filter="all">All</button>
+        <button class="category-filter" type="button" data-filter="Birthday">Birthday</button>
+        <button class="category-filter" type="button" data-filter="Anniversary">Anniversary</button>
+        <button class="category-filter" type="button" data-filter="Trip">Trip</button>
+        <button class="category-filter" type="button" data-filter="Holiday">Holiday</button>
+        <button class="category-filter" type="button" data-filter="Milestone">Milestone</button>
+      </div>
+      <p class="event-count-label" id="event-count-label">Your important days</p>
+      <select id="filter-events" class="compat-filter" aria-label="Filter occasions">
+        <option value="all">All occasions</option>
+        <option value="Birthday">Birthdays</option>
+        <option value="Anniversary">Anniversaries</option>
+        <option value="Trip">Trips</option>
+        <option value="Holiday">Holidays</option>
+        <option value="Milestone">Milestones</option>
+        <option value="Festival">Festivals</option>
+        <option value="Other">Other</option>
+      </select>
+    </section>
+
+
+    <!-- UPCOMING TIMELINE VIEW -->
+    <section id="timeline-view" class="dashboard-view timeline-view" aria-label="Upcoming timeline">
+      <div id="upcoming-events" class="events-container dashboard-event-grid">
+        <div class="empty-state">
+          <div class="empty-icon">♡</div>
+          <h3>Your story starts here</h3>
+          <p>Add a birthday, anniversary, trip or any day worth remembering.</p>
+          <a href="pages/add.html" class="primary-button">＋ Add your first day</a>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- CALENDAR VIEW -->
+    <section id="calendar-view" class="dashboard-view calendar-view" aria-label="Monthly calendar" hidden>
+      <section class="calendar-section dashboard-calendar">
+        <div class="calendar-header">
+          <div class="calendar-title-group">
+            <h2 id="calendar-month">Loading calendar...</h2>
+            <span class="interactive-pill">Interactive</span>
+          </div>
+          <div class="calendar-navigation">
+            <button id="previous-month" class="calendar-button" type="button" aria-label="Previous month">‹</button>
+            <button id="today-calendar" class="today-button" type="button">Today</button>
+            <button id="next-month" class="calendar-button" type="button" aria-label="Next month">›</button>
+          </div>
+        </div>
+        <div class="calendar-weekdays" aria-hidden="true">
+          <span>SUN</span><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span>
+        </div>
+        <div id="calendar-days" class="calendar-days"></div>
+      </section>
+    </section>
+
+
+    <!-- REMINDERS & FESTIVALS -->
+    <section class="secondary-dashboard-sections">
+      <section class="reminders-section dashboard-secondary-panel">
+        <div class="section-heading">
+          <div>
+            <p class="section-label">A LITTLE NUDGE</p>
+            <h2>Upcoming reminders</h2>
+          </div>
+        </div>
+        <div id="reminders-container">
+          <div class="empty-state">
+            <div class="empty-icon">🔔</div>
+            <h3>No reminders yet</h3>
+            <p>Your upcoming reminders will appear here.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="upcoming-section dashboard-secondary-panel">
+        <div class="section-heading">
+          <div>
+            <p class="section-label">CELEBRATE</p>
+            <h2>Upcoming holidays &amp; festivals</h2>
+          </div>
+          <a href="pages/festival.html" class="text-button">View all</a>
+        </div>
+        <div id="upcoming-festivals">
+          <p>Loading festivals...</p>
+        </div>
+      </section>
+    </section>
 
   </main>
 
-  <!-- FIXED BOTTOM NAVIGATION -->
+
   <nav class="bottom-nav" aria-label="Main navigation">
     <a href="index.html" class="nav-item active" aria-current="page">
-      <span aria-hidden="true">⌂</span>
+      <span>⌂</span>
       <small>Home</small>
     </a>
 
     <a href="pages/add.html" class="nav-item">
-      <span aria-hidden="true">＋</span>
-      <small>Add</small>
+      <span>＋</span>
+      <small>New Day</small>
     </a>
 
     <a href="pages/memories.html" class="nav-item">
-      <span aria-hidden="true">♥</span>
+      <span>♡</span>
       <small>Memories</small>
     </a>
 
+    <a href="pages/timeline.html" class="nav-item">
+      <span>◷</span>
+      <small>Timeline</small>
+    </a>
+
     <a href="settings.html" class="nav-item">
-      <span aria-hidden="true">⚙</span>
+      <span>⚙</span>
       <small>Settings</small>
     </a>
   </nav>
 
-  
-  <!-- EXISTING JAVASCRIPT -->
   <script src="js/storage.js"></script>
   <script src="js/events.js"></script>
   <script src="js/reminders.js"></script>
@@ -235,27 +266,16 @@
   <script src="js/memories.js"></script>
   <script src="js/calendar-data.js"></script>
   <script src="js/home-calendar.js"></script>
-
-  <!-- SERVICE WORKER REGISTRATION -->
+  <script src="js/home-ui.js"></script>
+  <script src="js/time-capsule.js"></script>
+  <script src="js/today-dashboard.js"></script>
   <script>
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./sw.js")
-          .then((registration) => {
-            console.log(
-              "Remember a Day: Service worker registered.",
-              registration.scope
-            );
-          })
-          .catch((error) => {
-            console.error(
-              "Remember a Day: Service worker registration failed.",
-              error
-            );
-          });
+        navigator.serviceWorker.register("./sw.js").catch(error => console.error("Service worker registration failed:", error));
       });
     }
   </script>
 </body>
-</html>
 
+</html>

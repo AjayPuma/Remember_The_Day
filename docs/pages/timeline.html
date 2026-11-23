@@ -1,50 +1,693 @@
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#e05a2b">
-  <title>Memory Timeline - Remember a Day</title>
-  <link rel="stylesheet" href="../css/style.css">
-  <style>
-    .timeline-controls{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}
-    .timeline-controls input,.timeline-controls select{flex:1;min-width:180px}
-    .timeline-card{margin:16px 0;padding:18px;border:1px solid var(--border-color,#e5e5e5);border-radius:16px;background:var(--card-bg,#fff)}
-    .timeline-date{font-weight:700;color:var(--accent,#c84e2a)}
-    .timeline-photos{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin-top:12px}
-    .timeline-photos img{width:100%;height:150px;object-fit:cover;border-radius:10px}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="theme-color" content="#e8e3f7">
+
+    <title>Memory Timeline - Remember a Day</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        /* =================================
+           MEMORY TIMELINE DESIGN
+           ================================= */
+
+        .timeline-page {
+            max-width: 1050px;
+            margin: 0 auto;
+            padding-bottom: 100px;
+        }
+
+        /* Intro */
+
+        .timeline-intro {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 18px;
+            margin: 28px 0 22px;
+        }
+
+        .timeline-intro .section-label {
+            margin: 0 0 6px;
+            color: var(--accent, #8c78bd);
+            font-size: .72rem;
+            font-weight: 800;
+            letter-spacing: .16em;
+        }
+
+        .timeline-intro h2 {
+            margin: 0;
+            font-size: clamp(1.55rem, 3vw, 2.15rem);
+            letter-spacing: -.04em;
+        }
+
+        .timeline-subtitle {
+            margin: 8px 0 0;
+            color: var(--muted-text, #777);
+            font-size: .94rem;
+        }
+
+        /* Filter toolbar */
+
+        .timeline-toolbar {
+            padding: 16px;
+            border: 1px solid var(--border-color, #e9e5ef);
+            border-radius: 18px;
+            background: var(--card-bg, #fff);
+            box-shadow: 0 8px 28px rgba(45, 35, 70, .045);
+        }
+
+        .timeline-search-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .timeline-search-row input {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .timeline-filter-row {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .timeline-toolbar input,
+        .timeline-toolbar select {
+            width: 100%;
+            min-height: 44px;
+            padding: 10px 12px;
+            border: 1px solid var(--border-color, #e5e0eb);
+            border-radius: 11px;
+            background: var(--input-bg, var(--card-bg, #fff));
+            color: var(--text-color, inherit);
+            font: inherit;
+        }
+
+        .timeline-clear {
+            border: 1px solid var(--border-color, #e5e0eb);
+            border-radius: 11px;
+            padding: 0 15px;
+            background: transparent;
+            color: var(--text-color, inherit);
+            font: inherit;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .timeline-clear:hover {
+            background: rgba(140, 120, 189, .08);
+        }
+
+        /* Results count */
+
+        .timeline-results-line {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin: 18px 3px;
+            color: var(--muted-text, #777);
+            font-size: .83rem;
+        }
+
+        .timeline-results-line a {
+            color: var(--accent, #8c78bd);
+            text-decoration: none;
+            font-weight: 650;
+        }
+
+        /* Month groups */
+
+        .timeline-month-group {
+            margin: 26px 0 30px;
+        }
+
+        .timeline-month-heading {
+            margin: 0 0 14px 38px;
+            color: var(--text-color, inherit);
+            font-size: 1.05rem;
+            font-weight: 750;
+            letter-spacing: -.02em;
+        }
+
+        /* Timeline vertical line */
+
+        .timeline-month-items {
+            position: relative;
+            display: grid;
+            gap: 13px;
+        }
+
+        .timeline-month-items::before {
+            content: "";
+            position: absolute;
+            top: 12px;
+            bottom: 16px;
+            left: 12px;
+            width: 2px;
+            border-radius: 3px;
+            background: linear-gradient(
+                var(--accent, #a994d5),
+                rgba(169, 148, 213, .12)
+            );
+        }
+
+        /* Memory card */
+
+        .timeline-card {
+            position: relative;
+            display: grid;
+            grid-template-columns: 26px minmax(0, 1fr);
+            gap: 12px;
+        }
+
+        .timeline-marker {
+            z-index: 1;
+            width: 11px;
+            height: 11px;
+            margin: 20px auto 0;
+            border: 3px solid var(--card-bg, #fff);
+            border-radius: 50%;
+            background: var(--accent, #9b86c9);
+            box-shadow: 0 0 0 2px rgba(155, 134, 201, .25);
+        }
+
+        .timeline-card-content {
+            min-width: 0;
+            padding: 16px 17px;
+            border: 1px solid var(--border-color, #e9e5ef);
+            border-radius: 16px;
+            background: var(--card-bg, #fff);
+            box-shadow: 0 5px 20px rgba(45, 35, 70, .035);
+            transition: transform .18s ease, box-shadow .18s ease;
+        }
+
+        .timeline-card-content:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 9px 24px rgba(45, 35, 70, .075);
+        }
+
+        .timeline-card-meta {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 7px;
+        }
+
+        .timeline-date {
+            color: var(--muted-text, #777);
+            font-size: .79rem;
+            font-weight: 600;
+        }
+
+        .timeline-category {
+            padding: 4px 9px;
+            border-radius: 20px;
+            background: rgba(155, 134, 201, .12);
+            color: var(--accent, #806bb0);
+            font-size: .7rem;
+            font-weight: 750;
+        }
+
+        .timeline-card-title {
+            margin: 0;
+            font-size: 1.05rem;
+            line-height: 1.35;
+            letter-spacing: -.02em;
+        }
+
+        .timeline-card-note {
+            margin: 7px 0 0;
+            color: var(--muted-text, #686474);
+            font-size: .9rem;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+        }
+
+        .timeline-source {
+            margin: 9px 0 0;
+            color: var(--muted-text, #999);
+            font-size: .72rem;
+        }
+
+        /* Photos */
+
+        .timeline-photos {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 13px;
+        }
+
+        .timeline-photo-button {
+            width: clamp(76px, 15vw, 116px);
+            height: 88px;
+            padding: 0;
+            overflow: hidden;
+            border: 0;
+            border-radius: 10px;
+            background: #eee;
+            cursor: zoom-in;
+        }
+
+        .timeline-photo-button img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .25s ease;
+        }
+
+        .timeline-photo-button:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Empty state */
+
+        .timeline-empty {
+            padding: 48px 20px;
+            text-align: center;
+            border: 1px dashed var(--border-color, #ded8e8);
+            border-radius: 18px;
+            background: var(--card-bg, #fff);
+        }
+
+        .timeline-empty-icon {
+            color: var(--accent, #9b86c9);
+            font-size: 2.5rem;
+        }
+
+        .timeline-empty h3 {
+            margin: 10px 0 5px;
+        }
+
+        .timeline-empty p {
+            margin: 0;
+            color: var(--muted-text, #777);
+            font-size: .9rem;
+        }
+
+        /* Photo lightbox */
+
+        .timeline-lightbox[hidden] {
+            display: none;
+        }
+
+        .timeline-lightbox {
+            position: fixed;
+            z-index: 9999;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 28px;
+            background: rgba(15, 12, 22, .88);
+        }
+
+        .timeline-lightbox-image {
+            display: block;
+            max-width: min(100%, 1100px);
+            max-height: 85vh;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 20px 70px rgba(0, 0, 0, .35);
+        }
+
+        .timeline-lightbox-close {
+            position: absolute;
+            top: 18px;
+            right: 20px;
+            width: 42px;
+            height: 42px;
+            border: 1px solid rgba(255, 255, 255, .35);
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .12);
+            color: #fff;
+            font-size: 1.8rem;
+            line-height: 1;
+            cursor: pointer;
+        }
+
+        .bottom-nav .nav-item.active {
+            color: var(--accent, #8c78bd);
+        }
+
+        /* Mobile */
+
+        @media (max-width: 650px) {
+            .timeline-page {
+                padding-left: 14px;
+                padding-right: 14px;
+            }
+
+            .timeline-intro {
+                align-items: flex-start;
+                margin: 22px 0 18px;
+            }
+
+            .timeline-filter-row {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .timeline-filter-row select:last-child {
+                grid-column: 1 / -1;
+            }
+
+            .timeline-search-row {
+                flex-wrap: wrap;
+            }
+
+            .timeline-search-row input {
+                flex-basis: 100%;
+            }
+
+            .timeline-clear {
+                min-height: 40px;
+            }
+
+            .timeline-card-content {
+                padding: 13px;
+            }
+
+            .timeline-photo-button {
+                height: 76px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .timeline-card-content,
+            .timeline-photo-button img {
+                transition: none;
+            }
+        }
+
+
+/* ==========================================
+   MEMORY TIMELINE — PHOTO-FIRST UPGRADE
+   ========================================== */
+
+.timeline-page {
+    max-width: 1050px;
+}
+
+.timeline-intro {
+    margin-bottom: 28px;
+}
+
+.timeline-toolbar {
+    padding: 13px;
+    border-radius: 17px;
+    box-shadow: 0 10px 35px rgba(65, 49, 77, 0.045);
+}
+
+.timeline-month-group {
+    margin: 32px 0;
+}
+
+.timeline-month-heading {
+    font-size: 1.12rem;
+    letter-spacing: -0.035em;
+}
+
+.timeline-card-content {
+    padding: 19px;
+    border-radius: 19px;
+    box-shadow: 0 8px 28px rgba(65, 49, 77, 0.045);
+}
+
+.timeline-card-title {
+    font-size: 1.2rem;
+    margin-top: 3px;
+}
+
+.timeline-card-note {
+    max-width: 760px;
+    line-height: 1.75;
+}
+
+/* Beautiful photo gallery */
+
+.timeline-photos {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 9px;
+    margin-top: 17px;
+}
+
+.timeline-photo-button {
+    width: 100%;
+    height: 145px;
+    border-radius: 13px;
+    background: #eee8e5;
+    overflow: hidden;
+}
+
+.timeline-photo-button:first-child:nth-last-child(n+3) {
+    grid-column: span 2;
+    grid-row: span 2;
+    height: 299px;
+}
+
+.timeline-photo-button img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* One photo */
+
+.timeline-photos:has(.timeline-photo-button:only-child) {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 540px;
+}
+
+.timeline-photos:has(.timeline-photo-button:only-child)
+.timeline-photo-button {
+    height: 300px;
+}
+
+/* Two photos */
+
+.timeline-photos:has(.timeline-photo-button:nth-child(2):last-child) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 700px;
+}
+
+.timeline-photos:has(.timeline-photo-button:nth-child(2):last-child)
+.timeline-photo-button {
+    height: 210px;
+}
+
+/* Mobile gallery */
+
+@media (max-width: 650px) {
+    .timeline-card-content {
+        padding: 14px;
+    }
+
+    .timeline-photos {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 7px;
+    }
+
+    .timeline-photo-button {
+        height: 115px;
+    }
+
+    .timeline-photo-button:first-child:nth-last-child(n+3) {
+        height: 237px;
+    }
+
+    .timeline-photos:has(.timeline-photo-button:only-child)
+    .timeline-photo-button {
+        height: 220px;
+    }
+
+    .timeline-photos:has(.timeline-photo-button:nth-child(2):last-child)
+    .timeline-photo-button {
+        height: 145px;
+    }
+}
+
+    </style>
 </head>
-<body>
-<header class="app-header">
-  <div class="header-content">
-    <div class="app-brand"><div class="app-logo">♥</div><div>
-      <h1>Memory Timeline</h1><p class="tagline">Your moments, in one place.</p>
-    </div></div>
-  </div>
-</header>
-<main class="app-container">
-  <div class="section-heading"><div><p class="section-label">YOUR STORY</p><h2>Moments worth keeping</h2></div>
-    <a class="text-button" href="../index.html">← Home</a>
-  </div>
-  <div class="timeline-controls">
-    <input id="timeline-search" type="search" placeholder="Search memories…">
-    <select id="timeline-sort" aria-label="Sort memories">
-      <option value="newest">Newest first</option>
-      <option value="oldest">Oldest first</option>
-    </select>
-  </div>
-  <div id="timeline-list"><p>Loading memories…</p></div>
-</main>
-<nav class="bottom-nav">
-  <a href="../index.html" class="nav-item"><span>⌂</span><small>Home</small></a>
-  <a href="add.html" class="nav-item"><span>＋</span><small>Add</small></a>
-  <a href="memories.html" class="nav-item"><span>♥</span><small>Memories</small></a>
-  <a href="memories.html" class="nav-item">
-    <span>♥</span>
-    <small>Memories</small>
-</a>
-</nav>
-<script src="../js/timeline.js"></script>
+
+<body class="memory-timeline-page">
+
+    <!-- Header -->
+
+    <header class="app-header">
+        <div class="header-content">
+
+            <div class="app-brand">
+                <div class="app-logo">♥</div>
+
+                <div>
+                    <h1>Memory Timeline</h1>
+                    <p class="tagline">
+                        Your moments, in one place.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+
+    <!-- Main content -->
+
+    <main class="app-container timeline-page">
+
+        <!-- Page heading -->
+
+        <section class="timeline-intro">
+
+            <div>
+                <p class="section-label">YOUR STORY</p>
+
+                <h2>Moments worth keeping</h2>
+
+                <p class="timeline-subtitle">
+                    A little journey through the days you saved.
+                </p>
+            </div>
+
+            <a class="text-button" href="../index.html">
+                ← Home
+            </a>
+
+        </section>
+
+
+        <!-- Search and filters -->
+
+        <section
+            class="timeline-toolbar"
+            aria-label="Timeline filters"
+        >
+
+            <div class="timeline-search-row">
+
+                <input
+                    id="timeline-search"
+                    type="search"
+                    placeholder="Search memories, notes, occasions…"
+                    aria-label="Search memories"
+                >
+
+                <button
+                    id="timeline-clear"
+                    class="timeline-clear"
+                    type="button"
+                >
+                    Clear filters
+                </button>
+
+            </div>
+
+
+            <div class="timeline-filter-row">
+
+                <select
+                    id="timeline-year"
+                    aria-label="Filter by year"
+                >
+                    <option value="all">All years</option>
+                </select>
+
+
+                <select
+                    id="timeline-category"
+                    aria-label="Filter by category"
+                >
+                    <option value="all">All categories</option>
+                </select>
+
+
+                <select
+                    id="timeline-sort"
+                    aria-label="Sort memories"
+                >
+                    <option value="newest">Newest first</option>
+                    <option value="oldest">Oldest first</option>
+                </select>
+
+            </div>
+
+        </section>
+
+
+        <!-- Results count -->
+
+        <div class="timeline-results-line">
+
+            <span id="timeline-count" aria-live="polite">
+                Loading memories…
+            </span>
+
+            <a href="memories.html">
+                Open Memories →
+            </a>
+
+        </div>
+
+
+        <!-- Timeline memories -->
+
+        <div id="timeline-list" aria-live="polite">
+
+            <p>Loading your memories…</p>
+
+        </div>
+
+    </main>
+
+
+    <!-- Bottom navigation -->
+
+    <nav class="bottom-nav" aria-label="Main navigation">
+
+        <a href="../index.html" class="nav-item">
+            <span>⌂</span>
+            <small>Home</small>
+        </a>
+
+        <a href="add.html" class="nav-item">
+            <span>＋</span>
+            <small>Add</small>
+        </a>
+
+        <a href="memories.html" class="nav-item">
+            <span>♥</span>
+            <small>Memories</small>
+        </a>
+
+        <a
+            href="timeline.html"
+            class="nav-item active"
+            aria-current="page"
+        >
+            <span>◷</span>
+            <small>Timeline</small>
+        </a>
+
+    </nav>
+
+
+    <!-- Timeline JavaScript -->
+
+    <script src="../js/timeline.js"></script>
+
 </body>
 </html>

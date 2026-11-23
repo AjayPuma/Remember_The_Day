@@ -19,7 +19,7 @@
 </head>
 
 
-<body>
+<body class="add-occasion-page">
 
 
     <!-- ==========================================
@@ -147,26 +147,26 @@
                 </label>
 
                 <select id="reminder">
-    <option value="none">
-        No reminder
-    </option>
+                    <option value="none">
+                        No reminder
+                    </option>
 
-    <option value="0">
-        🔔 On the day
-    </option>
+                    <option value="0">
+                        🔔 On the day
+                    </option>
 
-    <option value="1">
-        1 day before
-    </option>
+                    <option value="1">
+                        1 day before
+                    </option>
 
-    <option value="7">
-        1 week before
-    </option>
+                    <option value="7">
+                        1 week before
+                    </option>
 
-    <option value="30">
-        30 days before
-    </option>
-</select>
+                    <option value="30">
+                        30 days before
+                    </option>
+                </select>
 
             </div>
 
@@ -186,31 +186,51 @@
 
             </div>
 
-            <!-- ==================================
-     PHOTO
-     ================================== -->
 
+            <!-- PHOTO MEMORIES -->
             <div class="form-group">
+                <label for="event-photo">Photo Memories</label>
 
-                <label for="event-photo">
-                    Photo
-                </label>
-
-                <input type="file" id="event-photo" accept="image/*">
+                <input type="file" id="event-photo" accept="image/*" multiple>
 
                 <small class="input-help">
-                    Add a photo related to this occasion.
+                    Upload up to 5 special photos (JPG, PNG or WebP).
                 </small>
-
             </div>
 
+            <div id="photo-preview" class="photo-preview"></div>
 
-            <!-- ==================================
-     PHOTO PREVIEW
-     ================================== -->
+            <!-- VOICE MEMORY -->
+            <section class="voice-memory-form">
+                <div class="voice-memory-heading">
+                    <div>
+                        <span class="voice-eyebrow">A VOICE TO REMEMBER</span>
+                        <h3>Record a Voice Memory</h3>
+                        <p>Save a message, a laugh or a special moment.</p>
+                    </div>
+                    <span class="voice-heading-icon">🎙️</span>
+                </div>
 
-            <div id="photo-preview" class="photo-preview">
-            </div>
+                <div class="voice-controls">
+                    <button type="button" id="record-voice" class="voice-record-button">
+                        <span>●</span> Start Recording
+                    </button>
+
+                    <span id="recording-status">Ready to record</span>
+                    <span id="recording-timer">00:00 / 00:30</span>
+                </div>
+
+                <div id="voice-preview" class="voice-preview" hidden>
+                    <audio id="voice-audio" controls></audio>
+
+                    <button type="button" id="delete-voice" class="voice-delete-button">
+                        Remove Recording
+                    </button>
+                </div>
+            </section>
+
+
+
 
             <!-- ==================================
     GIFT DETAILS
@@ -360,474 +380,471 @@
     <script>
 
         /* ==========================================
-           GET FORM ELEMENT
+           ADD / EDIT OCCASION
+           PHOTO GALLERY + VOICE MEMORY
            ========================================== */
 
-        const form =
-            document.getElementById("occasion-form");
+        const form = document.getElementById("occasion-form");
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const editingId = urlParams.get("edit");
+
+        const photoInput = document.getElementById("event-photo");
+        const photoPreview = document.getElementById("photo-preview");
+
+        const recordButton = document.getElementById("record-voice");
+        const recordingStatus = document.getElementById("recording-status");
+        const recordingTimer = document.getElementById("recording-timer");
+        const voicePreview = document.getElementById("voice-preview");
+        const voiceAudio = document.getElementById("voice-audio");
+        const deleteVoiceButton = document.getElementById("delete-voice");
+
+        const MAX_PHOTOS = 5;
+        const MAX_RECORDING_SECONDS = 30;
+
+        let selectedPhotos = [];
+        let voiceData = "";
+        let voiceMimeType = "";
+        let mediaRecorder = null;
+        let audioChunks = [];
+        let recordingInterval = null;
+        let recordingSeconds = 0;
+        let stream = null;
+        let existingEvent = null;
 
 
         /* ==========================================
-   CHECK EDIT MODE
-   ========================================== */
+           HELPERS
+           ========================================== */
 
-        const urlParams =
-            new URLSearchParams(
-                window.location.search
-            );
+        function fileToDataURL(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
 
-        const editingId =
-            urlParams.get("edit");
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = () => reject(reader.error);
+
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function compressPhoto(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+
+                reader.onerror = () => reject(reader.error);
+
+                reader.onload = () => {
+                    const image = new Image();
+
+                    image.onerror = reject;
+
+                    image.onload = () => {
+                        const canvas = document.createElement("canvas");
+
+                        const maxSize = 700;
+                        const scale = Math.min(
+                            1,
+                            maxSize / Math.max(image.width, image.height)
+                        );
+
+                        canvas.width = Math.round(image.width * scale);
+                        canvas.height = Math.round(image.height * scale);
+
+                        const context = canvas.getContext("2d");
+
+                        context.drawImage(
+                            image,
+                            0,
+                            0,
+                            canvas.width,
+                            canvas.height
+                        );
+
+                        resolve(canvas.toDataURL("image/jpeg", 0.68));
+                    };
+
+                    image.src = reader.result;
+                };
+
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function formatRecordingTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const remaining = seconds % 60;
+
+            return `${String(minutes).padStart(2, "0")}:${String(remaining).padStart(2, "0")}`;
+        }
+
 
         /* ==========================================
-           LOAD EVENT FOR EDITING
+           LOAD EXISTING EVENT
            ========================================== */
 
         if (editingId) {
-
             const events = getEvents();
 
-            const eventToEdit = events.find(
-                event =>
-                    event.id === Number(editingId)
+            existingEvent = events.find(
+                event => String(event.id) === String(editingId)
             );
 
+            if (existingEvent) {
+                document.getElementById("page-title").textContent = "Edit Occasion";
+                document.getElementById("save-button").textContent = "Update Occasion";
 
-            if (eventToEdit) {
-
-                /* ------------------------------
-                   Change page title
-                   ------------------------------ */
-
-                document.getElementById(
-                    "page-title"
-                ).textContent = "Edit Occasion";
-
-
-                /* ------------------------------
-                   Change button text
-                   ------------------------------ */
-
-                document.getElementById(
-                    "save-button"
-                ).textContent = "Update Occasion";
-
-
-                /* ------------------------------
-                   Fill existing values
-                   ------------------------------ */
-
-                document.getElementById(
-                    "name"
-                ).value = eventToEdit.name;
-
+                document.getElementById("name").value =
+                    existingEvent.name || "";
 
                 document.getElementById("type").value =
-                    ["Other", "Custom", "Custom Occasion"].includes(eventToEdit.type)
+                    ["Other", "Custom", "Custom Occasion"].includes(existingEvent.type)
                         ? "Custom Occasion"
-                        : eventToEdit.type;
+                        : existingEvent.type;
 
+                document.getElementById("date").value =
+                    existingEvent.date || "";
 
-                document.getElementById(
-                    "date"
-                ).value = eventToEdit.date;
+                document.getElementById("reminder").value =
+                    existingEvent.reminder || "none";
 
+                document.getElementById("notes").value =
+                    existingEvent.notes || "";
 
-                document.getElementById(
-                    "reminder"
-                ).value =
-                    eventToEdit.reminder || "none";
+                document.getElementById("gift-idea").value =
+                    existingEvent.gift?.idea || "";
 
+                document.getElementById("gift-budget").value =
+                    existingEvent.gift?.budget || "";
 
-                document.getElementById(
-                    "notes"
-                ).value =
-                    eventToEdit.notes || "";
+                document.getElementById("gift-status").value =
+                    existingEvent.gift?.status || "planned";
 
-                /* ------------------------------
-       Load gift information
-       ------------------------------ */
+                // Support both new gallery data and old single-photo events.
+                selectedPhotos = Array.isArray(existingEvent.photos)
+                    ? [...existingEvent.photos]
+                    : existingEvent.photo
+                        ? [existingEvent.photo]
+                        : [];
 
-                if (eventToEdit.gift) {
+                renderPhotoPreviews();
 
-                    document.getElementById(
-                        "gift-idea"
-                    ).value =
-                        eventToEdit.gift.idea || "";
+                if (existingEvent.voiceNote?.data) {
+                    voiceData = existingEvent.voiceNote.data;
+                    voiceMimeType = existingEvent.voiceNote.mimeType || "audio/webm";
 
-                    document.getElementById(
-                        "gift-budget"
-                    ).value =
-                        eventToEdit.gift.budget || "";
-
-                    document.getElementById(
-                        "gift-status"
-                    ).value =
-                        eventToEdit.gift.status || "planned";
-
+                    showVoicePreview();
+                    recordingStatus.textContent = "Saved recording";
                 }
-
             }
-
-        }
-
-
-
-        /* ==========================================
-           FORM SUBMISSION
-           ========================================== */
-
-        form.addEventListener(
-            "submit",
-            function (event) {
-
-                /* Prevent page refresh */
-                event.preventDefault();
-
-
-                /* ==================================
-                CREATE OCCASION OBJECT
-                ================================== */
-
-                const occasion = {
-
-                    name:
-                        document.getElementById("name").value.trim(),
-
-                    type:
-                        document.getElementById("type").value,
-
-                    category:
-                        document.getElementById("type").value === "Birthday"
-                            ? "birthday"
-                            : document.getElementById("type").value === "Anniversary"
-                                ? "anniversary"
-                                : "custom",
-
-                    date:
-                        document.getElementById("date").value,
-
-                    reminder:
-                        document.getElementById("reminder").value,
-
-                    notes:
-                        document.getElementById("notes").value.trim(),
-
-                    photo:
-                        selectedPhoto,
-
-                    gift: {
-
-                        idea:
-                            document.getElementById("gift-idea").value.trim(),
-
-                        budget:
-                            document.getElementById("gift-budget").value,
-
-                        status:
-                            document.getElementById("gift-status").value
-
-                    }
-
-                };
-
-
-
-
-                /* ==========================================
-                   UPDATE EXISTING OCCASION
-                   ========================================== */
-
-                if (editingId) {
-
-                    const events = getEvents();
-
-                    const index =
-                        events.findIndex(
-                            event =>
-                                event.id === Number(editingId)
-                        );
-
-
-                    if (index !== -1) {
-
-                        /*
-                         * Keep the original event ID.
-                         */
-
-                        occasion.id =
-                            Number(editingId);
-
-
-                        /*
-                         * Replace the old event.
-                         */
-
-                        events[index] =
-                            occasion;
-
-
-                        saveEvents(events);
-
-                    }
-
-
-                    alert(
-                        "Occasion updated successfully! ✨"
-                    );
-
-                }
-
-
-
-                /* ==================================
-                   ADD NEW OCCASION
-                   ================================== */
-
-                else {
-
-                    addEvent(occasion);
-
-
-                    alert(
-                        "Occasion saved successfully! 🎉"
-                    );
-
-                }
-
-
-
-                /* ==================================
-                   RETURN TO HOME
-                   ================================== */
-
-                window.location.href =
-                    "../index.html";
-
-            }
-        );
-        /* ==========================================
-       PHOTO ELEMENTS
-       ========================================== */
-
-        const photoInput =
-            document.getElementById("event-photo");
-
-        const photoPreview =
-            document.getElementById("photo-preview");
-
-
-        let selectedPhoto = "";
-
-
-        /* ==========================================
-           LOAD EXISTING PHOTO
-           ========================================== */
-
-        if (editingId) {
-
-            const events = getEvents();
-
-            const eventToEdit = events.find(
-                event => event.id === Number(editingId)
-            );
-
-            if (
-                eventToEdit &&
-                eventToEdit.photo
-            ) {
-
-                selectedPhoto =
-                    eventToEdit.photo;
-
-                showPhotoPreview(
-                    selectedPhoto
-                );
-
-            }
-
         }
 
 
         /* ==========================================
-           PHOTO SELECTION
+           PHOTO UPLOAD
            ========================================== */
 
-        if (photoInput) {
+        photoInput.addEventListener("change", async function () {
+            const files = Array.from(this.files || []);
 
-            photoInput.addEventListener(
-                "change",
-                function () {
+            if (!files.length) return;
 
-                    const file =
-                        this.files[0];
+            const availableSlots = MAX_PHOTOS - selectedPhotos.length;
 
-                    if (!file) {
-                        return;
-                    }
-
-
-                    /* ==============================
-                       CHECK FILE TYPE
-                       ============================== */
-
-                    if (
-                        !file.type.startsWith(
-                            "image/"
-                        )
-                    ) {
-
-                        alert(
-                            "Please select an image."
-                        );
-
-                        return;
-
-                    }
-
-
-                    compressImage(file);
-
-                }
-            );
-
-        }
-
-
-        /* ==========================================
-           COMPRESS IMAGE
-           ========================================== */
-
-        function compressImage(file) {
-
-            const reader =
-                new FileReader();
-
-
-            reader.onload = function (event) {
-
-                const image =
-                    new Image();
-
-
-                image.onload = function () {
-
-                    const canvas =
-                        document.createElement(
-                            "canvas"
-                        );
-
-
-                    const maxSize = 600;
-
-                    let width =
-                        image.width;
-
-                    let height =
-                        image.height;
-
-
-                    /* ==============================
-                       RESIZE IMAGE
-                       ============================== */
-
-                    if (width > height) {
-
-                        if (width > maxSize) {
-
-                            height =
-                                height *
-                                (maxSize / width);
-
-                            width =
-                                maxSize;
-
-                        }
-
-                    } else {
-
-                        if (height > maxSize) {
-
-                            width =
-                                width *
-                                (maxSize / height);
-
-                            height =
-                                maxSize;
-
-                        }
-
-                    }
-
-
-                    canvas.width =
-                        width;
-
-                    canvas.height =
-                        height;
-
-
-                    const context =
-                        canvas.getContext(
-                            "2d"
-                        );
-
-
-                    context.drawImage(
-                        image,
-                        0,
-                        0,
-                        width,
-                        height
-                    );
-
-
-                    selectedPhoto =
-                        canvas.toDataURL(
-                            "image/jpeg",
-                            0.7
-                        );
-
-
-                    showPhotoPreview(
-                        selectedPhoto
-                    );
-
-                };
-
-
-                image.src =
-                    event.target.result;
-
-            };
-
-
-            reader.readAsDataURL(file);
-
-        }
-
-
-        /* ==========================================
-           SHOW PHOTO PREVIEW
-           ========================================== */
-
-        function showPhotoPreview(photo) {
-
-            if (!photoPreview) {
+            if (availableSlots <= 0) {
+                alert("You can add a maximum of 5 photos.");
+                this.value = "";
                 return;
             }
 
+            if (files.length > availableSlots) {
+                alert(`You can add only ${availableSlots} more photo(s).`);
+            }
 
-            photoPreview.innerHTML = `
+            const acceptedFiles = files.slice(0, availableSlots);
 
-        <img
-            src="${photo}"
-            alt="Selected photo"
-        >
+            for (const file of acceptedFiles) {
+                if (!file.type.startsWith("image/")) {
+                    alert(`${file.name} is not an image.`);
+                    continue;
+                }
 
-    `;
+                try {
+                    const compressed = await compressPhoto(file);
+                    selectedPhotos.push(compressed);
+                    renderPhotoPreviews();
+                } catch (error) {
+                    console.error("Photo processing failed:", error);
+                    alert("One of the photos could not be processed.");
+                }
+            }
 
+            this.value = "";
+        });
+
+
+        /* ==========================================
+           RENDER PHOTO PREVIEWS
+           ========================================== */
+
+        function renderPhotoPreviews() {
+            photoPreview.innerHTML = selectedPhotos.map((photo, index) => `
+        <div class="memory-photo-item">
+            <img src="${photo}" alt="Memory photo ${index + 1}">
+
+            <button
+                type="button"
+                class="remove-memory-photo"
+                data-index="${index}"
+                aria-label="Remove photo ${index + 1}"
+            >×</button>
+        </div>
+    `).join("");
+
+            photoPreview.classList.toggle(
+                "has-photos",
+                selectedPhotos.length > 0
+            );
         }
+
+        photoPreview.addEventListener("click", function (event) {
+            const button = event.target.closest(".remove-memory-photo");
+
+            if (!button) return;
+
+            const index = Number(button.dataset.index);
+
+            selectedPhotos.splice(index, 1);
+            renderPhotoPreviews();
+        });
+
+
+        /* ==========================================
+           VOICE RECORDING
+           ========================================== */
+
+        recordButton.addEventListener("click", async function () {
+
+            if (mediaRecorder && mediaRecorder.state === "recording") {
+                stopRecording();
+                return;
+            }
+
+            if (!navigator.mediaDevices?.getUserMedia ||
+                typeof MediaRecorder === "undefined") {
+                alert("Voice recording is not supported in this browser.");
+                return;
+            }
+
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({
+                    audio: true
+                });
+
+                audioChunks = [];
+                recordingSeconds = 0;
+
+                const supportedTypes = [
+                    "audio/webm;codecs=opus",
+                    "audio/webm",
+                    "audio/mp4"
+                ];
+
+                const mimeType = supportedTypes.find(type =>
+                    MediaRecorder.isTypeSupported(type)
+                );
+
+                mediaRecorder = mimeType
+                    ? new MediaRecorder(stream, { mimeType })
+                    : new MediaRecorder(stream);
+
+                mediaRecorder.ondataavailable = event => {
+                    if (event.data.size > 0) {
+                        audioChunks.push(event.data);
+                    }
+                };
+
+                mediaRecorder.onstop = async () => {
+                    const blob = new Blob(audioChunks, {
+                        type: mediaRecorder.mimeType || "audio/webm"
+                    });
+
+                    voiceMimeType = blob.type;
+                    voiceData = await fileToDataURL(blob);
+
+                    showVoicePreview();
+
+                    recordingStatus.textContent = "Recording saved";
+                    recordButton.innerHTML = "<span>●</span> Record Again";
+
+                    stream?.getTracks().forEach(track => track.stop());
+                    stream = null;
+                };
+
+                mediaRecorder.start();
+
+                recordingStatus.textContent = "Recording...";
+                recordButton.innerHTML = "<span>■</span> Stop Recording";
+
+                recordingTimer.textContent = "00:00 / 00:30";
+
+                recordingInterval = setInterval(() => {
+                    recordingSeconds++;
+
+                    recordingTimer.textContent =
+                        `${formatRecordingTime(recordingSeconds)} / 00:30`;
+
+                    if (recordingSeconds >= MAX_RECORDING_SECONDS) {
+                        stopRecording();
+                    }
+                }, 1000);
+
+            } catch (error) {
+                console.error("Microphone error:", error);
+                alert("Please allow microphone access to record a voice memory.");
+            }
+        });
+
+
+        function stopRecording() {
+            clearInterval(recordingInterval);
+
+            if (mediaRecorder && mediaRecorder.state === "recording") {
+                mediaRecorder.stop();
+            }
+        }
+
+
+        function showVoicePreview() {
+            voicePreview.hidden = false;
+            voiceAudio.src = voiceData;
+
+            recordButton.innerHTML = "<span>●</span> Record Again";
+        }
+
+
+        deleteVoiceButton.addEventListener("click", function () {
+            voiceData = "";
+            voiceMimeType = "";
+
+            voiceAudio.pause();
+            voiceAudio.removeAttribute("src");
+            voiceAudio.load();
+
+            voicePreview.hidden = true;
+
+            recordingStatus.textContent = "Ready to record";
+            recordingTimer.textContent = "00:00 / 00:30";
+
+            recordButton.innerHTML = "<span>●</span> Start Recording";
+        });
+
+
+        /* ==========================================
+           SAVE / UPDATE OCCASION
+           ========================================== */
+
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            if (mediaRecorder && mediaRecorder.state === "recording") {
+                alert("Please stop your voice recording before saving.");
+                return;
+            }
+
+            const oldPhoto = selectedPhotos[0] || "";
+
+            const occasion = {
+                name: document.getElementById("name").value.trim(),
+
+                type: document.getElementById("type").value,
+
+                category:
+                    document.getElementById("type").value === "Birthday"
+                        ? "birthday"
+                        : document.getElementById("type").value === "Anniversary"
+                            ? "anniversary"
+                            : "custom",
+
+                date: document.getElementById("date").value,
+
+                reminder: document.getElementById("reminder").value,
+
+                notes: document.getElementById("notes").value.trim(),
+
+                // Keep the old field for existing home cards.
+                photo: oldPhoto,
+
+                // New gallery field.
+                photos: selectedPhotos,
+
+                // New voice-note field.
+                voiceNote: voiceData
+                    ? {
+                        data: voiceData,
+                        mimeType: voiceMimeType,
+                        duration: recordingSeconds
+                    }
+                    : null,
+
+                gift: {
+                    idea: document.getElementById("gift-idea").value.trim(),
+                    budget: document.getElementById("gift-budget").value,
+                    status: document.getElementById("gift-status").value
+                }
+            };
+
+            try {
+                if (editingId) {
+                    const events = getEvents();
+
+                    const index = events.findIndex(
+                        item => String(item.id) === String(editingId)
+                    );
+
+                    if (index === -1) {
+                        alert("Could not find this occasion.");
+                        return;
+                    }
+
+                    occasion.id = Number(editingId);
+
+                    events[index] = occasion;
+                    saveEvents(events);
+
+                    alert("Occasion updated successfully! ✨");
+
+                } else {
+                    addEvent(occasion);
+
+                    alert("Occasion saved successfully! 🎉");
+                }
+
+                window.location.href = "../index.html";
+
+            } catch (error) {
+                console.error("Could not save occasion:", error);
+
+                alert(
+                    "Could not save this occasion. Your browser storage may be full. " +
+                    "Try using fewer photos or a shorter voice recording."
+                );
+            }
+        });
+
+
+        /* ==========================================
+           CLEAN UP MICROPHONE
+           ========================================== */
+
+        window.addEventListener("beforeunload", () => {
+            clearInterval(recordingInterval);
+
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+            }
+        });
+
     </script>
 
 

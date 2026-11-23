@@ -116,7 +116,7 @@ if (event.photo) {
 
 
     return `
-        <article class="event-card">
+        <article class="event-card" data-event-id="${event.id}">
 
         ${photoHTML}
 

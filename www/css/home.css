@@ -1,0 +1,1654 @@
+/* REMEMBER-A-DAY HOME PAGE STYLES — CLEANED */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap');
+
+.home-dashboard {
+  --home-ink: #1e1846;
+  --home-muted: #676188;
+  --home-violet: #6d4aff;
+  --home-violet-deep: #4f2ce0;
+  --home-violet-soft: #f0ecff;
+  --home-gold: #d9b66e;
+  --home-bg: #f4f3fb;
+  --home-surface: #ffffff;
+  --home-line: #e4e0f4;
+  --home-shadow: 0 10px 28px rgba(30, 24, 70, 0.06);
+  --home-shadow-lg: 0 20px 44px rgba(30, 24, 70, 0.11);
+
+  font-family: 'DM Sans', Arial, sans-serif;
+  color: var(--home-ink);
+  background:
+    radial-gradient(circle at 12% 0%, rgba(109, 74, 255, 0.10), transparent 38%),
+    radial-gradient(circle at 88% 6%, rgba(185, 98, 255, 0.09), transparent 42%),
+    var(--home-bg);
+}
+
+.home-dashboard h1,
+.home-dashboard h2,
+.home-dashboard h3,
+.home-dashboard .today-weekday {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+/* Header & Top Bar */
+.home-dashboard .dashboard-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  padding: 14px 20px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--home-line);
+}
+
+.home-dashboard .dashboard-header-inner {
+  max-width: 1120px;
+}
+
+.home-dashboard .top-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.home-dashboard .app-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--home-ink);
+}
+
+.home-dashboard .app-logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #7a5cff, #a459f5 55%, var(--home-violet-deep));
+  color: #ffffff;
+  font-size: 20px;
+  box-shadow: 0 8px 20px rgba(109, 74, 255, 0.28);
+}
+
+.home-dashboard .brand-copy strong {
+  display: block;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 20px;
+  line-height: 1.15;
+}
+
+.home-dashboard .tagline {
+  font-size: 12px;
+  color: var(--home-muted);
+}
+
+.home-dashboard .global-search {
+  flex: 1 1 240px;
+  max-width: 380px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 14px;
+  border-radius: 999px;
+  background: #f8f7ff;
+  border: 1px solid var(--home-line);
+  color: var(--home-muted);
+}
+
+.home-dashboard .global-search:focus-within {
+  background: #ffffff;
+  border-color: var(--home-violet);
+  box-shadow: 0 0 0 3px rgba(109, 74, 255, 0.12);
+}
+
+.home-dashboard .global-search input {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: var(--home-ink);
+  font: 500 13.5px 'DM Sans', sans-serif;
+  outline: none;
+}
+
+.home-dashboard .top-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.home-dashboard .theme-toggle {
+  min-width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 1px solid var(--home-line);
+  background: #ffffff;
+  color: var(--home-ink);
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.home-dashboard .new-day-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 13px;
+  color: #ffffff;
+  background: linear-gradient(135deg, #7454ff, var(--home-violet-deep));
+  box-shadow: 0 8px 20px rgba(109, 74, 255, 0.26);
+}
+
+/* Main Container */
+.home-dashboard .dashboard-main {
+  max-width: 1120px;
+  padding: 22px 20px 120px;
+}
+
+/* Section Nav Strip */
+.home-dashboard .home-nav-links {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 4px 2px 18px;
+  scrollbar-width: none;
+}
+
+.home-dashboard .home-nav-links::-webkit-scrollbar {
+  display: none;
+}
+
+.home-dashboard .home-nav-link {
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--home-line);
+  background: var(--home-surface);
+  color: var(--home-muted);
+  text-decoration: none;
+  font: 700 12.5px 'DM Sans', sans-serif;
+  cursor: pointer;
+}
+
+.home-dashboard .home-nav-link.active {
+  background: linear-gradient(135deg, #7454ff, var(--home-violet-deep));
+  border-color: transparent;
+  color: #ffffff;
+}
+
+.home-dashboard .surprise-pill-link {
+  border-color: #d7c9ff;
+  background: linear-gradient(135deg, #f7f4ff, #fff9ee);
+  color: var(--home-ink);
+}
+
+.home-dashboard .new-badge {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #855cf8, #c25cf7);
+  color: #ffffff;
+}
+
+/* Today Glance Card */
+.home-dashboard .today-dashboard-card {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 18px;
+  padding: 22px;
+  border-radius: 24px;
+  margin-bottom: 22px;
+  background:
+    linear-gradient(120deg, #f6f4ff 0%, #efeaff 54%, #fbf5eb 100%) padding-box,
+    linear-gradient(135deg, rgba(109, 74, 255, 0.32), rgba(217, 182, 110, 0.36)) border-box;
+  border: 1.5px solid transparent;
+  box-shadow: var(--home-shadow-lg);
+}
+
+.home-dashboard .today-eyebrow {
+  display: block;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, var(--home-violet), #b455f7);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 6px;
+}
+
+.home-dashboard .today-weekday {
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--home-ink);
+}
+
+.home-dashboard .today-full-date {
+  font-size: 13.5px;
+  color: var(--home-muted);
+  margin-top: 4px;
+}
+
+.home-dashboard .today-surprise-cta {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 14px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--home-violet-deep);
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid #dcd4fa;
+}
+
+.home-dashboard .today-highlights {
+  display: grid;
+  gap: 10px;
+}
+
+.home-dashboard .today-highlight {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 13px 15px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid var(--home-line);
+  font-size: 13px;
+}
+
+.home-dashboard .today-highlight-icon {
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+/* Time Capsule Section */
+.home-dashboard .time-capsule-section {
+  background: var(--home-surface);
+  border: 1px solid var(--home-line);
+  border-radius: 22px;
+  padding: 18px 20px;
+  margin-bottom: 20px;
+  box-shadow: var(--home-shadow);
+}
+
+.home-dashboard .capsule-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.home-dashboard .capsule-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.home-dashboard .capsule-title-wrap h2 {
+  font-size: 18px;
+  color: var(--home-ink);
+}
+
+.home-dashboard .archive-link {
+  color: var(--home-violet);
+  font-size: 12.5px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* Filter Toolbar */
+.home-dashboard .timeline-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.home-dashboard .category-filters {
+  display: flex;
+  gap: 7px;
+  overflow-x: auto;
+  padding: 2px 0;
+}
+
+.home-dashboard .category-filter {
+  white-space: nowrap;
+  border: 1px solid var(--home-line);
+  background: var(--home-surface);
+  color: var(--home-muted);
+  border-radius: 999px;
+  padding: 8px 15px;
+  font: 700 12.5px 'DM Sans', sans-serif;
+  cursor: pointer;
+}
+
+.home-dashboard .category-filter.active {
+  background: linear-gradient(135deg, #7454ff, var(--home-violet-deep));
+  border-color: transparent;
+  color: #ffffff;
+}
+
+.home-dashboard .event-count-label {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--home-muted);
+}
+
+.home-dashboard .compat-filter {
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--home-line);
+  background: var(--home-surface);
+  color: var(--home-ink);
+  font: 600 12.5px 'DM Sans', sans-serif;
+}
+
+/* Reminders & Festivals Panels */
+.home-dashboard .secondary-dashboard-sections {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.home-dashboard .dashboard-secondary-panel,
+.home-dashboard .calendar-section,
+.home-dashboard .empty-state {
+  background: var(--home-surface);
+  border: 1px solid var(--home-line);
+  border-radius: 22px;
+  box-shadow: var(--home-shadow);
+}
+
+.home-dashboard .dashboard-secondary-panel {
+  padding: 20px;
+}
+
+.home-dashboard .dashboard-secondary-panel .section-heading {
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--home-line);
+}
+
+.home-dashboard .dashboard-secondary-panel .text-button {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--home-violet-soft);
+  color: var(--home-violet-deep);
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.home-dashboard .reminder-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  margin-bottom: 10px;
+  border-radius: 18px;
+  background: #faf9ff;
+  border: 1px solid var(--home-line);
+}
+
+.home-dashboard .reminder-icon {
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  background: var(--home-violet-soft);
+  color: var(--home-violet-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-dashboard .reminder-info small {
+  display: inline-flex;
+  margin-top: 4px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: #fff2e8;
+  color: #b84a27;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.home-dashboard #upcoming-festivals {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.home-dashboard #upcoming-festivals .event-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 14px;
+  margin-bottom: 0;
+  border-radius: 18px;
+  background: #faf9ff;
+  border: 1px solid var(--home-line);
+}
+
+.home-dashboard .festival-card-cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: #ffffff;
+  border: 1px solid #dcd4fa;
+  color: var(--home-violet-deep);
+  font-size: 11.5px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* Calendar Highlights */
+.home-dashboard .calendar-day.today,
+.home-dashboard .calendar-day.has-event.today {
+  background: linear-gradient(135deg, #7454ff, var(--home-violet-deep));
+  color: #ffffff;
+}
+
+.home-dashboard .calendar-day.has-event {
+  background: var(--home-violet-soft);
+}
+
+.home-dashboard .event-dot {
+  background: var(--home-violet);
+}
+
+.home-dashboard .primary-button {
+  background: linear-gradient(135deg, #7454ff, var(--home-violet-deep));
+}
+
+/* Bottom Navigation */
+.home-dashboard .bottom-nav {
+  max-width: 760px;
+  bottom: 12px;
+  width: calc(100% - 24px);
+  height: 68px;
+  border-radius: 22px;
+  border: 1px solid var(--home-line);
+  background: rgba(255, 255, 255, 0.96);
+}
+
+.home-dashboard .nav-item.active {
+  color: var(--home-violet);
+}
+
+.home-dashboard .nav-item.active::before {
+  background: var(--home-violet);
+}
+
+/* Dark Mode */
+body.dark-mode.home-dashboard {
+  --home-ink: #f4f1ff;
+  --home-muted: #a69fc8;
+  --home-violet: #957bff;
+  --home-violet-deep: #7454ff;
+  --home-violet-soft: rgba(149, 123, 255, 0.16);
+  --home-bg: #121022;
+  --home-surface: #1b1830;
+  --home-line: #2d284c;
+  --home-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+  --home-shadow-lg: 0 20px 44px rgba(0, 0, 0, 0.48);
+}
+
+body.dark-mode.home-dashboard .dashboard-header {
+  background: rgba(22, 19, 41, 0.9);
+}
+
+body.dark-mode.home-dashboard .global-search,
+body.dark-mode.home-dashboard .theme-toggle,
+body.dark-mode.home-dashboard .today-highlight,
+body.dark-mode.home-dashboard .today-surprise-cta,
+body.dark-mode.home-dashboard .surprise-pill-link,
+body.dark-mode.home-dashboard .reminder-card,
+body.dark-mode.home-dashboard #upcoming-festivals .event-card,
+body.dark-mode.home-dashboard .festival-card-cta {
+  background: #231f3d;
+  color: var(--home-ink);
+  border-color: var(--home-line);
+}
+
+body.dark-mode.home-dashboard .today-dashboard-card {
+  background:
+    linear-gradient(125deg, #211c3d 0%, #2a214c 58%, #2a2434 100%) padding-box,
+    linear-gradient(135deg, rgba(149, 123, 255, 0.45), rgba(217, 182, 110, 0.35)) border-box;
+}
+
+body.dark-mode.home-dashboard #upcoming-events .event-card {
+  background:
+    linear-gradient(#1b1830, #1b1830) padding-box,
+    linear-gradient(135deg, rgba(149, 123, 255, 0.34), rgba(217, 182, 110, 0.28)) border-box;
+}
+
+body.dark-mode.home-dashboard #upcoming-events .event-type {
+  background: rgba(255, 118, 165, 0.16);
+  color: #ff9ec0;
+}
+
+body.dark-mode.home-dashboard #upcoming-events .card-buttons button,
+body.dark-mode.home-dashboard #upcoming-events .card-inline-actions button {
+  background: #252140;
+  border-color: var(--home-line);
+  color: var(--home-ink);
+}
+
+body.dark-mode.home-dashboard .bottom-nav {
+  background: rgba(27, 24, 48, 0.96);
+}
+
+/* Responsive */
+
+/* ==========================================
+   UPGRADED REMINDERS & FESTIVALS — VIOLET & ORCHID PALETTE
+   (Replaces all yellow/brown/beige tones from style.css)
+   ========================================== */
+
+body.home-dashboard .secondary-dashboard-sections {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 20px !important;
+  margin-top: 26px !important;
+}
+
+body.home-dashboard .dashboard-secondary-panel {
+  padding: 22px !important;
+  border-radius: 24px !important;
+  background:
+    linear-gradient(#ffffff, #ffffff) padding-box,
+    linear-gradient(135deg, rgba(109, 74, 255, 0.28), rgba(180, 85, 247, 0.22)) border-box !important;
+  border: 1.5px solid transparent !important;
+  box-shadow: 0 18px 42px rgba(30, 24, 70, 0.08) !important;
+}
+
+body.home-dashboard .dashboard-secondary-panel .section-heading {
+  margin-bottom: 16px !important;
+  padding-bottom: 12px !important;
+  border-bottom: 1px solid #ece8fa !important;
+}
+
+body.home-dashboard .dashboard-secondary-panel .section-label {
+  color: #6d4aff !important;
+  font-weight: 800 !important;
+  letter-spacing: 1.6px !important;
+}
+
+body.home-dashboard .dashboard-secondary-panel .section-heading h2 {
+  font-size: 22px !important;
+  color: #1e1846 !important;
+}
+
+body.home-dashboard .dashboard-secondary-panel .text-button {
+  padding: 7px 14px !important;
+  border-radius: 999px !important;
+  background: #f0ecff !important;
+  color: #4f2ce0 !important;
+  font-weight: 700 !important;
+  font-size: 12px !important;
+  text-decoration: none !important;
+  transition: all 0.16s ease !important;
+}
+
+body.home-dashboard .dashboard-secondary-panel .text-button:hover {
+  background: linear-gradient(135deg, #7454ff, #4f2ce0) !important;
+  color: #ffffff !important;
+}
+
+/* 1. Notification Status Bar — Kill the brown/beige box, make it crisp lavender-violet */
+body.home-dashboard #reminders-container > p,
+body.home-dashboard .reminders-section > p:not(.section-label),
+body.home-dashboard .reminder-status-banner {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  padding: 11px 14px !important;
+  margin-bottom: 14px !important;
+  border-radius: 14px !important;
+  background: linear-gradient(135deg, #f3f0ff, #eae4ff) !important;
+  border: 1px solid #d8cffc !important;
+  color: #2c2263 !important;
+  font-size: 12.5px !important;
+  font-weight: 600 !important;
+}
+
+body.home-dashboard #reminders-container > p::before,
+body.home-dashboard .reminders-section > p:not(.section-label)::before {
+  content: "" !important;
+  width: 8px !important;
+  height: 8px !important;
+  border-radius: 50% !important;
+  background: #6d4aff !important;
+  box-shadow: 0 0 0 4px rgba(109, 74, 255, 0.18) !important;
+  flex-shrink: 0 !important;
+}
+
+/* 2. Reminder Cards — Rich Violet/Orchid Accents & Detailed Layout */
+body.home-dashboard .reminder-card {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  padding: 15px 16px !important;
+  margin-bottom: 12px !important;
+  border-radius: 18px !important;
+  background: #faf9ff !important;
+  border: 1px solid #e4dff8 !important;
+  box-shadow: 0 6px 18px rgba(30, 24, 70, 0.04) !important;
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease !important;
+}
+
+body.home-dashboard .reminder-card:last-child {
+  margin-bottom: 0 !important;
+}
+
+body.home-dashboard .reminder-card:hover {
+  transform: translateY(-2px) !important;
+  background: #ffffff !important;
+  border-color: #bfb2fa !important;
+  box-shadow: 0 12px 26px rgba(109, 74, 255, 0.12) !important;
+}
+
+body.home-dashboard .reminder-icon {
+  flex: 0 0 46px !important;
+  width: 46px !important;
+  height: 46px !important;
+  border-radius: 15px !important;
+  background: linear-gradient(135deg, #ede8ff, #e0d6ff) !important;
+  border: 1px solid #d3c6ff !important;
+  color: #5b38f5 !important;
+  font-size: 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: 0 4px 12px rgba(109, 74, 255, 0.14) !important;
+}
+
+body.home-dashboard .reminder-info {
+  flex: 1 !important;
+  min-width: 0 !important;
+}
+
+body.home-dashboard .reminder-info h3 {
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  color: #1e1846 !important;
+  margin: 0 0 4px !important;
+}
+
+body.home-dashboard .reminder-info p {
+  display: inline-block !important;
+  padding: 2px 9px !important;
+  margin: 0 0 7px !important;
+  border-radius: 999px !important;
+  background: #fce7f1 !important;
+  color: #b8326a !important;
+  font-size: 10.5px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.4px !important;
+  text-transform: uppercase !important;
+}
+
+body.home-dashboard .reminder-info small {
+  display: flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  width: fit-content !important;
+  padding: 4px 10px !important;
+  border-radius: 999px !important;
+  background: #f0ecff !important;
+  color: #4f2ce0 !important;
+  font-size: 11.5px !important;
+  font-weight: 700 !important;
+}
+
+body.home-dashboard .reminder-info small::before {
+  content: "⏰" !important;
+  font-size: 11px !important;
+}
+
+/* 3. Upcoming Holidays & Festivals — Replace Brown/Yellow with Crisp Violet, Sky & Mint Tints */
+body.home-dashboard #upcoming-festivals {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+}
+
+body.home-dashboard #upcoming-festivals .event-card {
+  position: relative !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  align-items: flex-start !important;
+  gap: 8px !important;
+  padding: 16px !important;
+  margin: 0 !important;
+  border-radius: 18px !important;
+  background: linear-gradient(155deg, #ffffff 0%, #f4f1ff 100%) !important;
+  border: 1px solid #e1dbf8 !important;
+  box-shadow: 0 6px 18px rgba(30, 24, 70, 0.05) !important;
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease !important;
+}
+
+body.home-dashboard #upcoming-festivals .event-card:nth-child(2n) {
+  background: linear-gradient(155deg, #ffffff 0%, #eef7ff 100%) !important;
+  border-color: #d7e8fa !important;
+}
+
+body.home-dashboard #upcoming-festivals .event-card:nth-child(3n) {
+  background: linear-gradient(155deg, #ffffff 0%, #fdf2f8 100%) !important;
+  border-color: #f6d8e8 !important;
+}
+
+body.home-dashboard #upcoming-festivals .event-card::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 0 auto 0 !important;
+  height: 3px !important;
+  background: linear-gradient(90deg, #6d4aff, #b455f7) !important;
+  opacity: 0.75 !important;
+}
+
+body.home-dashboard #upcoming-festivals .event-card:hover {
+  transform: translateY(-2px) !important;
+  border-color: #b8a9fa !important;
+  box-shadow: 0 12px 26px rgba(109, 74, 255, 0.12) !important;
+}
+
+body.home-dashboard #upcoming-festivals .event-card h3 {
+  font-size: 16.5px !important;
+  font-weight: 700 !important;
+  color: #1e1846 !important;
+  margin: 0 !important;
+}
+
+body.home-dashboard #upcoming-festivals .event-card p {
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  color: #676188 !important;
+  margin: 0 !important;
+}
+
+body.home-dashboard #upcoming-festivals .event-countdown,
+body.home-dashboard #upcoming-festivals .event-timing {
+  display: inline-flex !important;
+  align-items: center !important;
+  padding: 5px 11px !important;
+  border-radius: 999px !important;
+  background: #ede8ff !important;
+  color: #4f2ce0 !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  margin-top: 2px !important;
+}
+
+body.home-dashboard .festival-card-cta {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  margin-top: 4px !important;
+  padding: 6px 12px !important;
+  border-radius: 999px !important;
+  background: #ffffff !important;
+  border: 1px solid #d5cbfa !important;
+  color: #4f2ce0 !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+  transition: all 0.15s ease !important;
+}
+
+body.home-dashboard .festival-card-cta:hover {
+  background: linear-gradient(135deg, #7454ff, #4f2ce0) !important;
+  border-color: transparent !important;
+  color: #ffffff !important;
+}
+
+/* Dark Mode Overrides */
+body.dark-mode.home-dashboard .dashboard-secondary-panel {
+  background:
+    linear-gradient(#1b1830, #1b1830) padding-box,
+    linear-gradient(135deg, rgba(149, 123, 255, 0.36), rgba(180, 85, 247, 0.28)) border-box !important;
+}
+
+body.dark-mode.home-dashboard #reminders-container > p,
+body.dark-mode.home-dashboard .reminders-section > p:not(.section-label) {
+  background: rgba(149, 123, 255, 0.16) !important;
+  border-color: rgba(149, 123, 255, 0.32) !important;
+  color: #ece8ff !important;
+}
+
+body.dark-mode.home-dashboard .reminder-card,
+body.dark-mode.home-dashboard #upcoming-festivals .event-card,
+body.dark-mode.home-dashboard #upcoming-festivals .event-card:nth-child(2n),
+body.dark-mode.home-dashboard #upcoming-festivals .event-card:nth-child(3n) {
+  background: #231f3d !important;
+  border-color: #322c54 !important;
+}
+
+body.dark-mode.home-dashboard .reminder-icon {
+  background: rgba(149, 123, 255, 0.22) !important;
+  border-color: rgba(149, 123, 255, 0.35) !important;
+  color: #d9ceff !important;
+}
+
+body.dark-mode.home-dashboard .reminder-info h3,
+body.dark-mode.home-dashboard #upcoming-festivals .event-card h3 {
+  color: #f4f1ff !important;
+}
+
+body.dark-mode.home-dashboard .reminder-info small,
+body.dark-mode.home-dashboard #upcoming-festivals .event-countdown,
+body.dark-mode.home-dashboard #upcoming-festivals .event-timing {
+  background: rgba(149, 123, 255, 0.2) !important;
+  color: #d7cbff !important;
+}
+
+body.dark-mode.home-dashboard .festival-card-cta {
+  background: #1b1830 !important;
+  border-color: #3d3666 !important;
+  color: #dcd4ff !important;
+}
+
+@media (max-width: 820px) {
+  body.home-dashboard .secondary-dashboard-sections {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 460px) {
+  body.home-dashboard #upcoming-festivals {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ==========================================
+   FIRST-SCREEN HERO CARD (.today-dashboard-card)
+   ========================================== */
+
+body.home-dashboard .today-dashboard-card {
+  display: grid !important;
+  grid-template-columns: 0.88fr 1.28fr !important;
+  align-items: center !important;
+  gap: 22px !important;
+  padding: 22px 26px !important;
+  margin-bottom: 20px !important;
+  border-radius: 26px !important;
+  background:
+    linear-gradient(135deg, #ffffff 0%, #f5f1ff 62%, #fcf8ef 100%) padding-box,
+    linear-gradient(135deg, rgba(109, 74, 255, 0.34), rgba(217, 182, 110, 0.38)) border-box !important;
+  border: 1.5px solid transparent !important;
+  box-shadow: 0 18px 42px rgba(30, 24, 70, 0.08) !important;
+}
+
+body.home-dashboard .today-date-block {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  gap: 4px !important;
+  padding: 4px 6px !important;
+}
+
+body.home-dashboard .today-highlights {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+  width: 100% !important;
+}
+
+/* 1. Top-Right: Sleek Horizontal "Special today" Strip */
+body.home-dashboard .today-special-strip {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 14px !important;
+  min-height: 0 !important;
+  height: auto !important;
+  padding: 13px 18px !important;
+  border-radius: 18px !important;
+  background: #ffffff !important;
+  border: 1px solid #e2dcf8 !important;
+  box-shadow: 0 6px 18px rgba(30, 24, 70, 0.04) !important;
+}
+
+body.home-dashboard .today-special-strip .today-highlight-icon {
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 12px !important;
+  background: #eef6ff !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 20px !important;
+  flex-shrink: 0 !important;
+}
+
+body.home-dashboard .today-special-body {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 5px !important;
+  min-width: 0 !important;
+  flex: 1 !important;
+}
+
+body.home-dashboard .today-special-body > strong {
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.8px !important;
+  text-transform: uppercase !important;
+  color: #6d4aff !important;
+}
+
+/* Override the tall square box injected inside #today-special-days */
+body.home-dashboard #today-special-days {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  gap: 8px !important;
+  width: 100% !important;
+  min-height: 0 !important;
+  height: auto !important;
+}
+
+body.home-dashboard #today-special-days > * {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  width: auto !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  height: auto !important;
+  padding: 5px 13px !important;
+  margin: 0 !important;
+  border-radius: 999px !important;
+  background: #f4f1ff !important;
+  border: 1px solid #dfd7fb !important;
+  box-shadow: none !important;
+  font-size: 13.5px !important;
+  font-weight: 700 !important;
+  color: #1e1846 !important;
+  text-align: left !important;
+}
+
+/* 2. Bottom-Right: Compact & Crisp "TODAY'S MOMENT" Card */
+body.home-dashboard .today-personal-highlight {
+  min-height: 0 !important;
+  height: auto !important;
+  padding: 14px 18px !important;
+  border-radius: 20px !important;
+  background: #ffffff !important;
+  border: 1px solid #e2dcf8 !important;
+  box-shadow: 0 8px 22px rgba(30, 24, 70, 0.05) !important;
+}
+
+body.home-dashboard #today-personal-events {
+  width: 100% !important;
+}
+
+body.home-dashboard #today-personal-events .event-card,
+body.home-dashboard #today-personal-events > div {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 16px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+body.home-dashboard #today-personal-events img {
+  width: 72px !important;
+  height: 72px !important;
+  border-radius: 15px !important;
+  object-fit: cover !important;
+  object-position: center top !important;
+  flex-shrink: 0 !important;
+}
+
+body.home-dashboard #today-personal-events h3 {
+  font-size: 19px !important;
+  margin: 2px 0 4px !important;
+  line-height: 1.2 !important;
+  color: #1e1846 !important;
+}
+
+body.home-dashboard #today-personal-events p {
+  font-size: 12.5px !important;
+  margin: 4px 0 0 !important;
+  color: #676188 !important;
+}
+
+/* Dark Mode */
+body.dark-mode.home-dashboard .today-dashboard-card {
+  background:
+    linear-gradient(135deg, #1d1935 0%, #251f43 100%) padding-box,
+    linear-gradient(135deg, rgba(149, 123, 255, 0.42), rgba(217, 182, 110, 0.35)) border-box !important;
+}
+
+body.dark-mode.home-dashboard .today-special-strip,
+body.dark-mode.home-dashboard .today-personal-highlight {
+  background: #1b1830 !important;
+  border-color: #322c54 !important;
+}
+
+body.dark-mode.home-dashboard #today-special-days > * {
+  background: rgba(149, 123, 255, 0.2) !important;
+  border-color: rgba(149, 123, 255, 0.34) !important;
+  color: #f4f1ff !important;
+}
+
+body.dark-mode.home-dashboard #today-personal-events h3 {
+  color: #f4f1ff !important;
+}
+
+@media (max-width: 820px) {
+  body.home-dashboard .today-dashboard-card {
+    grid-template-columns: 1fr !important;
+    padding: 18px 16px !important;
+    gap: 14px !important;
+  }
+}
+
+/* ==========================================
+   MAGICAL TOUCHES FOR FIRST-SCREEN HERO CARD
+   ========================================== */
+
+body.home-dashboard .today-special-strip,
+body.home-dashboard .today-personal-highlight {
+  position: relative !important;
+  overflow: hidden !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease !important;
+}
+
+body.home-dashboard .today-special-strip:hover,
+body.home-dashboard .today-personal-highlight:hover {
+  border-color: #c5b6fa !important;
+  box-shadow: 0 12px 26px rgba(109, 74, 255, 0.11) !important;
+}
+
+/* Birthday / Special Celebration Shimmer Mode */
+body.home-dashboard .today-special-strip.is-birthday-mode,
+body.home-dashboard .today-personal-highlight.is-birthday-mode {
+  background: linear-gradient(135deg, #fff9fc 0%, #f6f0ff 55%, #fff9eb 100%) !important;
+  border-color: rgba(217, 182, 110, 0.65) !important;
+  box-shadow: 0 10px 26px rgba(180, 85, 247, 0.14) !important;
+}
+
+/* Interactive Sparkle / Wish Button Inside Today's Observance Pills */
+.magic-wish-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 6px;
+  padding: 2px 9px;
+  border-radius: 999px;
+  border: 1px solid rgba(109, 74, 255, 0.25);
+  background: linear-gradient(135deg, #7454ff, #b455f7);
+  color: #ffffff;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.magic-wish-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(109, 74, 255, 0.3);
+}
+
+/* Quick Action Pills Inside Today's Moment Card */
+.magic-moment-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.magic-mini-cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #7454ff, #4f2ce0);
+  color: #ffffff !important;
+  font-size: 11px;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(109, 74, 255, 0.22);
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.magic-mini-cta:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.06);
+}
+
+.magic-mini-ghost {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: #f4f1ff;
+  border: 1px solid #dfd7fb;
+  color: #4f2ce0 !important;
+  font-size: 11px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+.magic-mini-ghost:hover {
+  background: #eae4ff;
+}
+
+/* Floating Sparkle Burst Animation */
+.magic-sparkle {
+  position: absolute;
+  pointer-events: none;
+  font-size: 14px;
+  z-index: 10;
+  animation: magicFloat 0.82s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes magicFloat {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(0.7) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx, 20px), var(--dy, -36px)) scale(1.25) rotate(24deg);
+  }
+}
+
+body.dark-mode .magic-mini-ghost {
+  background: rgba(149, 123, 255, 0.18);
+  border-color: rgba(149, 123, 255, 0.32);
+  color: #e6dfff !important;
+}
+
+.magic-observance-link {
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.magic-observance-link:hover {
+  transform: translateY(-1px);
+  border-color: #b7a6f8 !important;
+  box-shadow: 0 6px 16px rgba(109, 74, 255, 0.14) !important;
+}
+
+.home-folder-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  margin-bottom: 14px;
+  scrollbar-width: none;
+}
+
+.home-folder-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.home-folder-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 15px;
+  border-radius: 999px;
+  background: var(--card, #ffffff);
+  border: 1px solid #e2dcf8;
+  color: #1e1846;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: 0 6px 16px rgba(30, 24, 70, 0.05);
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.home-folder-pill:hover {
+  transform: translateY(-1px);
+  border-color: #6d4aff;
+  box-shadow: 0 8px 20px rgba(109, 74, 255, 0.14);
+}
+
+body.dark-mode .home-folder-pill {
+  background: #1b1733;
+  border-color: #312b54;
+  color: #f4f1ff;
+}
+
+body.home-dashboard #upcoming-events .event-card {
+  position: relative !important;
+  display: grid !important;
+  grid-template-columns: 84px 1fr !important;
+  align-items: start !important;
+  gap: 16px !important;
+  padding: 18px !important;
+  margin: 0 !important;
+  min-width: 0 !important;
+  width: 100% !important;
+  border-radius: 22px !important;
+  background: var(--card, #ffffff) !important;
+  border: 1px solid #e2dcf8 !important;
+  box-shadow: 0 16px 38px rgba(30, 24, 70, 0.08) !important;
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease !important;
+}
+
+body.home-dashboard #upcoming-events .event-card:hover {
+  transform: translateY(-3px) !important;
+  border-color: rgba(109, 74, 255, 0.45) !important;
+  box-shadow: 0 20px 42px rgba(109, 74, 255, 0.13) !important;
+}
+
+/* Portrait Photo Frame */
+body.home-dashboard #upcoming-events .event-photo {
+  width: 84px !important;
+  height: 96px !important;
+  border-radius: 16px !important;
+  object-fit: cover !important;
+  object-position: center top !important;
+  border: 2px solid rgba(201, 152, 44, 0.35) !important;
+  flex-shrink: 0 !important;
+}
+
+/* Info Column */
+body.home-dashboard #upcoming-events .event-info {
+  min-width: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 5px !important;
+}
+
+body.home-dashboard #upcoming-events .event-type {
+  display: inline-flex !important;
+  width: fit-content !important;
+  padding: 3px 9px !important;
+  border-radius: 999px !important;
+  background: #f2eeff !important;
+  color: #6d4aff !important;
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.7px !important;
+}
+
+body.home-dashboard #upcoming-events .event-info h3 {
+  font-family: Georgia, serif !important;
+  font-size: 19px !important;
+  color: #1e1846 !important;
+  margin: 2px 0 0 !important;
+  line-height: 1.25 !important;
+}
+
+body.home-dashboard #upcoming-events .event-info p {
+  font-size: 13px !important;
+  color: #655f88 !important;
+  margin: 0 !important;
+}
+
+/* Bottom Footer Row: Countdown Pill + Send Card + Edit/Delete */
+body.home-dashboard #upcoming-events .event-actions {
+  grid-column: 1 / -1 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 10px !important;
+  padding-top: 12px !important;
+  margin-top: 4px !important;
+  border-top: 1px solid #e2dcf8 !important;
+  text-align: left !important;
+  width: 100% !important;
+}
+
+body.home-dashboard #upcoming-events .event-actions strong,
+body.home-dashboard #upcoming-events .card-days-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  padding: 5px 11px !important;
+  border-radius: 999px !important;
+  background: rgba(109, 74, 255, 0.1) !important;
+  color: #6d4aff !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  margin: 0 !important;
+}
+
+.home-card-celebrate-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.home-card-wish-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #6d4aff, #b455f7);
+  color: #ffffff !important;
+  font-size: 11.5px;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(109, 74, 255, 0.22);
+  transition: transform 0.15s ease;
+}
+
+.home-card-wish-link:hover {
+  transform: translateY(-1px);
+}
+
+body.home-dashboard #upcoming-events .card-buttons {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+body.home-dashboard #upcoming-events .card-buttons button {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 10px !important;
+  background: #f2eeff !important;
+  border: 1px solid #e2dcf8 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 14px !important;
+}
+
+/* Dark Mode */
+body.dark-mode.home-dashboard #upcoming-events .event-card {
+  background: #1b1733 !important;
+  border-color: #312b54 !important;
+}
+
+body.dark-mode.home-dashboard #upcoming-events .event-info h3 {
+  color: #f4f1ff !important;
+}
+
+body.dark-mode.home-dashboard #upcoming-events .event-actions {
+  border-top-color: #312b54 !important;
+}
+
+body.dark-mode.home-dashboard #upcoming-events .card-buttons button {
+  background: #241f42 !important;
+  border-color: #312b54 !important;
+}
+
+/* ==========================================
+   HOME EVENT GROUP LAYOUT
+   app.js renders .event-group wrappers inside #upcoming-events.
+   ========================================== */
+
+body.home-dashboard #timeline-view #upcoming-events {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  gap: 36px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+
+body.home-dashboard #upcoming-events > .event-group {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  gap: 16px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+}
+
+body.home-dashboard .event-group-heading {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  width: 100% !important;
+  margin: 0 !important;
+}
+
+body.home-dashboard .event-group-heading h2 {
+  margin: 0 !important;
+  color: var(--home-ink) !important;
+  font-family: 'Playfair Display', Georgia, serif !important;
+  font-size: 21px !important;
+  line-height: 1.25 !important;
+}
+
+body.home-dashboard .event-group-heading small {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 28px !important;
+  height: 28px !important;
+  padding: 0 8px !important;
+  border-radius: 50px !important;
+  background: var(--home-violet-soft) !important;
+  color: var(--home-violet-deep) !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+}
+
+/* Happening Today: one spacious card */
+body.home-dashboard #upcoming-events .today-group .event-group-grid {
+  display: grid !important;
+  grid-template-columns: minmax(0, 620px) !important;
+  gap: 18px !important;
+  width: 100% !important;
+}
+
+/* Coming Up: always three cards per row */
+body.home-dashboard #upcoming-events .coming-up-group .event-group-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 18px !important;
+  width: 100% !important;
+}
+
+/* Prevent narrow cards and vertical text wrapping */
+body.home-dashboard #upcoming-events .event-card {
+  box-sizing: border-box !important;
+  min-width: 0 !important;
+  width: 100% !important;
+}
+
+body.home-dashboard #upcoming-events .event-info,
+body.home-dashboard #upcoming-events .event-info h3 {
+  min-width: 0 !important;
+  overflow-wrap: break-word !important;
+  word-break: normal !important;
+}
+
+@media (max-width: 1000px) {
+  body.home-dashboard #upcoming-events > .event-group:nth-child(2) .event-group-grid,
+  body.home-dashboard #upcoming-events > .event-group:not(:first-child) .event-group-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 650px) {
+  body.home-dashboard #upcoming-events > .event-group .event-group-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  body.home-dashboard .event-group-heading h2 {
+    font-size: 19px !important;
+  }
+}
+
+/* Dark mode */
+body.dark-mode.home-dashboard .event-group-heading h2 {
+  color: var(--home-ink) !important;
+}
+
+body.dark-mode.home-dashboard #upcoming-events .event-card {
+  background: #1b1733 !important;
+  border-color: #312b54 !important;
+}
+
+body.dark-mode.home-dashboard #upcoming-events .event-info h3 {
+  color: #f4f1ff !important;
+}
+
+body.dark-mode.home-dashboard #upcoming-events .event-actions {
+  border-top-color: #312b54 !important;
+}
+
+body.dark-mode.home-dashboard #upcoming-events .card-buttons button {
+  background: #241f42 !important;
+  border-color: #312b54 !important;
+}
+
+
+
+/* ==========================================
+   TODAY'S FEATURED OCCASION — PREMIUM STYLE
+   ========================================== */
+
+body.home-dashboard
+.today-event-group .event-card {
+    position: relative !important;
+    overflow: hidden !important;
+    isolation: isolate;
+    background:
+        linear-gradient(120deg,
+            rgba(248, 244, 255, 0.98),
+            rgba(255, 252, 249, 0.98)
+        ) !important;
+    border: 1px solid #d8c5ff !important;
+    border-radius: 25px !important;
+    box-shadow:
+        0 14px 38px rgba(112, 77, 210, 0.10),
+        0 3px 10px rgba(112, 77, 210, 0.05) !important;
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease !important;
+}
+
+/* Colourful signature line */
+body.home-dashboard
+.today-event-group .event-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(
+        90deg,
+        #7654ff 0%,
+        #bd63e8 48%,
+        #ffc18e 100%
+    );
+    z-index: 2;
+}
+
+/* Soft decorative glow */
+body.home-dashboard
+.today-event-group .event-card::after {
+    content: "";
+    position: absolute;
+    top: -90px;
+    right: -70px;
+    width: 230px;
+    height: 230px;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(180, 132, 255, 0.12),
+        transparent 70%
+    );
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Highlight the Today badge */
+body.home-dashboard
+.today-event-group .event-countdown,
+body.home-dashboard
+.today-event-group .countdown,
+body.home-dashboard
+.today-event-group .event-date-badge {
+    background: #eee7ff !important;
+    color: #7048ed !important;
+    border: 1px solid rgba(132, 91, 255, 0.12);
+    border-radius: 30px !important;
+    font-weight: 800 !important;
+}
+
+/* Image gets a subtle premium frame */
+body.home-dashboard
+.today-event-group .event-card img {
+    border: 2px solid #f0dba9 !important;
+    box-shadow: 0 7px 18px rgba(45, 35, 75, 0.12) !important;
+}
+
+/* Hover */
+@media (hover: hover) {
+    body.home-dashboard
+    .today-event-group .event-card:hover {
+        transform: translateY(-4px);
+        border-color: #ad8cff !important;
+        box-shadow:
+            0 20px 42px rgba(112, 77, 210, 0.16),
+            0 5px 14px rgba(112, 77, 210, 0.08) !important;
+    }
+}
+
+/* Dark mode */
+body.dark-mode.home-dashboard
+.today-event-group .event-card {
+    background: linear-gradient(
+        120deg,
+        #211a3a,
+        #292039
+    ) !important;
+    border-color: #57427f !important;
+    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.22) !important;
+}
+
+
+/* ==========================================
+   TODAY — SPECIAL CELEBRATION PANEL
+   ========================================== */
+
+body.home-dashboard
+.today-event-group .event-card {
+    position: relative !important;
+    overflow: hidden !important;
+}

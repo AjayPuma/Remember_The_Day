@@ -9,97 +9,527 @@
 <link rel="stylesheet" href="../css/surprise-studio.css">
 </head>
 <body class="studio-body">
+<canvas id="fx-canvas" class="fx-canvas" aria-hidden="true"></canvas>
+
 <header class="studio-header">
-  <a class="studio-back" href="../index.html">← Home</a>
-  <div><p class="studio-eyebrow">REMEMBER A DAY PRESENTS</p><h1>Surprise Studio <span>✦</span></h1>
-  <p>Make a little happiness for someone.</p></div>
-  <button id="my-surprises" class="studio-ghost" type="button">My creations</button>
+  <div class="studio-header-inner">
+    <div class="app-brand-row">
+      <a class="app-brand-badge" href="../index.html" aria-label="Remember-a-Day Home">♥</a>
+      <div>
+        <a class="studio-back" href="../index.html">← Back to Remember-a-Day</a>
+        <h1>Surprise Hub <span>✦</span></h1>
+        <p>Create 3D cards, nested gift boxes, voice notes &amp; memory flipbooks</p>
+      </div>
+    </div>
+    <div class="studio-header-actions">
+      <button id="sound-toggle" class="studio-ghost" type="button">🔊 Sound: ON</button>
+      <button id="my-surprises" class="studio-ghost" type="button">✦ My Creations <span id="creations-count" class="badge-pill">0</span></button>
+    </div>
+  </div>
 </header>
+
 <main class="studio-wrap">
   <div id="shared-view" class="shared-view" hidden></div>
+
+  <!-- Creations Vault Modal -->
+  <div id="creations-modal" class="studio-modal" hidden role="dialog" aria-modal="true" aria-labelledby="creations-modal-title">
+    <div class="studio-modal-backdrop" id="creations-backdrop"></div>
+    <div class="studio-modal-card">
+      <div class="studio-modal-head">
+        <div>
+          <p class="studio-eyebrow">CREATIONS VAULT</p>
+          <h2 id="creations-modal-title">My Creations</h2>
+        </div>
+        <button type="button" class="modal-close" id="close-creations" aria-label="Close">×</button>
+      </div>
+      <div class="vault-toolbar">
+        <button type="button" id="export-vault-json" class="studio-link">Export JSON</button>
+        <label class="studio-link vault-import-label">Import JSON <input type="file" id="import-vault-json" accept="application/json" hidden></label>
+        <button type="button" id="sync-vault-cloud" class="studio-secondary">Sync Cloud</button>
+      </div>
+      <div id="creations-list" class="creations-list"></div>
+    </div>
+  </div>
+
   <section id="studio-app">
     <nav class="studio-tabs" aria-label="Surprise types">
-      <button class="studio-tab active" data-panel="cards">💌 Gift cards</button>
-      <button class="studio-tab" data-panel="giftbox">🎁 Gift box</button>
-      <button class="studio-tab" data-panel="memory">📸 Photo memories</button>
+      <button class="studio-tab active" data-panel="cards">💌 3D Card Studio</button>
+      <button class="studio-tab" data-panel="giftbox">🎁 Magic Gift Box</button>
+      <button class="studio-tab" data-panel="memory">📸 Memory Flipbook</button>
     </nav>
 
+    <!-- ================= 1. 3D CARD STUDIO ================= -->
     <section class="studio-panel active" id="panel-cards">
-      <div class="studio-intro"><div><p class="studio-eyebrow">DESIGNED TO DELIGHT</p><h2>Choose your card</h2><p>Start with a design, then make every detail yours.</p></div><span class="intro-sparkle">✧</span></div>
-      <div class="template-toolbar">
-        <input id="template-search" type="search" placeholder="Search designs..." aria-label="Search designs">
-        <div class="template-filters" id="template-filters">
-          <button class="filter-chip active" data-filter="all">All</button><button class="filter-chip" data-filter="birthday">Birthday</button><button class="filter-chip" data-filter="love">Love</button><button class="filter-chip" data-filter="friendship">Friendship</button><button class="filter-chip" data-filter="celebration">Celebration</button><button class="filter-chip" data-filter="thanks">Thanks</button>
+      <div class="studio-intro">
+        <div>
+          <p class="studio-eyebrow">STEP 1 · LIVE CARD WORKSPACE</p>
+          <h2>Interactive 3D Card Studio</h2>
+          <p>Edit on the left while your 3D card stays in view on the right—built for web &amp; Android mobile.</p>
         </div>
+        <span class="intro-sparkle">✦</span>
       </div>
-      <div class="studio-editor-grid">
-        <div><div class="template-grid" id="template-grid"></div></div>
-        <aside class="editor-panel">
-          <div class="editor-heading"><p class="studio-eyebrow">PERSONALISE IT</p><h3>Your card details</h3></div>
-          <label>Recipient's name<input id="to-name" maxlength="45" placeholder="Dear Alex"></label>
-          <label>Your name<input id="from-name" maxlength="45" placeholder="With love, Sam"></label>
-          <label>Heading<input id="card-heading" maxlength="55" value="Happy Birthday!"></label>
-          <label>Your message<textarea id="card-message" maxlength="260" rows="4">Wishing you a day filled with love, laughter and beautiful moments.</textarea></label>
-          <label>Occasion date<input id="card-date" type="date"></label>
-          <label>Upload photos <span class="muted">(up to 4)</span><input id="card-photos" type="file" accept="image/*" multiple></label>
-          <div id="card-photo-status" class="field-hint">Photos become part of your card design.</div>
-          <label>Colour mood<select id="card-palette"><option value="original">Template colours</option><option value="rose">Rose & blush</option><option value="navy">Midnight & gold</option><option value="sage">Sage & cream</option><option value="lavender">Lilac dream</option><option value="sunset">Peach sunset</option></select></label>
-          <label class="check-row"><input type="checkbox" id="card-motion" checked> Add gentle animation</label>
-          <div class="editor-actions"><button class="studio-primary" id="download-card">Download PNG ↓</button><button class="studio-secondary" id="share-card">Share card ↗</button><button class="studio-link" id="save-card-link">Create shareable link</button></div>
-          <p class="field-hint" id="studio-status" role="status">Choose any design to begin.</p>
+
+      <div class="card-workspace">
+        <!-- LEFT PANE: Scrollable Controls Sorted by Quick Section Buttons -->
+        <div class="card-controls-pane" id="card-controls-pane">
+          <div class="section-jump-bar" role="tablist" aria-label="Card editor sections">
+            <button type="button" class="sec-jump-btn active" data-sec="sec-templates">🎨 Designs</button>
+            <button type="button" class="sec-jump-btn" data-sec="sec-text">✍️ Text &amp; Date</button>
+            <button type="button" class="sec-jump-btn" data-sec="sec-style">✨ Look &amp; Stickers</button>
+            <button type="button" class="sec-jump-btn" data-sec="sec-export">📸 Photos &amp; Share</button>
+          </div>
+
+          <!-- Section 1: Card Templates -->
+          <div class="editor-box sec-block active" id="sec-templates">
+            <div class="editor-heading">
+              <p class="studio-eyebrow">CHOOSE A CARD DESIGN</p>
+              <h3>Card Templates</h3>
+            </div>
+
+            <div class="template-toolbar">
+              <input id="template-search" type="search" placeholder="Search birthday, anniversary, romantic, royal, floral..." aria-label="Search designs">
+              <div class="template-filters" id="template-filters">
+                <button class="filter-chip active" data-filter="all">All (36)</button>
+                <button class="filter-chip" data-filter="birthday">🎂 Birthday</button>
+                <button class="filter-chip" data-filter="anniversary">🥂 Anniversary</button>
+                <button class="filter-chip" data-filter="love">💖 Romantic</button>
+                <button class="filter-chip" data-filter="friendship">☀ Friendship</button>
+                <button class="filter-chip" data-filter="celebration">🎉 Milestone</button>
+              </div>
+            </div>
+
+            <div class="template-grid" id="template-grid"></div>
+          </div>
+
+          <!-- Section 2: Message, Back Note, Scratch Secret & Date -->
+          <div class="editor-box sec-block" id="sec-text">
+            <div class="editor-heading">
+              <p class="studio-eyebrow">PERSONALISE WORDS</p>
+              <h3>Message, Scratch &amp; Date</h3>
+            </div>
+
+            <div class="quick-wishes">
+              <button type="button" class="wish-chip" data-wish="birthday">🎂 Birthday</button>
+              <button type="button" class="wish-chip" data-wish="anniversary">🥂 Anniversary</button>
+              <button type="button" class="wish-chip" data-wish="midnight">✨ Midnight</button>
+              <button type="button" class="wish-chip" data-wish="forever">💍 Forever Us</button>
+            </div>
+
+            <div class="two-col-inputs">
+              <label>To<input id="to-name" maxlength="45" placeholder="Recipient name"></label>
+              <label>From<input id="from-name" maxlength="45" placeholder="Your name"></label>
+            </div>
+
+            <label>Heading<input id="card-heading" maxlength="55" value="Happy Birthday!"></label>
+            <label>Front message<textarea id="card-message" maxlength="260" rows="3">Wishing you a day filled with love, laughter and unforgettable magic.</textarea></label>
+            <label>Back / Inner letter note<textarea id="card-back-note" maxlength="320" rows="3" placeholder="Write a deeper note or special memory on the back of the card..."></textarea></label>
+
+            <div class="two-col-inputs">
+              <label>Scratch-off secret line<input id="card-scratch-text" maxlength="90" placeholder="Scratch here for secret..."></label>
+              <label>Start / Occasion date<input id="card-date" type="date"></label>
+            </div>
+
+            <label class="check-row">
+              <input type="checkbox" id="show-day-counter">
+              <span>Show days/years counter from occasion date</span>
+            </label>
+          </div>
+
+          <!-- Section 3: Typography, Colors, Mood & Stickers -->
+          <div class="editor-box sec-block" id="sec-style">
+            <div class="editor-heading">
+              <p class="studio-eyebrow">VISUAL STYLING</p>
+              <h3>Fonts, Colors &amp; Stickers</h3>
+            </div>
+
+            <div class="two-col-inputs">
+              <label>Font
+                <select id="card-font">
+                  <option value="'Playfair Display', Georgia, serif">Playfair Editorial</option>
+                  <option value="'Great Vibes', cursive">Great Vibes Script</option>
+                  <option value="'Cinzel', serif">Cinzel Royal</option>
+                  <option value="'Cormorant Garamond', serif">Cormorant Romantic</option>
+                  <option value="'Pacifico', cursive">Pacifico Fun</option>
+                  <option value="'DM Sans', sans-serif">DM Sans Modern</option>
+                </select>
+              </label>
+
+              <label>Effect
+                <select id="card-effect">
+                  <option value="foil">✨ Shimmering Gold Foil</option>
+                  <option value="glass">💎 Frosted Glass</option>
+                  <option value="classic">📜 Classic Luxury</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="three-col-inputs">
+              <label>Mood
+                <select id="card-palette">
+                  <option value="original">Template</option>
+                  <option value="navy">Midnight &amp; Gold</option>
+                  <option value="rose">Rose &amp; Blush</option>
+                  <option value="crimson">Velvet Red</option>
+                  <option value="emerald">Emerald &amp; Gold</option>
+                  <option value="lavender">Lilac Dream</option>
+                </select>
+              </label>
+              <label>Text Color<input id="card-custom-ink" type="color" value="#241d4d"></label>
+              <label>Trim Color<input id="card-custom-accent" type="color" value="#d9b66e"></label>
+            </div>
+
+            <label class="check-row">
+              <input type="checkbox" id="use-custom-colors">
+              <span>Use custom Text &amp; Trim colors above</span>
+            </label>
+
+            <div class="sticker-studio">
+              <div class="sticker-head">
+                <span>Stickers &amp; Cutouts (drag on card):</span>
+                <button type="button" id="clear-stickers" class="text-mini-btn">Clear</button>
+              </div>
+              <div class="sticker-tray" id="sticker-tray">
+                <button type="button" class="sticker-btn" data-sticker="🎂">🎂</button>
+                <button type="button" class="sticker-btn" data-sticker="🥂">🥂</button>
+                <button type="button" class="sticker-btn" data-sticker="💖">💖</button>
+                <button type="button" class="sticker-btn" data-sticker="✨">✨</button>
+                <button type="button" class="sticker-btn" data-sticker="🎈">🎈</button>
+                <button type="button" class="sticker-btn" data-sticker="👑">👑</button>
+                <button type="button" class="sticker-btn" data-sticker="🌹">🌹</button>
+                <button type="button" class="sticker-btn" data-sticker="💍">💍</button>
+                <button type="button" class="sticker-btn" data-sticker="🦋">🦋</button>
+                <button type="button" class="sticker-btn" data-sticker="🎉">🎉</button>
+              </div>
+              <div class="sticker-transform-bar">
+                <button type="button" id="sticker-grow" class="mini-pill">+ Bigger</button>
+                <button type="button" id="sticker-shrink" class="mini-pill">- Smaller</button>
+                <button type="button" id="sticker-rotate" class="mini-pill">↻ Rotate 20°</button>
+                <label class="mini-pill sticker-upload-pill">+ Sticker IMG <input type="file" id="custom-sticker-file" accept="image/*" hidden></label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 4: Photos, Format, Export & Share -->
+          <div class="editor-box sec-block" id="sec-export">
+            <div class="editor-heading">
+              <p class="studio-eyebrow">MEDIA &amp; EXPORT</p>
+              <h3>Photos, Format &amp; Share</h3>
+            </div>
+
+            <label>Card photos <span class="muted">(up to 4)</span><input id="card-photos" type="file" accept="image/*" multiple></label>
+            <div id="card-photo-status" class="field-hint">Photos frame inside your card.</div>
+
+            <label>Export Format
+              <select id="card-export-ratio">
+                <option value="square">Square Card (1200×1200)</option>
+                <option value="story">Story / Status (1080×1920)</option>
+              </select>
+            </label>
+
+            <div class="editor-actions">
+              <button class="studio-primary" id="pack-into-box" type="button">🎁 Pack This Card Inside Gift Box →</button>
+              <button class="studio-secondary" id="download-card" type="button">Download PNG ↓</button>
+              <div class="two-col-actions">
+                <button class="studio-link" id="share-card" type="button">Share Image ↗</button>
+                <button class="studio-link" id="save-card-link" type="button">Create Link + QR 🔗</button>
+              </div>
+            </div>
+
+            <div id="share-result-box" class="share-result-box" hidden></div>
+            <p class="field-hint" id="studio-status" role="status">Ready to craft your card.</p>
+          </div>
+        </div>
+
+        <!-- RIGHT PANE: Still / Sticky Live Card Stage -->
+        <aside class="card-stage-pane" aria-label="Live card preview">
+          <div class="card-live-stage">
+            <div class="live-stage-top">
+              <div>
+                <p class="studio-eyebrow">REAL-TIME PREVIEW</p>
+                <h3>Live Card</h3>
+              </div>
+              <div class="stage-toolbar">
+                <button type="button" id="flip-card-btn" class="mini-pill active">🔄 Flip</button>
+                <button type="button" id="reset-scratch-btn" class="mini-pill">🪙 Scratch</button>
+                <button type="button" id="trigger-card-magic" class="mini-pill">✨ FX</button>
+              </div>
+            </div>
+            <div id="card-live-preview" class="live-card-preview"></div>
+          </div>
         </aside>
       </div>
     </section>
 
+    <!-- ================= 2. MAGIC GIFT BOX ================= -->
     <section class="studio-panel" id="panel-giftbox">
-      <div class="studio-intro"><div><p class="studio-eyebrow">A SURPRISE INSIDE</p><h2>Build a gift box</h2><p>They tap the gift. The ribbon opens. Your message appears.</p></div><span class="intro-sparkle">🎀</span></div>
+      <div class="studio-intro">
+        <div>
+          <p class="studio-eyebrow">NESTED BOXES, CANDLES &amp; VOICE NOTES</p>
+          <h2>Theatrical Magic Gift Box</h2>
+          <p>Layer multiple nested boxes, add a secret lock or hold-to-charge power, blow out cake candles, and play voice/music.</p>
+        </div>
+        <span class="intro-sparkle">🎁</span>
+      </div>
+
       <div class="giftbox-layout">
-        <div class="giftbox-preview-wrap"><div id="giftbox-stage" class="giftbox-stage theme-rose">
-          <div class="gift-confetti" aria-hidden="true">✦　·　✧　·　✦</div>
-          <button id="giftbox-open" class="giftbox-art" type="button" aria-label="Open the surprise gift"><span class="gift-lid"></span><span class="gift-body"></span><span class="gift-ribbon-v"></span><span class="gift-ribbon-h"></span><span class="gift-bow">🎀</span></button>
-          <p id="giftbox-hint">Tap the gift to preview the surprise</p>
-          <div id="giftbox-reveal" class="giftbox-reveal" hidden><span>✨ A LITTLE SURPRISE ✨</span><h3 id="giftbox-reveal-title">For someone special</h3><p id="giftbox-reveal-message"></p><small id="giftbox-reveal-from"></small></div>
-        </div></div>
-        <div class="editor-panel"><div class="editor-heading"><p class="studio-eyebrow">MAKE IT PERSONAL</p><h3>Gift box details</h3></div>
-          <label>Recipient's name<input id="box-to" maxlength="45" placeholder="Someone special"></label>
-          <label>Surprise title<input id="box-title" maxlength="55" value="A little something for you"></label>
-          <label>Message inside<textarea id="box-message" maxlength="500" rows="5" placeholder="Write a message from your heart..."></textarea></label>
-          <label>From<input id="box-from" maxlength="45" placeholder="Your name"></label>
-          <label>Gift wrap<select id="box-theme"><option value="rose">Rose pink</option><option value="navy">Midnight blue</option><option value="lilac">Lavender</option><option value="sage">Sage green</option><option value="gold">Golden celebration</option></select></label>
-          <label>Optional photos<input id="box-photos" type="file" accept="image/*" multiple></label>
-          <label>Optional music (MP3)<input id="box-music" type="file" accept="audio/mpeg,audio/mp3"></label>
-<div class="editor-actions">
-  <button class="studio-primary" id="box-preview" type="button">
-    Preview opening ↗
-  </button>
+        <div class="giftbox-preview-wrap">
+          <div id="giftbox-stage" class="giftbox-stage theme-navy style-luxury" data-step="0">
+            <div class="magic-rays" aria-hidden="true"></div>
+            <div class="balloon-cluster" aria-hidden="true">
+              <span>🎈</span><span>✨</span><span>🎈</span><span>💖</span><span>🎈</span>
+            </div>
 
-  <button class="studio-secondary" id="box-share" type="button">
-    Create surprise link
-  </button>
-</div>
+            <div class="unbox-steps" id="unbox-steps">
+              <span class="step-dot active" data-s="0">1. Untie Ribbon</span>
+              <span class="step-dot" data-s="1">2. Nested / Lid</span>
+              <span class="step-dot" data-s="2">3. Grand Reveal</span>
+            </div>
 
-<p class="field-hint" id="box-status" role="status">
-  Your gift box is ready to preview!
-</p>        </div>
+            <!-- Optional Secret Passcode Gate -->
+            <div id="box-lock-gate" class="box-lock-gate" hidden>
+              <p class="studio-eyebrow">SECRET LOCK ACTIVE</p>
+              <p id="box-lock-hint-display">Enter the secret answer to unlock</p>
+              <div class="lock-input-row">
+                <input type="text" id="box-unlock-answer" placeholder="Type answer...">
+                <button type="button" id="box-unlock-btn" class="studio-primary">Unlock 🔓</button>
+              </div>
+              <small id="box-lock-error" class="lock-error"></small>
+            </div>
+
+            <div class="giftbox-scene" id="giftbox-scene">
+              <button id="giftbox-interact" class="giftbox-art" type="button" aria-label="Interact with gift box">
+                <span class="gift-glow"></span>
+                <span class="gift-lid"><span class="lid-trim"></span></span>
+                <span class="gift-body"><span class="box-emblem" id="box-layer-badge">LAYER 1</span></span>
+                <span class="gift-ribbon-v"></span>
+                <span class="gift-ribbon-h"></span>
+                <span class="gift-bow" id="gift-bow">🎀</span>
+              </button>
+              <div id="charge-meter-wrap" class="charge-meter-wrap" hidden>
+                <div class="charge-meter-fill" id="charge-meter-fill"></div>
+              </div>
+            </div>
+
+            <p id="giftbox-hint" class="giftbox-hint-pill">Step 1: Tap or hold the bow to begin 🎀</p>
+
+            <!-- Grand Finale Reveal -->
+            <div id="giftbox-reveal" class="giftbox-reveal" hidden>
+              <div class="reveal-header-tag">✨ SURPRISE UNLOCKED ✨</div>
+              <h3 id="giftbox-reveal-title">A Magical Surprise For You</h3>
+              <p id="giftbox-reveal-message"></p>
+
+              <!-- Interactive Birthday Cake & Blow-Out Candles -->
+              <div id="birthday-cake-widget" class="cake-widget" hidden>
+                <div class="cake-top">
+                  <button type="button" class="candle" data-lit="1" title="Tap to blow candle">🕯️<span class="flame">🔥</span></button>
+                  <button type="button" class="candle" data-lit="1" title="Tap to blow candle">🕯️<span class="flame">🔥</span></button>
+                  <button type="button" class="candle" data-lit="1" title="Tap to blow candle">🕯️<span class="flame">🔥</span></button>
+                </div>
+                <div class="cake-body">🎂 Make a wish &amp; blow out the candles!</div>
+                <div class="cake-actions">
+                  <button type="button" id="blow-candles-btn" class="mini-pill active">💨 Blow All Candles</button>
+                  <button type="button" id="mic-blow-btn" class="mini-pill">🎤 Blow Into Mic</button>
+                </div>
+              </div>
+
+              <!-- Embedded Card Rising Out -->
+              <div id="embedded-card-slot" class="embedded-card-slot" hidden></div>
+
+              <!-- Photo Strip -->
+              <div id="giftbox-reveal-photos" class="reveal-photo-strip"></div>
+
+              <!-- Voice Note & Music Box -->
+              <div class="music-box-bar">
+                <button type="button" id="toggle-synth-music" class="music-disc-btn">🎵 Play Celebration Chime</button>
+                <audio id="giftbox-audio-player" controls preload="metadata" hidden></audio>
+              </div>
+
+              <small id="giftbox-reveal-from" class="reveal-signature"></small>
+
+              <div class="reveal-footer-btns">
+                <button type="button" id="burst-more-fx" class="studio-primary">🎆 More Fireworks</button>
+                <button type="button" id="giftbox-replay" class="studio-link">↺ Re-wrap Box</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="editor-panel">
+          <div class="editor-heading">
+            <p class="studio-eyebrow">CONFIGURE THE MAGIC</p>
+            <h3>Gift Box Options</h3>
+          </div>
+
+          <div class="two-col-inputs">
+            <label>Nested Layers
+              <select id="box-layers">
+                <option value="1">1 Box (Classic)</option>
+                <option value="2">2 Nested Boxes</option>
+                <option value="3">3 Matryoshka Boxes</option>
+              </select>
+            </label>
+
+            <label>Open Mechanic
+              <select id="box-mechanic">
+                <option value="tap">👆 Step-by-Step Tap</option>
+                <option value="hold">⚡ Hold-to-Charge Power</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="two-col-inputs">
+            <label>Box Style
+              <select id="box-style">
+                <option value="luxury">👑 Luxury Velvet &amp; Gold</option>
+                <option value="balloon">🎈 Balloon Burst Box</option>
+                <option value="cosmic">🌌 Starlight Chest</option>
+              </select>
+            </label>
+
+            <label>Wrap Theme
+              <select id="box-theme">
+                <option value="navy">Midnight &amp; Gold</option>
+                <option value="rose">Royal Rose Pink</option>
+                <option value="crimson">Velvet Crimson</option>
+                <option value="lilac">Enchanted Lilac</option>
+                <option value="emerald">Emerald Palace</option>
+              </select>
+            </label>
+          </div>
+
+          <label class="check-row highlight-check">
+            <input type="checkbox" id="include-designed-card" checked>
+            <span>💌 Include my designed 3D Card inside the box</span>
+          </label>
+
+          <label class="check-row highlight-check">
+            <input type="checkbox" id="include-birthday-cake">
+            <span>🎂 Include Birthday Cake &amp; blow-out candles</span>
+          </label>
+
+          <!-- Optional Passcode Lock -->
+          <label class="check-row">
+            <input type="checkbox" id="enable-box-lock">
+            <span>🔒 Require a secret passcode / answer to open</span>
+          </label>
+          <div id="box-lock-fields" class="two-col-inputs" hidden>
+            <label>Hint question<input type="text" id="box-lock-hint" placeholder="e.g. Our first trip?"></label>
+            <label>Secret answer<input type="text" id="box-lock-passcode" placeholder="e.g. Goa"></label>
+          </div>
+
+          <div class="two-col-inputs">
+            <label>Recipient<input id="box-to" maxlength="45" placeholder="Someone special"></label>
+            <label>From<input id="box-from" maxlength="45" placeholder="Your name"></label>
+          </div>
+
+          <label>Surprise title<input id="box-title" maxlength="55" value="A Magical Surprise For You"></label>
+          <label>Message inside<textarea id="box-message" maxlength="500" rows="3" placeholder="Write a message from your heart..."></textarea></label>
+
+          <label>Celebration Effect
+            <select id="box-fx-type">
+              <option value="fireworks">🎆 Fireworks + Sparks</option>
+              <option value="hearts">💖 Floating Hearts</option>
+              <option value="confetti">🎊 Party Confetti</option>
+            </select>
+          </label>
+
+          <label>Surprise photos <span class="muted">(up to 4)</span><input id="box-photos" type="file" accept="image/*" multiple></label>
+
+          <!-- Voice Note Recorder + MP3 -->
+          <div class="voice-recorder-box">
+            <div class="sticker-head">
+              <span>Voice Note or Song:</span>
+              <button type="button" id="record-voice-btn" class="mini-pill">🎙️ Record Voice</button>
+            </div>
+            <small id="voice-status" class="field-hint">Record a voice note or attach an MP3 below.</small>
+          </div>
+          <label>Or upload MP3<input id="box-music" type="file" accept="audio/mpeg,audio/mp3,audio/mp4,audio/webm"></label>
+
+          <div class="editor-actions">
+            <button class="studio-primary" id="box-preview" type="button">✨ Auto-Play Full Unboxing</button>
+            <button class="studio-secondary" id="box-share" type="button">Create Link + QR Code 🔗</button>
+          </div>
+          <div id="box-share-result" class="share-result-box" hidden></div>
+          <p class="field-hint" id="box-status" role="status">Configure your gift box and test opening it.</p>
+        </div>
       </div>
     </section>
 
+    <!-- ================= 3. PHOTO MEMORY FLIPBOOK ================= -->
     <section class="studio-panel" id="panel-memory">
-      <div class="studio-intro"><div><p class="studio-eyebrow">LITTLE MOMENTS, BIG FEELINGS</p><h2>Make a photo memory</h2><p>Turn your favourite pictures into a shareable keepsake.</p></div><span class="intro-sparkle">♡</span></div>
+      <div class="studio-intro">
+        <div>
+          <p class="studio-eyebrow">FLIPBOOK, SCRAPBOOK &amp; FILM STRIP</p>
+          <h2>Photo Memory Keepsake</h2>
+          <p>View photos in a layout grid or flip through them one by one like an interactive storybook.</p>
+        </div>
+        <span class="intro-sparkle">♡</span>
+      </div>
+
       <div class="memory-maker">
-        <div class="memory-preview" id="memory-preview"><div class="memory-paper"><p class="studio-eyebrow">A MOMENT TO KEEP</p><h2 id="memory-preview-title">Our favourite moments</h2><div id="memory-preview-photos" class="memory-photo-grid"><div class="memory-placeholder">Your photos will appear here</div></div><p id="memory-preview-caption">Some moments deserve to last forever.</p><small id="memory-preview-date"></small></div></div>
-        <div class="editor-panel"><div class="editor-heading"><p class="studio-eyebrow">YOUR MEMORY</p><h3>Arrange your story</h3></div>
+        <div class="memory-preview" id="memory-preview">
+          <div class="memory-paper">
+            <p class="studio-eyebrow">A MOMENT TO KEEP</p>
+            <h2 id="memory-preview-title">Our favourite moments</h2>
+            <div id="memory-preview-photos" class="memory-photo-grid">
+              <div class="memory-placeholder">Your photos will appear here</div>
+            </div>
+
+            <!-- Interactive Flipbook Viewer -->
+            <div id="flipbook-stage" class="flipbook-stage" hidden>
+              <img id="flipbook-img" src="" alt="Flipbook slide">
+              <div class="flipbook-controls">
+                <button type="button" id="flip-prev" class="mini-pill">← Prev</button>
+                <span id="flip-counter" class="flip-counter">1 / 1</span>
+                <button type="button" id="flip-next" class="mini-pill">Next →</button>
+                <button type="button" id="flip-autoplay" class="mini-pill">▶ Auto</button>
+              </div>
+            </div>
+
+            <p id="memory-preview-caption">Some moments deserve to last forever.</p>
+            <small id="memory-preview-date"></small>
+          </div>
+        </div>
+
+        <div class="editor-panel">
+          <div class="editor-heading">
+            <p class="studio-eyebrow">YOUR MEMORY</p>
+            <h3>Arrange your story</h3>
+          </div>
           <label>Memory title<input id="memory-title" maxlength="65" value="Our favourite moments"></label>
-          <label>Caption<textarea id="memory-caption" maxlength="300" rows="4">Some moments deserve to last forever.</textarea></label>
+          <label>Caption<textarea id="memory-caption" maxlength="300" rows="3">Some moments deserve to last forever.</textarea></label>
           <label>Memory date<input id="memory-date" type="date"></label>
           <label>Choose photos (up to 8)<input id="memory-photos" type="file" accept="image/*" multiple></label>
-          <label>Layout<select id="memory-layout"><option value="collage">Scrapbook collage</option><option value="polaroid">Polaroid wall</option><option value="film">Film strip</option></select></label>
-          <div class="editor-actions"><button class="studio-primary" id="download-memory">Download memory PNG ↓</button><button class="studio-secondary" id="share-memory">Create shareable link</button></div><p class="field-hint" id="memory-status" role="status">Add photos to make your memory.</p>
+          <label>Layout Mode
+            <select id="memory-layout">
+              <option value="collage">Scrapbook collage</option>
+              <option value="polaroid">Polaroid wall</option>
+              <option value="film">Cinema film strip</option>
+              <option value="flipbook">📖 Interactive Flipbook</option>
+            </select>
+          </label>
+          <div class="editor-actions">
+            <button class="studio-primary" id="download-memory" type="button">Download Memory PNG ↓</button>
+            <button class="studio-secondary" id="share-memory" type="button">Create Link + QR Code 🔗</button>
+          </div>
+          <div id="memory-share-result" class="share-result-box" hidden></div>
+          <p class="field-hint" id="memory-status" role="status">Add photos to make your memory.</p>
         </div>
       </div>
     </section>
   </section>
 </main>
-<nav class="studio-bottom-nav"><a href="../index.html">⌂<small>Home</small></a><a href="add.html">＋<small>Add</small></a><a href="memories.html">♥<small>Memories</small></a><a class="selected" href="surprise-studio.html">✦<small>Studio</small></a><a href="../settings.html">⚙<small>Settings</small></a></nav>
-<script src="../js/supabase-config.js"></script><script src="../js/surprise-studio.js"></script>
-</body></html>
+
+<nav class="studio-bottom-nav">
+  <a href="../index.html">⌂<small>Home</small></a>
+  <a href="add.html">＋<small>New Day</small></a>
+  <a href="memories.html">♡<small>Memories</small></a>
+  <a href="timeline.html">◔<small>Timeline</small></a>
+  <a class="selected" href="surprise-studio.html">✦<small>Surprise Hub</small></a>
+  <a href="../settings.html">⚙<small>Settings</small></a>
+</nav>
+
+<script src="../js/supabase-config.js"></script>
+<script src="../js/surprise-studio.js"></script>
+</body>
+</html>

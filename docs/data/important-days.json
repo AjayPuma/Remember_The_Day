@@ -1,4 +1,3 @@
-
 [
   {
     "id": "new-years-day",
@@ -8,6 +7,15 @@
     "dateType": "fixed",
     "month": 1,
     "day": 1
+  },
+  {
+    "id": "world-introvert-day",
+    "name": "World Introvert Day",
+    "emoji": "📚",
+    "category": "special",
+    "dateType": "fixed",
+    "month": 1,
+    "day": 2
   },
   {
     "id": "world-braille-day",
@@ -55,6 +63,24 @@
     "day": 15
   },
   {
+    "id": "national-startup-day",
+    "name": "National Startup Day",
+    "emoji": "🚀",
+    "category": "national",
+    "dateType": "fixed",
+    "month": 1,
+    "day": 16
+  },
+  {
+    "id": "hugging-day",
+    "name": "National Hugging Day",
+    "emoji": "🤗",
+    "category": "special",
+    "dateType": "fixed",
+    "month": 1,
+    "day": 21
+  },
+  {
     "id": "netaji-jayanti",
     "name": "Netaji Subhas Chandra Bose Jayanti",
     "emoji": "✊",
@@ -68,6 +94,15 @@
     "name": "National Girl Child Day",
     "emoji": "👧",
     "category": "national",
+    "dateType": "fixed",
+    "month": 1,
+    "day": 24
+  },
+  {
+    "id": "international-day-of-education",
+    "name": "International Day of Education",
+    "emoji": "🎓",
+    "category": "international",
     "dateType": "fixed",
     "month": 1,
     "day": 24
@@ -89,6 +124,15 @@
     "dateType": "fixed",
     "month": 1,
     "day": 26
+  },
+  {
+    "id": "data-privacy-day",
+    "name": "Data Privacy Day",
+    "emoji": "🔐",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 1,
+    "day": 28
   },
   {
     "id": "martyrs-day-jan",
@@ -118,6 +162,51 @@
     "day": 4
   },
   {
+    "id": "world-nutella-day",
+    "name": "World Nutella Day",
+    "emoji": "🍫",
+    "category": "special",
+    "dateType": "fixed",
+    "month": 2,
+    "day": 5
+  },
+  {
+    "id": "world-pizza-day",
+    "name": "World Pizza Day",
+    "emoji": "🍕",
+    "category": "special",
+    "dateType": "fixed",
+    "month": 2,
+    "day": 9
+  },
+  {
+    "id": "world-pulses-day",
+    "name": "World Pulses Day",
+    "emoji": "🌱",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 2,
+    "day": 10
+  },
+  {
+    "id": "women-in-science-day",
+    "name": "International Day of Women and Girls in Science",
+    "emoji": "👩‍🔬",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 2,
+    "day": 11
+  },
+  {
+    "id": "world-radio-day",
+    "name": "World Radio Day",
+    "emoji": "📻",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 2,
+    "day": 13
+  },
+  {
     "id": "valentines-day",
     "name": "Valentine's Day",
     "emoji": "💖",
@@ -125,6 +214,33 @@
     "dateType": "fixed",
     "month": 2,
     "day": 14
+  },
+  {
+    "id": "random-acts-of-kindness-day",
+    "name": "Random Acts of Kindness Day",
+    "emoji": "💛",
+    "category": "special",
+    "dateType": "fixed",
+    "month": 2,
+    "day": 17
+  },
+  {
+    "id": "world-day-of-social-justice",
+    "name": "World Day of Social Justice",
+    "emoji": "⚖️",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 2,
+    "day": 20
+  },
+  {
+    "id": "international-mother-language-day",
+    "name": "International Mother Language Day",
+    "emoji": "🗣️",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 2,
+    "day": 21
   },
   {
     "id": "national-science-day",
@@ -136,6 +252,24 @@
     "day": 28
   },
   {
+    "id": "zero-discrimination-day",
+    "name": "Zero Discrimination Day",
+    "emoji": "🤝",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 3,
+    "day": 1
+  },
+  {
+    "id": "world-wildlife-day",
+    "name": "World Wildlife Day",
+    "emoji": "🐅",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 3,
+    "day": 3
+  },
+  {
     "id": "international-womens-day",
     "name": "International Women's Day",
     "emoji": "👩",
@@ -143,6 +277,60 @@
     "dateType": "fixed",
     "month": 3,
     "day": 8
+  },
+  {
+    "id": "pi-day",
+    "name": "International Day of Mathematics (Pi Day)",
+    "emoji": "🥧",
+    "category": "special",
+    "dateType": "fixed",
+    "month": 3,
+    "day": 14
+  },
+  {
+    "id": "world-consumer-rights-day",
+    "name": "World Consumer Rights Day",
+    "emoji": "🛍️",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 3,
+    "day": 15
+  },
+  {
+    "id": "national-vaccination-day",
+    "name": "National Vaccination Day",
+    "emoji": "💉",
+    "category": "national",
+    "dateType": "fixed",
+    "month": 3,
+    "day": 16
+  },
+  {
+    "id": "international-day-of-happiness",
+    "name": "International Day of Happiness",
+    "emoji": "😊",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 3,
+    "day": 20
+  },
+  {
+    "id": "world-sparrow-day",
+    "name": "World Sparrow Day",
+    "emoji": "🐦",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 3,
+    "day": 20
+  },
+  {
+    "id": "world-poetry-day",
+    "name": "World Poetry Day",
+    "emoji": "✒️",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 3,
+    "day": 21
   },
   {
     "id": "world-water-day",
@@ -163,6 +351,42 @@
     "day": 23
   },
   {
+    "id": "world-theatre-day",
+    "name": "World Theatre Day",
+    "emoji": "🎭",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 3,
+    "day": 27
+  },
+  {
+    "id": "april-fools-day",
+    "name": "April Fools' Day",
+    "emoji": "🃏",
+    "category": "special",
+    "dateType": "fixed",
+    "month": 4,
+    "day": 1
+  },
+  {
+    "id": "world-autism-awareness-day",
+    "name": "World Autism Awareness Day",
+    "emoji": "🧩",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 4,
+    "day": 2
+  },
+  {
+    "id": "national-maritime-day",
+    "name": "National Maritime Day",
+    "emoji": "🚢",
+    "category": "national",
+    "dateType": "fixed",
+    "month": 4,
+    "day": 5
+  },
+  {
     "id": "world-health-day",
     "name": "World Health Day",
     "emoji": "🩺",
@@ -170,6 +394,33 @@
     "dateType": "fixed",
     "month": 4,
     "day": 7
+  },
+  {
+    "id": "siblings-day",
+    "name": "National Siblings Day",
+    "emoji": "👫",
+    "category": "special",
+    "dateType": "fixed",
+    "month": 4,
+    "day": 10
+  },
+  {
+    "id": "national-pet-day",
+    "name": "National Pet Day",
+    "emoji": "🐾",
+    "category": "special",
+    "dateType": "fixed",
+    "month": 4,
+    "day": 11
+  },
+  {
+    "id": "human-space-flight-day",
+    "name": "International Day of Human Space Flight",
+    "emoji": "🛸",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 4,
+    "day": 12
   },
   {
     "id": "ambedkar-jayanti",
@@ -181,6 +432,24 @@
     "day": 14
   },
   {
+    "id": "world-art-day",
+    "name": "World Art Day",
+    "emoji": "🎨",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 4,
+    "day": 15
+  },
+  {
+    "id": "world-heritage-day",
+    "name": "World Heritage Day",
+    "emoji": "🏛️",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 4,
+    "day": 18
+  },
+  {
     "id": "earth-day",
     "name": "Earth Day",
     "emoji": "🌍",
@@ -190,6 +459,33 @@
     "day": 22
   },
   {
+    "id": "world-book-day",
+    "name": "World Book and Copyright Day",
+    "emoji": "📕",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 4,
+    "day": 23
+  },
+  {
+    "id": "national-panchayati-raj-day",
+    "name": "National Panchayati Raj Day",
+    "emoji": "🏘️",
+    "category": "national",
+    "dateType": "fixed",
+    "month": 4,
+    "day": 24
+  },
+  {
+    "id": "international-dance-day",
+    "name": "International Dance Day",
+    "emoji": "💃",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 4,
+    "day": 29
+  },
+  {
     "id": "labour-day",
     "name": "International Labour Day",
     "emoji": "🛠️",
@@ -197,6 +493,24 @@
     "dateType": "fixed",
     "month": 5,
     "day": 1
+  },
+  {
+    "id": "world-press-freedom-day",
+    "name": "World Press Freedom Day",
+    "emoji": "📰",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 5,
+    "day": 3
+  },
+  {
+    "id": "star-wars-day",
+    "name": "Star Wars Day (May the 4th)",
+    "emoji": "⚔️",
+    "category": "special",
+    "dateType": "fixed",
+    "month": 5,
+    "day": 4
   },
   {
     "id": "mothers-day",
@@ -209,6 +523,15 @@
     "occurrence": 2
   },
   {
+    "id": "world-red-cross-day",
+    "name": "World Red Cross Day",
+    "emoji": "➕",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 5,
+    "day": 8
+  },
+  {
     "id": "technology-day",
     "name": "National Technology Day",
     "emoji": "💻",
@@ -216,6 +539,78 @@
     "dateType": "fixed",
     "month": 5,
     "day": 11
+  },
+  {
+    "id": "international-nurses-day",
+    "name": "International Nurses Day",
+    "emoji": "👩‍⚕️",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 5,
+    "day": 12
+  },
+  {
+    "id": "international-day-of-families",
+    "name": "International Day of Families",
+    "emoji": "👨‍👩‍👧‍👦",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 5,
+    "day": 15
+  },
+  {
+    "id": "world-bee-day",
+    "name": "World Bee Day",
+    "emoji": "🐝",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 5,
+    "day": 20
+  },
+  {
+    "id": "international-tea-day",
+    "name": "International Tea Day",
+    "emoji": "🍵",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 5,
+    "day": 21
+  },
+  {
+    "id": "world-turtle-day",
+    "name": "World Turtle Day",
+    "emoji": "🐢",
+    "category": "special",
+    "dateType": "fixed",
+    "month": 5,
+    "day": 23
+  },
+  {
+    "id": "world-no-tobacco-day",
+    "name": "World No Tobacco Day",
+    "emoji": "🚭",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 5,
+    "day": 31
+  },
+  {
+    "id": "global-day-of-parents",
+    "name": "Global Day of Parents",
+    "emoji": "💞",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 6,
+    "day": 1
+  },
+  {
+    "id": "world-bicycle-day",
+    "name": "World Bicycle Day",
+    "emoji": "🚲",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 6,
+    "day": 3
   },
   {
     "id": "environment-day",
@@ -227,13 +622,31 @@
     "day": 5
   },
   {
-    "id": "yoga-day",
-    "name": "International Day of Yoga",
-    "emoji": "🧘",
+    "id": "world-oceans-day",
+    "name": "World Oceans Day",
+    "emoji": "🌊",
     "category": "international",
     "dateType": "fixed",
     "month": 6,
-    "day": 21
+    "day": 8
+  },
+  {
+    "id": "best-friends-day",
+    "name": "National Best Friends Day",
+    "emoji": "🫶",
+    "category": "special",
+    "dateType": "fixed",
+    "month": 6,
+    "day": 8
+  },
+  {
+    "id": "world-blood-donor-day",
+    "name": "World Blood Donor Day",
+    "emoji": "🩸",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 6,
+    "day": 14
   },
   {
     "id": "fathers-day",
@@ -246,6 +659,42 @@
     "occurrence": 3
   },
   {
+    "id": "yoga-day",
+    "name": "International Day of Yoga",
+    "emoji": "🧘",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 6,
+    "day": 21
+  },
+  {
+    "id": "world-music-day",
+    "name": "World Music Day",
+    "emoji": "🎵",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 6,
+    "day": 21
+  },
+  {
+    "id": "international-olympic-day",
+    "name": "International Olympic Day",
+    "emoji": "🏅",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 6,
+    "day": 23
+  },
+  {
+    "id": "social-media-day",
+    "name": "World Social Media Day",
+    "emoji": "📱",
+    "category": "special",
+    "dateType": "fixed",
+    "month": 6,
+    "day": 30
+  },
+  {
     "id": "doctors-day",
     "name": "National Doctors' Day",
     "emoji": "🩺",
@@ -253,6 +702,69 @@
     "dateType": "fixed",
     "month": 7,
     "day": 1
+  },
+  {
+    "id": "world-ufo-day",
+    "name": "World UFO Day",
+    "emoji": "👽",
+    "category": "special",
+    "dateType": "fixed",
+    "month": 7,
+    "day": 2
+  },
+  {
+    "id": "world-chocolate-day",
+    "name": "World Chocolate Day",
+    "emoji": "🍫",
+    "category": "special",
+    "dateType": "fixed",
+    "month": 7,
+    "day": 7
+  },
+  {
+    "id": "world-population-day",
+    "name": "World Population Day",
+    "emoji": "🌎",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 7,
+    "day": 11
+  },
+  {
+    "id": "world-emoji-day",
+    "name": "World Emoji Day",
+    "emoji": "🥳",
+    "category": "special",
+    "dateType": "fixed",
+    "month": 7,
+    "day": 17
+  },
+  {
+    "id": "nelson-mandela-day",
+    "name": "Nelson Mandela International Day",
+    "emoji": "🕊️",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 7,
+    "day": 18
+  },
+  {
+    "id": "international-chess-day",
+    "name": "International Chess Day",
+    "emoji": "♟️",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 7,
+    "day": 20
+  },
+  {
+    "id": "moon-day",
+    "name": "International Moon Day",
+    "emoji": "🌕",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 7,
+    "day": 20
   },
   {
     "id": "kargil-vijay-diwas",
@@ -264,13 +776,31 @@
     "day": 26
   },
   {
-    "id": "independence-day",
-    "name": "Independence Day",
-    "emoji": "🇮🇳",
-    "category": "national",
+    "id": "world-nature-conservation-day",
+    "name": "World Nature Conservation Day",
+    "emoji": "🌿",
+    "category": "international",
     "dateType": "fixed",
-    "month": 8,
-    "day": 15
+    "month": 7,
+    "day": 28
+  },
+  {
+    "id": "international-tiger-day",
+    "name": "International Tiger Day",
+    "emoji": "🐯",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 7,
+    "day": 29
+  },
+  {
+    "id": "international-friendship-day",
+    "name": "International Friendship Day",
+    "emoji": "🤝",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 7,
+    "day": 30
   },
   {
     "id": "friendship-day",
@@ -281,6 +811,96 @@
     "month": 8,
     "weekday": 0,
     "occurrence": 1
+  },
+  {
+    "id": "book-lovers-day",
+    "name": "National Book Lovers Day",
+    "emoji": "📖",
+    "category": "special",
+    "dateType": "fixed",
+    "month": 8,
+    "day": 9
+  },
+  {
+    "id": "world-lion-day",
+    "name": "World Lion Day",
+    "emoji": "🦁",
+    "category": "special",
+    "dateType": "fixed",
+    "month": 8,
+    "day": 10
+  },
+  {
+    "id": "international-youth-day",
+    "name": "International Youth Day",
+    "emoji": "⚡",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 8,
+    "day": 12
+  },
+  {
+    "id": "world-elephant-day",
+    "name": "World Elephant Day",
+    "emoji": "🐘",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 8,
+    "day": 12
+  },
+  {
+    "id": "left-handers-day",
+    "name": "International Lefthanders Day",
+    "emoji": "✍️",
+    "category": "special",
+    "dateType": "fixed",
+    "month": 8,
+    "day": 13
+  },
+  {
+    "id": "independence-day",
+    "name": "Independence Day",
+    "emoji": "🇮🇳",
+    "category": "national",
+    "dateType": "fixed",
+    "month": 8,
+    "day": 15
+  },
+  {
+    "id": "world-photography-day",
+    "name": "World Photography Day",
+    "emoji": "📸",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 8,
+    "day": 19
+  },
+  {
+    "id": "world-humanitarian-day",
+    "name": "World Humanitarian Day",
+    "emoji": "🤍",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 8,
+    "day": 19
+  },
+  {
+    "id": "national-space-day-india",
+    "name": "National Space Day (India)",
+    "emoji": "🛰️",
+    "category": "national",
+    "dateType": "fixed",
+    "month": 8,
+    "day": 23
+  },
+  {
+    "id": "international-dog-day",
+    "name": "International Dog Day",
+    "emoji": "🐶",
+    "category": "special",
+    "dateType": "fixed",
+    "month": 8,
+    "day": 26
   },
   {
     "id": "national-sports-day",
@@ -301,13 +921,31 @@
     "day": 5
   },
   {
-    "id": "engineers-day",
-    "name": "Engineers' Day",
-    "emoji": "⚙️",
-    "category": "national",
+    "id": "international-day-of-charity",
+    "name": "International Day of Charity",
+    "emoji": "🎁",
+    "category": "international",
     "dateType": "fixed",
     "month": 9,
-    "day": 15
+    "day": 5
+  },
+  {
+    "id": "international-literacy-day",
+    "name": "International Literacy Day",
+    "emoji": "📚",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 9,
+    "day": 8
+  },
+  {
+    "id": "programmers-day",
+    "name": "Programmers' Day",
+    "emoji": "👨‍💻",
+    "category": "special",
+    "dateType": "fixed",
+    "month": 9,
+    "day": 13
   },
   {
     "id": "hindi-diwas",
@@ -319,6 +957,60 @@
     "day": 14
   },
   {
+    "id": "engineers-day",
+    "name": "Engineers' Day",
+    "emoji": "⚙️",
+    "category": "national",
+    "dateType": "fixed",
+    "month": 9,
+    "day": 15
+  },
+  {
+    "id": "world-ozone-day",
+    "name": "World Ozone Day",
+    "emoji": "🛡️",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 9,
+    "day": 16
+  },
+  {
+    "id": "international-day-of-peace",
+    "name": "International Day of Peace",
+    "emoji": "🕊️",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 9,
+    "day": 21
+  },
+  {
+    "id": "world-tourism-day",
+    "name": "World Tourism Day",
+    "emoji": "✈️",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 9,
+    "day": 27
+  },
+  {
+    "id": "world-heart-day",
+    "name": "World Heart Day",
+    "emoji": "❤️",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 9,
+    "day": 29
+  },
+  {
+    "id": "international-coffee-day",
+    "name": "International Coffee Day",
+    "emoji": "☕",
+    "category": "special",
+    "dateType": "fixed",
+    "month": 10,
+    "day": 1
+  },
+  {
     "id": "gandhi-jayanti",
     "name": "Gandhi Jayanti",
     "emoji": "🌱",
@@ -326,6 +1018,33 @@
     "dateType": "fixed",
     "month": 10,
     "day": 2
+  },
+  {
+    "id": "international-day-of-non-violence",
+    "name": "International Day of Non-Violence",
+    "emoji": "🕊️",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 10,
+    "day": 2
+  },
+  {
+    "id": "world-animal-day",
+    "name": "World Animal Day",
+    "emoji": "🦊",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 10,
+    "day": 4
+  },
+  {
+    "id": "world-teachers-day",
+    "name": "World Teachers' Day",
+    "emoji": "👩‍🏫",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 10,
+    "day": 5
   },
   {
     "id": "air-force-day",
@@ -337,13 +1056,94 @@
     "day": 8
   },
   {
-    "id": "childrens-day",
-    "name": "Children's Day",
-    "emoji": "👧",
+    "id": "world-post-day",
+    "name": "World Post Day",
+    "emoji": "✉️",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 10,
+    "day": 9
+  },
+  {
+    "id": "world-mental-health-day",
+    "name": "World Mental Health Day",
+    "emoji": "🧠",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 10,
+    "day": 10
+  },
+  {
+    "id": "international-girl-child-day",
+    "name": "International Day of the Girl Child",
+    "emoji": "🌟",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 10,
+    "day": 11
+  },
+  {
+    "id": "world-students-day",
+    "name": "World Students' Day",
+    "emoji": "🎓",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 10,
+    "day": 15
+  },
+  {
+    "id": "world-food-day",
+    "name": "World Food Day",
+    "emoji": "🍲",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 10,
+    "day": 16
+  },
+  {
+    "id": "united-nations-day",
+    "name": "United Nations Day",
+    "emoji": "🇺🇳",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 10,
+    "day": 24
+  },
+  {
+    "id": "national-unity-day",
+    "name": "National Unity Day (Rashtriya Ekta Diwas)",
+    "emoji": "🗿",
     "category": "national",
     "dateType": "fixed",
+    "month": 10,
+    "day": 31
+  },
+  {
+    "id": "halloween",
+    "name": "Halloween",
+    "emoji": "🎃",
+    "category": "special",
+    "dateType": "fixed",
+    "month": 10,
+    "day": 31
+  },
+  {
+    "id": "world-vegan-day",
+    "name": "World Vegan Day",
+    "emoji": "🥗",
+    "category": "special",
+    "dateType": "fixed",
     "month": 11,
-    "day": 14
+    "day": 1
+  },
+  {
+    "id": "world-science-day-for-peace",
+    "name": "World Science Day for Peace and Development",
+    "emoji": "🔭",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 11,
+    "day": 10
   },
   {
     "id": "national-education-day",
@@ -355,9 +1155,54 @@
     "day": 11
   },
   {
+    "id": "world-kindness-day",
+    "name": "World Kindness Day",
+    "emoji": "💐",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 11,
+    "day": 13
+  },
+  {
+    "id": "childrens-day",
+    "name": "Children's Day",
+    "emoji": "👧",
+    "category": "national",
+    "dateType": "fixed",
+    "month": 11,
+    "day": 14
+  },
+  {
+    "id": "international-mens-day",
+    "name": "International Men's Day",
+    "emoji": "👨",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 11,
+    "day": 19
+  },
+  {
+    "id": "world-television-day",
+    "name": "World Television Day",
+    "emoji": "📺",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 11,
+    "day": 21
+  },
+  {
     "id": "constitution-day",
     "name": "Constitution Day",
     "emoji": "📜",
+    "category": "national",
+    "dateType": "fixed",
+    "month": 11,
+    "day": 26
+  },
+  {
+    "id": "national-milk-day",
+    "name": "National Milk Day",
+    "emoji": "🥛",
     "category": "national",
     "dateType": "fixed",
     "month": 11,
@@ -373,6 +1218,15 @@
     "day": 1
   },
   {
+    "id": "world-computer-literacy-day",
+    "name": "World Computer Literacy Day",
+    "emoji": "🖥️",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 12,
+    "day": 2
+  },
+  {
     "id": "navy-day",
     "name": "Indian Navy Day",
     "emoji": "⚓",
@@ -380,6 +1234,24 @@
     "dateType": "fixed",
     "month": 12,
     "day": 4
+  },
+  {
+    "id": "world-soil-day",
+    "name": "World Soil Day",
+    "emoji": "🌾",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 12,
+    "day": 5
+  },
+  {
+    "id": "international-mountain-day",
+    "name": "International Mountain Day",
+    "emoji": "🏔️",
+    "category": "international",
+    "dateType": "fixed",
+    "month": 12,
+    "day": 11
   },
   {
     "id": "human-rights-day",
@@ -391,6 +1263,24 @@
     "day": 10
   },
   {
+    "id": "national-energy-conservation-day",
+    "name": "National Energy Conservation Day",
+    "emoji": "💡",
+    "category": "national",
+    "dateType": "fixed",
+    "month": 12,
+    "day": 14
+  },
+  {
+    "id": "international-tea-and-coffee-winter",
+    "name": "Winter Solstice",
+    "emoji": "❄️",
+    "category": "special",
+    "dateType": "fixed",
+    "month": 12,
+    "day": 21
+  },
+  {
     "id": "mathematics-day",
     "name": "National Mathematics Day",
     "emoji": "🧮",
@@ -400,6 +1290,15 @@
     "day": 22
   },
   {
+    "id": "national-farmers-day",
+    "name": "National Farmers' Day (Kisan Diwas)",
+    "emoji": "🚜",
+    "category": "national",
+    "dateType": "fixed",
+    "month": 12,
+    "day": 23
+  },
+  {
     "id": "christmas-eve-good-governance",
     "name": "Good Governance Day",
     "emoji": "🏛️",
@@ -407,5 +1306,14 @@
     "dateType": "fixed",
     "month": 12,
     "day": 25
+  },
+  {
+    "id": "new-years-eve",
+    "name": "New Year's Eve",
+    "emoji": "🎆",
+    "category": "special",
+    "dateType": "fixed",
+    "month": 12,
+    "day": 31
   }
 ]

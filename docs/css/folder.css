@@ -1,0 +1,649 @@
+/* ==========================================
+   OCCASION FOLDERS — RICH VIOLET & GOLD EDITION
+   ========================================== */
+
+:root {
+  --folder-bg: #f6f4ff;
+  --folder-surface: #ffffff;
+  --folder-surface-soft: #f2eeff;
+  --folder-ink: #1e1846;
+  --folder-muted: #655f88;
+  --folder-violet: #6d4aff;
+  --folder-violet-deep: #4b28dc;
+  --folder-orchid: #b455f7;
+  --folder-gold: #c9982c;
+  --folder-gold-soft: rgba(201, 152, 44, 0.16);
+  --folder-line: #e2dcf8;
+  --folder-shadow: 0 16px 38px rgba(30, 24, 70, 0.08);
+}
+
+body[data-folder] {
+  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(109, 74, 255, 0.13), transparent 45%),
+    radial-gradient(circle at top right, rgba(201, 152, 44, 0.12), transparent 44%),
+    var(--folder-bg);
+  color: var(--folder-ink);
+  min-height: 100vh;
+}
+
+body.dark-mode[data-folder] {
+  --folder-bg: #120f24;
+  --folder-surface: #1b1733;
+  --folder-surface-soft: #241f42;
+  --folder-ink: #f4f1ff;
+  --folder-muted: #a69fc9;
+  --folder-violet: #957bff;
+  --folder-violet-deep: #6d4aff;
+  --folder-orchid: #c97dff;
+  --folder-gold: #e0b24a;
+  --folder-gold-soft: rgba(224, 178, 74, 0.18);
+  --folder-line: #312b54;
+  --folder-shadow: 0 18px 42px rgba(4, 3, 12, 0.5);
+}
+
+/* ==========================================
+   HERO HEADER + SPOTLIGHT CARD
+   ========================================== */
+
+body[data-folder] .app-header {
+  background:
+    linear-gradient(135deg, rgba(109, 74, 255, 0.09), rgba(201, 152, 44, 0.08)),
+    var(--folder-surface);
+  border-bottom: 1px solid var(--folder-line);
+  padding: 22px 20px 26px;
+}
+
+body[data-folder] .header-content {
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+.folder-header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.folder-top-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+body[data-folder] .back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 0;
+  padding: 8px 15px;
+  border-radius: 999px;
+  background: var(--folder-surface-soft);
+  border: 1px solid var(--folder-line);
+  color: var(--folder-ink);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+body[data-folder] .back-link:hover {
+  transform: translateY(-1px);
+  border-color: var(--folder-violet);
+}
+
+.folder-studio-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--folder-gold-soft);
+  border: 1px solid rgba(201, 152, 44, 0.35);
+  color: var(--folder-gold);
+  font-size: 12.5px;
+  font-weight: 800;
+  text-decoration: none;
+  transition: transform 0.15s ease;
+}
+
+.folder-studio-pill:hover {
+  transform: translateY(-1px);
+}
+
+.folder-theme-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  border: 1px solid var(--folder-line);
+  background: var(--folder-surface);
+  color: var(--folder-ink);
+  font-size: 16px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.folder-hero-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.95fr;
+  align-items: center;
+  gap: 22px;
+}
+
+body[data-folder] .section-label {
+  color: var(--folder-gold);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+body[data-folder] .app-header h1 {
+  font-family: Georgia, serif;
+  font-size: 32px;
+  line-height: 1.15;
+  color: var(--folder-ink);
+  margin-bottom: 6px;
+}
+
+body[data-folder] .tagline {
+  color: var(--folder-muted);
+  font-size: 14.5px;
+  margin-bottom: 14px;
+}
+
+/* Folder Stats Mini Pills */
+.folder-stats-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.folder-stat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--folder-surface);
+  border: 1px solid var(--folder-line);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--folder-muted);
+}
+
+.folder-stat-pill strong {
+  color: var(--folder-violet);
+  font-weight: 800;
+}
+
+/* Next Celebration Spotlight Card */
+.folder-spotlight-card {
+  position: relative;
+  overflow: hidden;
+  padding: 18px 20px;
+  border-radius: 22px;
+  background:
+    linear-gradient(135deg, #ffffff 0%, #f5f0ff 65%, #fff9eb 100%) padding-box,
+    linear-gradient(135deg, rgba(109, 74, 255, 0.38), rgba(201, 152, 44, 0.45)) border-box;
+  border: 1.5px solid transparent;
+  box-shadow: var(--folder-shadow);
+}
+
+body.dark-mode .folder-spotlight-card {
+  background:
+    linear-gradient(135deg, #211c3d 0%, #2a234d 100%) padding-box,
+    linear-gradient(135deg, rgba(149, 123, 255, 0.45), rgba(224, 178, 74, 0.4)) border-box;
+}
+
+.spotlight-badge-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.spotlight-eyebrow {
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+  color: var(--folder-gold);
+}
+
+.spotlight-days-pill {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(109, 74, 255, 0.12);
+  color: var(--folder-violet);
+  font-size: 11.5px;
+  font-weight: 800;
+}
+
+.spotlight-body {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.spotlight-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  object-fit: cover;
+  object-position: center top;
+  background: var(--folder-surface-soft);
+  border: 2px solid rgba(201, 152, 44, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.spotlight-copy {
+  min-width: 0;
+  flex: 1;
+}
+
+.spotlight-copy h2 {
+  font-family: Georgia, serif;
+  font-size: 18px;
+  color: var(--folder-ink);
+  margin: 0 0 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.spotlight-copy p {
+  font-size: 12.5px;
+  color: var(--folder-muted);
+  margin: 0;
+}
+
+.spotlight-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 12px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--folder-violet), var(--folder-violet-deep));
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 6px 16px rgba(109, 74, 255, 0.25);
+}
+
+/* ==========================================
+   MAIN CONTAINER & QUICK CHIPS
+   ========================================== */
+
+body[data-folder] .app-container {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 22px 20px 120px;
+}
+
+body[data-folder] .folder-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+body[data-folder] .search-icon-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--folder-line);
+  background: var(--folder-surface);
+  color: var(--folder-ink);
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(30, 24, 70, 0.05);
+}
+
+body[data-folder] .search-icon-button svg {
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke: var(--folder-violet);
+  stroke-width: 2.2;
+}
+
+body[data-folder] .primary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 11px 20px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--folder-violet), var(--folder-violet-deep));
+  color: #ffffff;
+  font-size: 13.5px;
+  font-weight: 700;
+  text-decoration: none;
+  border: 0;
+  box-shadow: 0 8px 20px rgba(109, 74, 255, 0.26);
+}
+
+/* Folder Switcher Tabs (Birthdays / Anniversaries / Custom) */
+.folder-switcher-strip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  margin-bottom: 14px;
+}
+
+.folder-tab-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 15px;
+  border-radius: 999px;
+  background: var(--folder-surface);
+  border: 1px solid var(--folder-line);
+  color: var(--folder-muted);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+.folder-tab-pill:hover {
+  border-color: var(--folder-violet);
+  color: var(--folder-ink);
+}
+
+.folder-tab-pill.active {
+  background: linear-gradient(135deg, var(--folder-violet), var(--folder-violet-deep));
+  border-color: transparent;
+  color: #ffffff;
+  box-shadow: 0 6px 16px rgba(109, 74, 255, 0.24);
+}
+
+/* Quick Timeframe / Month Chips */
+.quick-month-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 16px;
+}
+
+.q-chip {
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--folder-line);
+  background: var(--folder-surface);
+  color: var(--folder-muted);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.q-chip:hover {
+  border-color: var(--folder-violet);
+  color: var(--folder-ink);
+}
+
+.q-chip.active {
+  background: var(--folder-surface-soft);
+  border-color: var(--folder-violet);
+  color: var(--folder-violet);
+}
+
+/* Filter Drawer */
+body[data-folder] .folder-filter-panel {
+  background: var(--folder-surface);
+  border: 1px solid var(--folder-line);
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 18px;
+  box-shadow: var(--folder-shadow);
+}
+
+body[data-folder] .filter-panel-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+body[data-folder] .folder-filter-panel > label {
+  display: block;
+  margin: 12px 0 6px;
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+body[data-folder] .folder-filter-panel input,
+body[data-folder] .folder-filter-panel select {
+  width: 100%;
+  min-height: 42px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--folder-line);
+  background: var(--folder-surface-soft);
+  color: var(--folder-ink);
+  font-size: 14px;
+}
+
+body[data-folder] .folder-note {
+  font-size: 12.5px;
+  color: var(--folder-muted);
+  margin-bottom: 18px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: var(--folder-surface);
+  border: 1px dashed var(--folder-line);
+}
+
+/* ==========================================
+   REDESIGNED CELEBRATION CARDS (#occasion-list)
+   ========================================== */
+
+#occasion-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  gap: 18px;
+}
+
+body[data-folder] #occasion-list .event-card,
+body[data-folder] #occasion-list .holiday-card {
+  position: relative;
+  display: grid !important;
+  grid-template-columns: 84px 1fr !important;
+  align-items: start !important;
+  gap: 16px !important;
+  padding: 18px !important;
+  margin: 0 !important;
+  border-radius: 22px !important;
+  background: var(--folder-surface) !important;
+  border: 1px solid var(--folder-line) !important;
+  box-shadow: var(--folder-shadow) !important;
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease !important;
+}
+
+body[data-folder] #occasion-list .event-card:hover {
+  transform: translateY(-3px) !important;
+  border-color: rgba(109, 74, 255, 0.45) !important;
+  box-shadow: 0 20px 42px rgba(109, 74, 255, 0.13) !important;
+}
+
+body[data-folder] #occasion-list .event-photo {
+  width: 84px !important;
+  height: 96px !important;
+  border-radius: 16px !important;
+  object-fit: cover !important;
+  object-position: center top !important;
+  border: 2px solid rgba(201, 152, 44, 0.35) !important;
+}
+
+body[data-folder] #occasion-list .event-info {
+  min-width: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 5px !important;
+}
+
+body[data-folder] #occasion-list .folder-extra {
+  order: -1;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  width: fit-content;
+  margin: 0 !important;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--folder-gold-soft);
+  color: var(--folder-gold) !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+}
+
+body[data-folder] #occasion-list .event-type {
+  display: inline-flex;
+  width: fit-content;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--folder-surface-soft);
+  color: var(--folder-violet) !important;
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.7px;
+}
+
+body[data-folder] #occasion-list h3,
+body[data-folder] #occasion-list h2 {
+  font-family: Georgia, serif !important;
+  font-size: 19px !important;
+  color: var(--folder-ink) !important;
+  margin: 2px 0 0 !important;
+  line-height: 1.25 !important;
+}
+
+body[data-folder] #occasion-list p {
+  font-size: 13px !important;
+  color: var(--folder-muted) !important;
+  margin: 0 !important;
+}
+
+/* Bottom row inside card: Countdown + Quick Celebrate CTA + Edit/Delete */
+body[data-folder] #occasion-list .event-actions {
+  grid-column: 1 / -1 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 10px !important;
+  padding-top: 12px !important;
+  margin-top: 4px !important;
+  border-top: 1px solid var(--folder-line) !important;
+  text-align: left !important;
+}
+
+body[data-folder] #occasion-list .event-actions strong {
+  display: inline-flex !important;
+  align-items: center !important;
+  padding: 5px 11px !important;
+  border-radius: 999px !important;
+  background: rgba(109, 74, 255, 0.1) !important;
+  color: var(--folder-violet) !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  margin: 0 !important;
+}
+
+.card-celebrate-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.card-wish-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--folder-violet), var(--folder-orchid));
+  color: #ffffff !important;
+  font-size: 11.5px;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(109, 74, 255, 0.22);
+  transition: transform 0.15s ease;
+}
+
+.card-wish-link:hover {
+  transform: translateY(-1px);
+}
+
+body[data-folder] #occasion-list .card-buttons {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+body[data-folder] #occasion-list .card-buttons button {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: var(--folder-surface-soft);
+  border: 1px solid var(--folder-line);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  transition: border-color 0.15s ease;
+}
+
+body[data-folder] #occasion-list .card-buttons button:hover {
+  border-color: var(--folder-violet);
+}
+
+/* Bottom Navigation */
+body[data-folder] .bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 1040px;
+  height: calc(72px + env(safe-area-inset-bottom));
+  padding: 6px 14px calc(6px + env(safe-area-inset-bottom));
+  background: var(--folder-surface);
+  border-top: 1px solid var(--folder-line);
+  border-radius: 20px 20px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  z-index: 100;
+}
+
+@media (max-width: 780px) {
+  .folder-hero-grid {
+    grid-template-columns: 1fr;
+  }
+
+  #occasion-list {
+    grid-template-columns: 1fr;
+  }
+}

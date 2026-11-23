@@ -1,5 +1,13 @@
-
 [
+  {
+    "id": "lohri",
+    "name": "Lohri",
+    "emoji": "🔥",
+    "category": "harvest",
+    "datesByYear": {
+      "2027": "2027-01-13"
+    }
+  },
   {
     "id": "makar-sankranti",
     "name": "Makar Sankranti",
@@ -37,12 +45,39 @@
     }
   },
   {
+    "id": "eid-al-fitr",
+    "name": "Eid al-Fitr",
+    "emoji": "🌙",
+    "category": "islamic",
+    "datesByYear": {
+      "2027": "2027-03-10"
+    }
+  },
+  {
     "id": "holi",
     "name": "Holi",
     "emoji": "🎨",
     "category": "hindu",
     "datesByYear": {
       "2027": "2027-03-22"
+    }
+  },
+  {
+    "id": "good-friday",
+    "name": "Good Friday",
+    "emoji": "✝️",
+    "category": "christian",
+    "datesByYear": {
+      "2027": "2027-03-26"
+    }
+  },
+  {
+    "id": "easter",
+    "name": "Easter Sunday",
+    "emoji": "🐣",
+    "category": "christian",
+    "datesByYear": {
+      "2027": "2027-03-28"
     }
   },
   {
@@ -55,6 +90,33 @@
     }
   },
   {
+    "id": "gudi-padwa",
+    "name": "Gudi Padwa",
+    "emoji": "🚩",
+    "category": "regional",
+    "datesByYear": {
+      "2027": "2027-04-07"
+    }
+  },
+  {
+    "id": "baisakhi",
+    "name": "Baisakhi",
+    "emoji": "🥁",
+    "category": "sikh",
+    "datesByYear": {
+      "2027": "2027-04-14"
+    }
+  },
+  {
+    "id": "vishu",
+    "name": "Vishu",
+    "emoji": "🌼",
+    "category": "regional",
+    "datesByYear": {
+      "2027": "2027-04-15"
+    }
+  },
+  {
     "id": "rama-navami",
     "name": "Rama Navami",
     "emoji": "🙏",
@@ -64,18 +126,49 @@
     }
   },
   {
-    "id": "eid-al-fitr",
-    "name": "Eid al-Fitr",
-    "emoji": "🌙",
-    "category": "islamic",
-    "datesByYear": {}
+    "id": "mahavir-jayanti",
+    "name": "Mahavir Jayanti",
+    "emoji": "☸️",
+    "category": "jain",
+    "datesByYear": {
+      "2027": "2027-04-19"
+    }
   },
   {
     "id": "eid-al-adha",
     "name": "Eid al-Adha",
     "emoji": "🐐",
     "category": "islamic",
-    "datesByYear": {}
+    "datesByYear": {
+      "2027": "2027-05-17"
+    }
+  },
+  {
+    "id": "buddha-purnima",
+    "name": "Buddha Purnima",
+    "emoji": "🪷",
+    "category": "buddhist",
+    "datesByYear": {
+      "2027": "2027-05-20"
+    }
+  },
+  {
+    "id": "muharram",
+    "name": "Muharram",
+    "emoji": "🕌",
+    "category": "islamic",
+    "datesByYear": {
+      "2027": "2027-06-16"
+    }
+  },
+  {
+    "id": "rath-yatra",
+    "name": "Rath Yatra",
+    "emoji": "🛕",
+    "category": "hindu",
+    "datesByYear": {
+      "2027": "2027-07-05"
+    }
   },
   {
     "id": "guru-purnima",
@@ -93,6 +186,15 @@
     "category": "hindu",
     "datesByYear": {
       "2027": "2027-08-17"
+    }
+  },
+  {
+    "id": "milad-un-nabi",
+    "name": "Milad-un-Nabi",
+    "emoji": "🌙",
+    "category": "islamic",
+    "datesByYear": {
+      "2027": "2027-08-15"
     }
   },
   {
@@ -114,12 +216,39 @@
     }
   },
   {
+    "id": "paryushana-samvatsari",
+    "name": "Samvatsari (Jain Forgiveness Day)",
+    "emoji": "🕊️",
+    "category": "jain",
+    "datesByYear": {
+      "2027": "2027-09-05"
+    }
+  },
+  {
     "id": "onam",
     "name": "Onam",
     "emoji": "🌼",
     "category": "regional",
     "datesByYear": {
       "2027": "2027-09-12"
+    }
+  },
+  {
+    "id": "navaratri",
+    "name": "Navaratri",
+    "emoji": "🔱",
+    "category": "hindu",
+    "datesByYear": {
+      "2027": "2027-10-01"
+    }
+  },
+  {
+    "id": "durga-puja",
+    "name": "Durga Puja",
+    "emoji": "🌺",
+    "category": "hindu",
+    "datesByYear": {
+      "2027": "2027-10-06"
     }
   },
   {
@@ -132,6 +261,24 @@
     }
   },
   {
+    "id": "karwa-chauth",
+    "name": "Karwa Chauth",
+    "emoji": "🌕",
+    "category": "hindu",
+    "datesByYear": {
+      "2027": "2027-10-18"
+    }
+  },
+  {
+    "id": "dhanteras",
+    "name": "Dhanteras",
+    "emoji": "🪙",
+    "category": "hindu",
+    "datesByYear": {
+      "2027": "2027-10-27"
+    }
+  },
+  {
     "id": "diwali",
     "name": "Diwali",
     "emoji": "🪔",
@@ -139,6 +286,34 @@
     "datesByYear": {
       "2026": "2026-11-08",
       "2027": "2027-10-29"
+    }
+  },
+  {
+    "id": "bhai-dooj",
+    "name": "Bhai Dooj",
+    "emoji": "🕯️",
+    "category": "hindu",
+    "datesByYear": {
+      "2027": "2027-10-31"
+    }
+  },
+  {
+    "id": "chhath-puja",
+    "name": "Chhath Puja",
+    "emoji": "🌅",
+    "category": "regional",
+    "datesByYear": {
+      "2027": "2027-11-04"
+    }
+  },
+  {
+    "id": "guru-nanak-jayanti",
+    "name": "Guru Nanak Jayanti",
+    "emoji": "🙏",
+    "category": "sikh",
+    "datesByYear": {
+      "2026": "2026-11-24",
+      "2027": "2027-11-14"
     }
   },
   {
