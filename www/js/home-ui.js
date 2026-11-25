@@ -98,6 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
   arrangeUpcomingCards();
   enhanceFestivalCards();
   enhanceHeroMagic();
+  enhanceEventModalMagic(); // <-- add this line right here
 });
 
 
@@ -466,4 +467,522 @@ function enhanceHeroMagic() {
 
   if (specialContainer) observer.observe(specialContainer, { childList: true, subtree: true });
   if (momentContainer) observer.observe(momentContainer, { childList: true, subtree: true });
+}
+
+
+/* ==========================================
+   REMEMBER A DAY - MAGIC EVENT POPUP
+   Optimized version
+   ========================================== */
+
+function enhanceEventModalMagic() {
+
+  // Prevent duplicate initialization
+  if (window.radMagicInitialized) return;
+  window.radMagicInitialized = true;
+
+  const glyphs = ["✦", "✧", "✨", "💛", "💜"];
+
+  let scanTimer = null;
+
+  /* ==========================================
+     SPARKLE EFFECT
+     ========================================== */
+
+  function burstSparkles(container) {
+
+    if (!container) return;
+
+    const rect = container.getBoundingClientRect();
+
+    for (let i = 0; i < 14; i++) {
+
+      const sparkle = document.createElement("span");
+
+      sparkle.className = "magic-sparkle";
+      sparkle.textContent = glyphs[i % glyphs.length];
+
+      sparkle.style.left =
+        (24 + Math.random() * Math.max(40, rect.width - 48)) + "px";
+
+      sparkle.style.top =
+        (24 + Math.random() * Math.max(40, rect.height - 48)) + "px";
+
+      sparkle.style.setProperty(
+        "--dx",
+        ((Math.random() - 0.5) * 95) + "px"
+      );
+
+      sparkle.style.setProperty(
+        "--dy",
+        (-35 - Math.random() * 55) + "px"
+      );
+
+      container.appendChild(sparkle);
+
+      sparkle.addEventListener("animationend", () => {
+        sparkle.remove();
+      }, { once: true });
+
+    }
+  }
+
+
+  /* ==========================================
+     PHOTO LIGHTBOX
+     ========================================== */
+
+  function openPhotoLightbox(src, alt) {
+
+    document.querySelectorAll(".modal-photo-lightbox")
+      .forEach(el => el.remove());
+
+    const overlay = document.createElement("div");
+
+    overlay.className = "modal-photo-lightbox";
+
+    const image = document.createElement("img");
+
+    image.src = src;
+    image.alt = alt || "Memory photo";
+
+    overlay.appendChild(image);
+
+    overlay.addEventListener("click", () => {
+      overlay.remove();
+    });
+
+    document.body.appendChild(overlay);
+  }
+
+
+  /* ==========================================
+     FIND ACTIVE POPUP
+     ========================================== */
+
+  function findActivePopupCard() {
+
+    const candidates = document.querySelectorAll(
+      "dialog[open], [role='dialog'], [class*='modal'], [class*='popup'], [class*='overlay']"
+    );
+
+    for (const el of candidates) {
+
+      if (el.classList.contains("modal-photo-lightbox")) {
+        continue;
+      }
+
+      const rect = el.getBoundingClientRect();
+
+      if (
+        rect.width < 260 ||
+        rect.height < 220 ||
+        getComputedStyle(el).display === "none" ||
+        getComputedStyle(el).visibility === "hidden"
+      ) {
+        continue;
+      }
+
+      const text = el.textContent || "";
+
+      if (
+        !/edit occasion/i.test(text) &&
+        !/status\s*&\s*countdown/i.test(text) &&
+        !/attached photo memories/i.test(text)
+      ) {
+        continue;
+      }
+
+      // Avoid decorating the full-screen backdrop.
+      const innerCards = el.querySelectorAll(
+        "div, section, article"
+      );
+
+      let bestCard = el;
+      let smallestArea = Infinity;
+
+      for (const child of innerCards) {
+
+        const childRect = child.getBoundingClientRect();
+
+        if (
+          childRect.width < 300 ||
+          childRect.width >= window.innerWidth * 0.98 ||
+          childRect.height < 220 ||
+          childRect.height >= rect.height * 0.98
+        ) {
+          continue;
+        }
+
+        if (!/edit occasion/i.test(child.textContent || "")) {
+          continue;
+        }
+
+        const area = childRect.width * childRect.height;
+
+        if (area < smallestArea) {
+          smallestArea = area;
+          bestCard = child;
+        }
+      }
+
+      return bestCard;
+    }
+
+    return null;
+  }
+
+
+  /* ==========================================
+     DECORATE POPUP
+     ========================================== */
+
+  function decorateActivePopup() {
+
+    const modal = findActivePopupCard();
+
+    if (!modal) return;
+
+    modal.classList.add("rad-magic-modal-card");
+
+    // Attach lightbox only once to each image.
+    modal.querySelectorAll("img").forEach(img => {
+
+      if (img.dataset.lightboxBound === "1") return;
+
+      img.dataset.lightboxBound = "1";
+
+      img.addEventListener("click", (e) => {
+
+        e.stopPropagation();
+
+        openPhotoLightbox(img.currentSrc || img.src, img.alt);
+
+      });
+
+    });
+
+
+    // Prevent duplicate action buttons.
+    if (modal.querySelector(".modal-magic-actions")) return;
+
+    const editBtn = [...modal.querySelectorAll("button, a")]
+      .find(btn =>
+        /edit occasion/i.test(btn.textContent || "")
+      );
+
+    if (!editBtn || !editBtn.parentElement) return;
+
+    const actionBar = editBtn.parentElement;
+
+    const titleText =
+      modal.querySelector("h1, h2, h3")
+        ?.textContent?.trim() || "Celebration";
+
+    const wrap = document.createElement("div");
+
+    wrap.className = "modal-magic-actions";
+
+
+    // Sparkle button
+    const sparkleBtn = document.createElement("button");
+
+    sparkleBtn.type = "button";
+    sparkleBtn.className = "modal-sparkle-btn";
+    sparkleBtn.textContent = "✦ Sparkle";
+
+    sparkleBtn.addEventListener("click", (e) => {
+
+      e.preventDefault();
+      e.stopPropagation();
+
+      burstSparkles(modal);
+
+    });
+
+
+    // Craft Card link
+    const craftLink = document.createElement("a");
+
+    craftLink.className = "modal-craft-link";
+
+    const isInsidePages =
+      window.location.pathname.includes("/pages/");
+
+    craftLink.href = isInsidePages
+      ? `surprise-studio.html?occasion=${encodeURIComponent(titleText)}`
+      : `pages/surprise-studio.html?occasion=${encodeURIComponent(titleText)}`;
+
+    craftLink.textContent = "✨ Craft Card";
+
+
+    wrap.appendChild(sparkleBtn);
+    wrap.appendChild(craftLink);
+
+    actionBar.insertBefore(wrap, editBtn);
+  }
+
+
+  /* ==========================================
+     DEBOUNCED POPUP SCAN
+     ========================================== */
+
+  function schedulePopupScan() {
+
+    if (scanTimer) {
+      clearTimeout(scanTimer);
+    }
+
+    scanTimer = setTimeout(() => {
+
+      scanTimer = null;
+
+      decorateActivePopup();
+
+    }, 100);
+  }
+
+
+  /* ==========================================
+     CLICK DETECTION
+     ========================================== */
+
+  document.addEventListener("click", (event) => {
+
+    if (
+      event.target.closest(".modal-photo-lightbox") ||
+      event.target.closest(".modal-magic-actions")
+    ) {
+      return;
+    }
+
+    schedulePopupScan();
+
+  }, true);
+
+
+  /* ==========================================
+     LIGHTWEIGHT DOM OBSERVER
+     ========================================== */
+
+  const observer = new MutationObserver((mutations) => {
+
+    // Only react to newly added DOM elements.
+    const hasNewElements = mutations.some(mutation =>
+      [...mutation.addedNodes].some(node =>
+        node.nodeType === Node.ELEMENT_NODE
+      )
+    );
+
+    if (hasNewElements) {
+      schedulePopupScan();
+    }
+
+  });
+
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+
+}
+
+
+// Initialize once the page is ready.
+if (document.readyState === "loading") {
+
+  document.addEventListener(
+    "DOMContentLoaded",
+    enhanceEventModalMagic,
+    { once: true }
+  );
+
+} else {
+
+  enhanceEventModalMagic();
+
+}
+
+
+function enhanceInteractiveCalendar() {
+  const calendarDays = document.getElementById("calendar-days");
+  const calendarHeader = document.querySelector(".calendar-title-group");
+  if (!calendarDays) return;
+
+  const glyphs = ["✦", "✧", "✨", "💛", "💜"];
+
+  function burstCalSparkles(target) {
+    if (!target) return;
+    const rect = target.getBoundingClientRect();
+    for (let i = 0; i < 12; i++) {
+      const s = document.createElement("span");
+      s.className = "magic-sparkle";
+      s.textContent = glyphs[i % glyphs.length];
+      s.style.left = (20 + Math.random() * Math.max(40, rect.width - 40)) + "px";
+      s.style.top = (16 + Math.random() * Math.max(20, rect.height - 32)) + "px";
+      s.style.setProperty("--dx", ((Math.random() - 0.5) * 85).toFixed(0) + "px");
+      s.style.setProperty("--dy", (-30 - Math.random() * 50).toFixed(0) + "px");
+      target.appendChild(s);
+      setTimeout(() => s.remove(), 820);
+    }
+  }
+
+  function syncCalendarBadgesAndSummary() {
+    const markedDays = calendarDays.querySelectorAll(".calendar-day.has-event").length;
+    if (calendarHeader) {
+      let badge = calendarHeader.querySelector(".cal-month-summary-badge");
+      if (!badge) {
+        badge = document.createElement("span");
+        badge.className = "cal-month-summary-badge";
+        calendarHeader.appendChild(badge);
+      }
+      badge.textContent = markedDays
+        ? `✦ ${markedDays} special ${markedDays === 1 ? "day" : "days"}`
+        : "✦ Quiet month";
+    }
+  }
+
+function upgradePressedDaySheet() {
+    document.getElementById("rad-custom-day-card")?.remove();
+    document.querySelector(".rad-day-backdrop")?.remove();
+
+    const closeBtn = [...document.querySelectorAll("button")].find(btn => {
+      if (btn.closest("#rad-custom-day-card")) return false;
+      const t = (btn.textContent || "").trim();
+      const r = btn.getBoundingClientRect();
+      return /^close$/i.test(t) && r.width > 0 && r.height > 0;
+    });
+
+    if (!closeBtn) return;
+
+    let rawPopup = closeBtn.parentElement;
+    for (let i = 0; i < 4 && rawPopup; i++) {
+      const r = rawPopup.getBoundingClientRect();
+      if (r.width >= 260 && r.width < window.innerWidth * 0.96 && r.height >= 170) {
+        break;
+      }
+      rawPopup = rawPopup.parentElement;
+    }
+
+    if (!rawPopup || rawPopup.id === "calendar-view") return;
+
+    // Extract date subtitle & occasion rows from the generated popup
+    const rawLines = (rawPopup.innerText || "")
+      .split("\n")
+      .map(s => s.trim())
+      .filter(Boolean);
+
+    const dateLine =
+      rawLines.find(line =>
+        /\b(January|February|March|April|May|June|July|August|September|October|November|December)\b/i.test(line)
+      ) || "Special Day";
+
+    const filteredLines = rawLines.filter(line =>
+      !/^remember\s*a\s*day$/i.test(line) &&
+      !/^a\s*special\s*occasion$/i.test(line) &&
+      !/^close$/i.test(line) &&
+      line !== dateLine
+    );
+
+    const occasions = [];
+    for (let i = 0; i < filteredLines.length; i += 2) {
+      const title = filteredLines[i];
+      const meta = filteredLines[i + 1] || "Occasion";
+      if (title) occasions.push({ title, meta });
+    }
+    if (!occasions.length) {
+      occasions.push({ title: "Special Moment", meta: "Celebration" });
+    }
+
+    // Hide the plain legacy box so only our new keepsake card is shown
+    rawPopup.dataset.radHiddenPopup = "1";
+    rawPopup.style.opacity = "0";
+    rawPopup.style.pointerEvents = "none";
+
+    const backdrop = document.createElement("div");
+    backdrop.className = "rad-day-backdrop";
+
+    const card = document.createElement("aside");
+    card.id = "rad-custom-day-card";
+    card.setAttribute("role", "dialog");
+    card.setAttribute("aria-modal", "true");
+
+    const firstTitle = occasions[0].title;
+    const isBirthday = /birthday/i.test(occasions[0].meta) || /birthday/i.test(firstTitle);
+
+    const itemsHtml = occasions
+      .map(occ => {
+        const icon = /birthday/i.test(occ.meta)
+          ? "🎂"
+          : /anniversary/i.test(occ.meta)
+            ? "💍"
+            : "✦";
+        return `
+          <div class="rad-kcard-item">
+            <div class="rad-kcard-icon">${icon}</div>
+            <div class="rad-kcard-info">
+              <strong>${occ.title}</strong>
+              <span>${occ.meta}</span>
+            </div>
+          </div>
+        `;
+      })
+      .join("");
+
+    card.innerHTML = `
+      <div class="rad-kcard-banner">
+        <div class="rad-kcard-top">
+          <span class="rad-kcard-tag">✦ ROYAL DAY KEEPSAKE</span>
+          <button type="button" class="rad-kcard-close" aria-label="Close popup">×</button>
+        </div>
+        <h3 class="rad-kcard-heading">${isBirthday ? "Birthday Spotlight" : "Special Day"}</h3>
+        <p class="rad-kcard-date">${dateLine}</p>
+      </div>
+      <div class="rad-kcard-body">
+        ${itemsHtml}
+      </div>
+      <div class="rad-kcard-footer">
+        <div class="rad-kcard-actions">
+          <button type="button" class="rad-kcard-sparkle">✦ Sparkle</button>
+          <a href="pages/surprise-studio.html?occasion=${encodeURIComponent(firstTitle)}" class="rad-kcard-craft">✨ Craft Card</a>
+        </div>
+        <button type="button" class="rad-kcard-done">Close</button>
+      </div>
+    `;
+
+    const dismissAll = () => {
+      card.remove();
+      backdrop.remove();
+      if (closeBtn && document.body.contains(closeBtn)) {
+        closeBtn.click();
+      }
+      document.querySelectorAll("[data-rad-hidden-popup='1']").forEach(el => {
+        el.style.opacity = "";
+        el.style.pointerEvents = "";
+        delete el.dataset.radHiddenPopup;
+      });
+    };
+
+    backdrop.addEventListener("click", dismissAll);
+    card.querySelector(".rad-kcard-close")?.addEventListener("click", dismissAll);
+    card.querySelector(".rad-kcard-done")?.addEventListener("click", dismissAll);
+    card.querySelector(".rad-kcard-sparkle")?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      burstCalSparkles(card);
+    });
+
+    document.body.appendChild(backdrop);
+    document.body.appendChild(card);
+  }
+
+  syncCalendarBadgesAndSummary();
+  new MutationObserver(syncCalendarBadgesAndSummary).observe(calendarDays, {
+    childList: true,
+    subtree: true
+  });
+
+  calendarDays.addEventListener("click", () => {
+    setTimeout(upgradePressedDaySheet, 40);
+    setTimeout(upgradePressedDaySheet, 140);
+  });
 }

@@ -72,19 +72,48 @@ document.addEventListener("DOMContentLoaded", async () => {
    SHOW TODAY'S DATE
    ========================================== */
 
+
 function showToday() {
     const todayElement = document.getElementById("today-date");
+
     if (!todayElement) return;
 
     const today = new Date();
 
-    todayElement.textContent = today.toLocaleDateString("en-IN", {
-        weekday: "long",
-        day: "numeric",
-        month: "long",
-        year: "numeric"
-    });
+    let settings = {};
+
+    try {
+        settings = JSON.parse(
+            localStorage.getItem("remember-a-day-settings") || "{}"
+        );
+    } catch (error) {
+        console.error("Could not read calendar settings:", error);
+    }
+
+    const format = settings.dateFormat || "DD/MM/YYYY";
+
+    const day = String(today.getDate()).padStart(2, "0");
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const year = today.getFullYear();
+
+    let formattedDate;
+
+    switch (format) {
+        case "MM/DD/YYYY":
+            formattedDate = `${month}/${day}/${year}`;
+            break;
+
+        case "YYYY-MM-DD":
+            formattedDate = `${year}-${month}-${day}`;
+            break;
+
+        default:
+            formattedDate = `${day}/${month}/${year}`;
+    }
+
+    todayElement.textContent = formattedDate;
 }
+
 
 /* ==========================================
    SHOW UPCOMING EVENTS
@@ -617,8 +646,14 @@ function renderCalendar() {
     const year = calendarDate.getFullYear();
     const month = calendarDate.getMonth();
 
-    const firstDay = new Date(year, month, 1).getDay();
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
+const settings = JSON.parse(
+    localStorage.getItem("remember-a-day-settings") || "{}"
+);
+
+const weekStart = settings.weekStart === "monday" ? 1 : 0;
+
+const firstDay =
+    (new Date(year, month, 1).getDay() - weekStart + 7) % 7;    const daysInMonth = new Date(year, month + 1, 0).getDate();
 
     calendarMonth.textContent = calendarDate.toLocaleDateString("en-IN", {
         month: "long",
@@ -816,8 +851,15 @@ const selectedReferenceEvents = calendarReferenceEvents.filter(event => {
 });
 
 const selectedEvents = [
-    ...selectedPersonalEvents,
-    ...selectedReferenceEvents
+    ...selectedPersonalEvents.map(event => ({
+        ...event,
+        _calendarSource: "personal"
+    })),
+
+    ...selectedReferenceEvents.map(event => ({
+        ...event,
+        _calendarSource: "reference"
+    }))
 ];
 
 
@@ -864,7 +906,7 @@ const selectedEvents = [
                 ${
                     selectedEvents.length > 0
                         ? selectedEvents.map(event => `
-                            <article class="occasion-modal-item">
+                            <article class="occasion-modal-item ${event._calendarSource}">
                                 <div class="occasion-modal-item-icon" aria-hidden="true">
                                     ${getOccasionIcon(event)}
                                 </div>
@@ -1273,3 +1315,265 @@ function closeEventDetails() {
 function eventModalEscape(e) {
     if (e.key === "Escape") closeEventDetails();
 }
+
+
+
+/* ==========================================
+   REMEMBER A DAY — CALENDAR POPUP REDESIGN
+   ========================================== */
+
+(function calendarPopupRedesign() {
+    if (document.getElementById("calendar-popup-redesign")) return;
+
+    const style = document.createElement("style");
+    style.id = "calendar-popup-redesign";
+
+    style.textContent = `
+        /* Backdrop */
+        .occasion-modal-overlay {
+            background: rgba(24, 22, 43, 0.58) !important;
+            backdrop-filter: blur(10px) !important;
+            -webkit-backdrop-filter: blur(10px) !important;
+            padding: 18px !important;
+        }
+
+        /* Main card */
+        .occasion-modal-overlay .occasion-modal {
+            width: min(100%, 470px) !important;
+            max-height: min(78vh, 620px) !important;
+            overflow-y: auto !important;
+            padding: 28px !important;
+            border: 1px solid #e8e2fa !important;
+            border-radius: 26px !important;
+            background: #ffffff !important;
+            color: #25213c !important;
+            box-shadow: 0 28px 80px rgba(31, 25, 65, 0.24) !important;
+            animation: calendarCardEnter .28s ease-out both;
+        }
+
+        @keyframes calendarCardEnter {
+            from {
+                opacity: 0;
+                transform: translateY(14px) scale(.97);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Header */
+        .occasion-modal-header {
+            align-items: center !important;
+            gap: 15px !important;
+            margin-bottom: 25px !important;
+            padding-right: 32px !important;
+        }
+
+        .occasion-modal-icon {
+            flex: 0 0 54px !important;
+            width: 54px !important;
+            height: 54px !important;
+            border-radius: 18px !important;
+            background: #f0ebff !important;
+            font-size: 25px !important;
+        }
+
+        .occasion-modal-eyebrow {
+            color: #8062d9 !important;
+            font-size: 10px !important;
+            letter-spacing: 2px !important;
+            margin-bottom: 7px !important;
+        }
+
+        .occasion-modal-title {
+            color: #292443 !important;
+            font-size: clamp(20px, 4vw, 25px) !important;
+            font-weight: 750 !important;
+            letter-spacing: -.5px !important;
+        }
+
+        .occasion-modal-date {
+            margin-top: 6px !important;
+            color: #85829a !important;
+            font-size: 13px !important;
+        }
+
+        /* Close icon */
+        .occasion-modal-close {
+            top: 17px !important;
+            right: 17px !important;
+            width: 35px !important;
+            height: 35px !important;
+            background: #f2f1f7 !important;
+            color: #5c5675 !important;
+            font-size: 22px !important;
+        }
+
+        .occasion-modal-close:hover {
+            background: #ebe5ff !important;
+            color: #7252d2 !important;
+        }
+
+        /* Occasion list */
+        .occasion-modal-list {
+            display: grid !important;
+            gap: 12px !important;
+        }
+
+        .occasion-modal-item {
+            align-items: center !important;
+            gap: 13px !important;
+            padding: 15px !important;
+            border: 1px solid #eeebf5 !important;
+            border-radius: 17px !important;
+            background: #fbfaff !important;
+            transition: transform .2s ease, border-color .2s ease !important;
+        }
+
+        .occasion-modal-item:hover {
+            transform: translateY(-2px);
+            border-color: #d9cdf9 !important;
+        }
+
+        .occasion-modal-item-icon {
+            flex: 0 0 43px !important;
+            width: 43px !important;
+            height: 43px !important;
+            border-radius: 14px !important;
+            background: #f0ebff !important;
+            font-size: 21px !important;
+        }
+
+        .occasion-modal-item-name {
+            color: #302b49 !important;
+            font-size: 15px !important;
+            font-weight: 750 !important;
+        }
+
+        .occasion-modal-item-type {
+            display: inline-flex !important;
+            width: fit-content !important;
+            margin-top: 6px !important;
+            padding: 4px 9px !important;
+            border-radius: 30px !important;
+            background: #f0ebff !important;
+            color: #7655c9 !important;
+            font-size: 10px !important;
+            font-weight: 700 !important;
+        }
+
+        /* Personal occasions */
+        .occasion-modal-item.personal {
+            border-left: 3px solid #8561e8 !important;
+        }
+
+        .occasion-modal-item.personal .occasion-modal-item-icon {
+            background: #f0ebff !important;
+        }
+
+        .occasion-modal-item.personal .occasion-modal-item-type {
+            background: #f0ebff !important;
+            color: #7655c9 !important;
+        }
+
+        /* Public events and festivals */
+        .occasion-modal-item.reference {
+            border-left: 3px solid #20a69c !important;
+        }
+
+        .occasion-modal-item.reference .occasion-modal-item-icon {
+            background: #e5f8f5 !important;
+        }
+
+        .occasion-modal-item.reference .occasion-modal-item-type {
+            background: #e5f8f5 !important;
+            color: #16877f !important;
+        }
+
+        /* Footer */
+        .occasion-modal-footer {
+            margin-top: 23px !important;
+        }
+
+        .occasion-modal-done {
+            min-width: 105px !important;
+            padding: 12px 24px !important;
+            border-radius: 13px !important;
+            background: #7656dc !important;
+            color: #fff !important;
+            font-size: 13px !important;
+            font-weight: 750 !important;
+            box-shadow: 0 5px 14px rgba(118, 86, 220, .2);
+        }
+
+        .occasion-modal-done:hover {
+            background: #6443c9 !important;
+        }
+
+        /* Empty state */
+        .occasion-modal-item:has(.occasion-modal-item-name:first-child) {
+            min-width: 0;
+        }
+
+        /* Dark mode */
+        body.dark-mode .occasion-modal-overlay .occasion-modal {
+            background: #211e32 !important;
+            border-color: #39334f !important;
+            color: #f4f0ff !important;
+        }
+
+        body.dark-mode .occasion-modal-title,
+        body.dark-mode .occasion-modal-item-name {
+            color: #f4f0ff !important;
+        }
+
+        body.dark-mode .occasion-modal-date,
+        body.dark-mode .occasion-modal-item-type {
+            color: #bcb5d2 !important;
+        }
+
+        body.dark-mode .occasion-modal-item {
+            background: #2a2540 !important;
+            border-color: #403957 !important;
+        }
+
+        body.dark-mode .occasion-modal-item.personal .occasion-modal-item-type {
+            background: #40325f !important;
+            color: #d2bdff !important;
+        }
+
+        body.dark-mode .occasion-modal-item.reference .occasion-modal-item-type {
+            background: #203f40 !important;
+            color: #9ce8dc !important;
+        }
+
+        body.dark-mode .occasion-modal-close {
+            background: #38334b !important;
+            color: #eee8ff !important;
+        }
+
+        @media (max-width: 480px) {
+            .occasion-modal-overlay .occasion-modal {
+                padding: 22px 17px !important;
+                border-radius: 21px !important;
+            }
+
+            .occasion-modal-header {
+                gap: 11px !important;
+            }
+
+            .occasion-modal-item {
+                padding: 12px !important;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .occasion-modal-overlay .occasion-modal {
+                animation: none !important;
+            }
+        }
+    `;
+
+    document.head.appendChild(style);
+})();

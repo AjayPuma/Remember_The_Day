@@ -4,23 +4,60 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#6d4aff">
-  <title>Birthdays | Remember a Day</title>
+  <title>Custom Occasions | Remember a Day</title>
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/folder.css">
 </head>
-<body data-folder="birthdays">
+<body data-folder="custom">
   <header class="app-header">
     <div class="header-content">
       <div class="folder-header-top">
         <a class="back-link" href="../index.html">← Home</a>
-        <button type="button" id="folder-theme-toggle" class="folder-theme-btn" aria-label="Toggle dark mode">☾</button>
+        <div class="folder-top-actions">
+          <a href="surprise-studio.html" class="folder-studio-pill">✨ Surprise Studio</a>
+          <button type="button" id="folder-theme-toggle" class="folder-theme-btn" aria-label="Toggle dark mode">☾</button>
+        </div>
       </div>
-      <p class="section-label" id="folder-label">YOUR SPECIAL DATES</p>
-      <h1 id="folder-title">🎂 Birthdays</h1>
-      <p class="tagline" id="folder-description">Every moment matters.</p>
+
+      <div class="folder-hero-grid">
+        <div>
+          <p class="section-label" id="folder-label">YOUR IMPORTANT DATES</p>
+          <h1 id="folder-title">✨ Custom Occasions</h1>
+          <p class="tagline" id="folder-description">Every other occasion that matters to you.</p>
+
+          <div class="folder-stats-row">
+            <span class="folder-stat-pill">Total: <strong id="stat-total-count">0</strong></span>
+            <span class="folder-stat-pill">This Month: <strong id="stat-month-count">0</strong></span>
+          </div>
+        </div>
+
+        <!-- NEXT CELEBRATION SPOTLIGHT -->
+        <aside class="folder-spotlight-card" id="folder-spotlight" hidden>
+          <div class="spotlight-badge-row">
+            <span class="spotlight-eyebrow">✦ COMING UP NEXT</span>
+            <span class="spotlight-days-pill" id="spotlight-days">Soon</span>
+          </div>
+          <div class="spotlight-body">
+            <div class="spotlight-avatar" id="spotlight-avatar">🎂</div>
+            <div class="spotlight-copy">
+              <h2 id="spotlight-name">Loading...</h2>
+              <p id="spotlight-date"></p>
+            </div>
+          </div>
+          <a href="surprise-studio.html" id="spotlight-wish-link" class="spotlight-cta">✨ Craft Greeting Card →</a>
+        </aside>
+      </div>
     </div>
   </header>
+
   <main class="app-container">
+    <!-- QUICK FOLDER SWITCHER -->
+    <nav class="folder-switcher-strip" aria-label="Occasion folders">
+      <a href="birthdays.html" class="folder-tab-pill">🎂 Birthdays</a>
+      <a href="anniversaries.html" class="folder-tab-pill">💍 Anniversaries</a>
+      <a href="custom-occasions.html" class="folder-tab-pill active">✨ Custom Occasions</a>
+    </nav>
+
     <div class="folder-toolbar">
       <button
         type="button"
@@ -38,6 +75,24 @@
       </button>
 
       <a href="add.html" class="primary-button">＋ Add Occasion</a>
+    </div>
+
+    <!-- ONE-TAP MONTH CHIPS -->
+    <div class="quick-month-chips" role="group" aria-label="Quick month filter">
+      <button type="button" class="q-chip active" data-qmonth="all">All</button>
+      <button type="button" class="q-chip" data-qmonth="current">This Month</button>
+      <button type="button" class="q-chip" data-qmonth="0">Jan</button>
+      <button type="button" class="q-chip" data-qmonth="1">Feb</button>
+      <button type="button" class="q-chip" data-qmonth="2">Mar</button>
+      <button type="button" class="q-chip" data-qmonth="3">Apr</button>
+      <button type="button" class="q-chip" data-qmonth="4">May</button>
+      <button type="button" class="q-chip" data-qmonth="5">Jun</button>
+      <button type="button" class="q-chip" data-qmonth="6">Jul</button>
+      <button type="button" class="q-chip" data-qmonth="7">Aug</button>
+      <button type="button" class="q-chip" data-qmonth="8">Sep</button>
+      <button type="button" class="q-chip" data-qmonth="9">Oct</button>
+      <button type="button" class="q-chip" data-qmonth="10">Nov</button>
+      <button type="button" class="q-chip" data-qmonth="11">Dec</button>
     </div>
 
     <div id="folder-filter-panel" class="folder-filter-panel" hidden>
@@ -80,32 +135,117 @@
         class="secondary-button">Reset filters</button>
     </div>
 
-    <p class="folder-note">Dates repeat automatically every year for birthdays and anniversaries. Countdown is calculated from today's date.</p>
+    <p class="folder-note">Your custom occasions are shown here. Countdown is calculated from today's date.</p>
     <section id="occasion-list" aria-live="polite"></section>
   </main>
+
   <nav class="bottom-nav" aria-label="Main navigation">
     <a href="../index.html" class="nav-item"><span>⌂</span><small>Home</small></a>
     <a href="add.html" class="nav-item"><span>＋</span><small>Add</small></a>
     <a href="memories.html" class="nav-item"><span>♥</span><small>Memories</small></a>
     <a href="../settings.html" class="nav-item"><span>⚙</span><small>Settings</small></a>
   </nav>
+
   <script src="../js/storage.js"></script>
   <script src="../js/events.js"></script>
   <script src="../js/categories.js"></script>
   <script>
-    if (localStorage.getItem("remember-a-day-theme") === "dark") {
-      document.body.classList.add("dark-mode");
-    }
-    const ftBtn = document.getElementById("folder-theme-toggle");
-    if (ftBtn) {
-      ftBtn.textContent = document.body.classList.contains("dark-mode") ? "☀" : "☾";
-      ftBtn.addEventListener("click", () => {
-        document.body.classList.toggle("dark-mode");
-        const isDark = document.body.classList.contains("dark-mode");
-        localStorage.setItem("remember-a-day-theme", isDark ? "dark" : "light");
-        ftBtn.textContent = isDark ? "☀" : "☾";
+    (function () {
+      // Dark mode sync
+      if (localStorage.getItem("remember-a-day-theme") === "dark") {
+        document.body.classList.add("dark-mode");
+      }
+      const ftBtn = document.getElementById("folder-theme-toggle");
+      if (ftBtn) {
+        ftBtn.textContent = document.body.classList.contains("dark-mode") ? "☀" : "☾";
+        ftBtn.addEventListener("click", () => {
+          document.body.classList.toggle("dark-mode");
+          const isDark = document.body.classList.contains("dark-mode");
+          localStorage.setItem("remember-a-day-theme", isDark ? "dark" : "light");
+          ftBtn.textContent = isDark ? "☀" : "☾";
+        });
+      }
+
+      // Wire quick month chips directly to #folder-month select
+      const monthSelect = document.getElementById("folder-month");
+      const qChips = [...document.querySelectorAll(".q-chip")];
+      qChips.forEach(chip => {
+        chip.addEventListener("click", () => {
+          qChips.forEach(c => c.classList.remove("active"));
+          chip.classList.add("active");
+          if (!monthSelect) return;
+          const val = chip.dataset.qmonth;
+          monthSelect.value = val === "current" ? String(new Date().getMonth()) : val;
+          monthSelect.dispatchEvent(new Event("change", { bubbles: true }));
+        });
       });
-    }
+
+      // Populate Spotlight Card, Stats & "Send Card" buttons on rendered cards
+      const list = document.getElementById("occasion-list");
+      function enhanceFolderCards() {
+        if (!list) return;
+        const cards = [...list.querySelectorAll(".event-card")];
+        const totalEl = document.getElementById("stat-total-count");
+        const monthEl = document.getElementById("stat-month-count");
+        if (totalEl) totalEl.textContent = String(cards.length);
+
+        const currentMonthName = new Date().toLocaleDateString("en-US", { month: "long" }).toLowerCase();
+        const thisMonthCount = cards.filter(c => (c.textContent || "").toLowerCase().includes(currentMonthName)).length;
+        if (monthEl) monthEl.textContent = String(thisMonthCount);
+
+        // Update Spotlight Card with the first (soonest) rendered occasion
+        const spotlight = document.getElementById("folder-spotlight");
+        if (spotlight && cards.length) {
+          const first = cards[0];
+          const title = first.querySelector("h3, h2")?.textContent?.trim() || "Special Occasion";
+          const dateText = first.querySelector(".event-info p")?.textContent?.trim() || "";
+          const daysText = first.querySelector(".event-actions strong, .event-countdown")?.textContent?.trim() || "Upcoming";
+          const photoEl = first.querySelector("img.event-photo");
+
+          spotlight.hidden = false;
+          document.getElementById("spotlight-name").textContent = title;
+          document.getElementById("spotlight-date").textContent = dateText;
+          document.getElementById("spotlight-days").textContent = daysText;
+          document.getElementById("spotlight-wish-link").href =
+            `surprise-studio.html?occasion=${encodeURIComponent(title)}`;
+
+          const avatarBox = document.getElementById("spotlight-avatar");
+          if (photoEl && photoEl.src && avatarBox) {
+            avatarBox.outerHTML = `<img src="${photoEl.src}" alt="${title}" class="spotlight-avatar" id="spotlight-avatar">`;
+          }
+        } else if (spotlight) {
+          spotlight.hidden = true;
+        }
+
+        // Add "✨ Send Card" action button to each card
+        cards.forEach(card => {
+          const actions = card.querySelector(".event-actions");
+          if (!actions || actions.querySelector(".card-celebrate-actions")) return;
+
+          const title = card.querySelector("h3, h2")?.textContent?.trim() || "Celebration";
+          const existingBtns = actions.querySelector(".card-buttons");
+
+          const wrap = document.createElement("div");
+          wrap.className = "card-celebrate-actions";
+
+          const wishLink = document.createElement("a");
+          wishLink.className = "card-wish-link";
+          wishLink.href = `surprise-studio.html?occasion=${encodeURIComponent(title)}`;
+          wishLink.textContent = "✨ Send Card";
+          wrap.appendChild(wishLink);
+
+          if (existingBtns) {
+            wrap.appendChild(existingBtns);
+          }
+          actions.appendChild(wrap);
+        });
+      }
+
+      enhanceFolderCards();
+      if (list) {
+        new MutationObserver(enhanceFolderCards).observe(list, { childList: true, subtree: true });
+      }
+    })();
   </script>
 </body>
 </html>

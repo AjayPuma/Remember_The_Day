@@ -1515,23 +1515,6 @@ body.dark-mode.home-dashboard .event-group-heading h2 {
   color: var(--home-ink) !important;
 }
 
-body.dark-mode.home-dashboard #upcoming-events .event-card {
-  background: #1b1733 !important;
-  border-color: #312b54 !important;
-}
-
-body.dark-mode.home-dashboard #upcoming-events .event-info h3 {
-  color: #f4f1ff !important;
-}
-
-body.dark-mode.home-dashboard #upcoming-events .event-actions {
-  border-top-color: #312b54 !important;
-}
-
-body.dark-mode.home-dashboard #upcoming-events .card-buttons button {
-  background: #241f42 !important;
-  border-color: #312b54 !important;
-}
 
 
 
@@ -1651,4 +1634,1059 @@ body.home-dashboard
 .today-event-group .event-card {
     position: relative !important;
     overflow: hidden !important;
+}
+
+
+/* ---------------------------------------------------*/
+
+
+
+/* ==========================================
+   REMEMBER A DAY - ROYAL VIOLET & GOLD MODAL
+   Single unified popup stylesheet
+   ========================================== */
+
+@keyframes royalModalEnter {
+  0% { opacity: 0; transform: translateY(18px) scale(.95); }
+  70% { opacity: 1; transform: translateY(-2px) scale(1.005); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes goldPulseGlow {
+  0%, 100% {
+    box-shadow: 0 26px 68px rgba(20,12,56,.34),
+      0 0 0 1px rgba(235,192,92,.35),
+      0 0 28px rgba(124,77,255,.16);
+  }
+  50% {
+    box-shadow: 0 30px 76px rgba(20,12,56,.42),
+      0 0 0 1.5px rgba(245,208,118,.65),
+      0 0 38px rgba(168,85,247,.26);
+  }
+}
+
+@keyframes sheenSweep {
+  0% { transform: translateX(-140%) rotate(18deg); }
+  100% { transform: translateX(240%) rotate(18deg); }
+}
+
+@keyframes photoFloatIn {
+  from { opacity: 0; transform: translateY(8px) scale(.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes modalPopIn {
+  from { opacity: 0; transform: scale(.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Backdrop */
+.event-modal-backdrop,
+.occasion-modal-backdrop,
+.modal-backdrop,
+dialog[open]::backdrop {
+  background: rgba(16,12,36,.62) !important;
+  backdrop-filter: blur(9px) !important;
+  -webkit-backdrop-filter: blur(9px) !important;
+}
+
+/* Main modal */
+.rad-magic-modal-card,
+.event-modal,
+.event-detail-modal,
+.occasion-detail-modal,
+.modal-card,
+dialog.event-modal[open] {
+  position: relative !important;
+  overflow: hidden !important;
+  isolation: isolate;
+  border-radius: 28px !important;
+  background: linear-gradient(
+    165deg, #fff 0%, #f7f3ff 58%, #fffaf0 100%
+  ) !important;
+  border: 1.5px solid rgba(218,174,74,.55) !important;
+  color: #1c1544 !important;
+  box-shadow: 0 28px 70px rgba(24,17,62,.32) !important;
+}
+
+/* Animation only on the enhanced modal */
+.rad-magic-modal-card {
+  animation:
+    royalModalEnter .38s cubic-bezier(.22,1,.36,1),
+    goldPulseGlow 4.2s ease-in-out infinite !important;
+}
+
+/* Gold light sweep */
+.rad-magic-modal-card::before {
+  content: "";
+  position: absolute;
+  top: -40%;
+  left: -40%;
+  width: 45%;
+  height: 180%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,232,163,.18),
+    rgba(255,255,255,.24),
+    transparent
+  );
+  pointer-events: none;
+  animation: sheenSweep 6.5s ease-in-out infinite;
+  z-index: 0;
+}
+
+.rad-magic-modal-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Purple header */
+.rad-magic-modal-card [class*="header"],
+.rad-magic-modal-card header,
+.event-modal .modal-header,
+.event-detail-modal .modal-header,
+.occasion-detail-modal .modal-header,
+.modal-card .modal-header {
+  background: linear-gradient(
+    125deg, #3b1d9e 0%, #6538f5 52%, #9d4edd 100%
+  ) !important;
+  color: white !important;
+  border-bottom: 1.5px solid rgba(242,199,98,.45) !important;
+}
+
+/* Countdown */
+.rad-magic-modal-card [class*="countdown"],
+.rad-magic-modal-card [class*="status"],
+.event-modal .countdown-box,
+.modal-card .countdown-box {
+  border-radius: 18px !important;
+  transition: box-shadow .22s ease, transform .22s ease;
+}
+
+.rad-magic-modal-card [class*="countdown"]:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(101,56,245,.12);
+}
+
+/* Photo gallery */
+.event-modal .photo-grid,
+.event-modal .memory-photos,
+.event-modal .attached-photos,
+.modal-card .photo-grid,
+.modal-card .memory-photos {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit,minmax(175px,1fr)) !important;
+  gap: 12px !important;
+}
+
+.rad-magic-modal-card img,
+.event-modal img,
+.event-detail-modal img,
+.occasion-detail-modal img,
+.modal-card img {
+  width: 100% !important;
+  height: 164px !important;
+  object-fit: cover !important;
+  object-position: center top !important;
+  border-radius: 18px !important;
+  border: 2px solid rgba(218,174,74,.4) !important;
+  cursor: zoom-in !important;
+  animation: photoFloatIn .36s ease both;
+  transition: transform .24s ease, box-shadow .24s ease,
+    border-color .24s ease !important;
+}
+
+.rad-magic-modal-card img:hover,
+.event-modal img:hover,
+.modal-card img:hover {
+  transform: translateY(-3px) scale(1.01) !important;
+  border-color: #e5b343 !important;
+  box-shadow: 0 14px 28px rgba(59,29,158,.2) !important;
+}
+
+/* Footer */
+.event-modal .modal-footer,
+.event-detail-modal .modal-footer,
+.occasion-detail-modal .modal-footer,
+.modal-card .modal-footer {
+  border-top: 1px solid #ece7fc !important;
+}
+
+/* Action buttons */
+.modal-magic-actions {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 9px !important;
+  flex-wrap: wrap !important;
+}
+
+.modal-sparkle-btn,
+.modal-craft-link {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  padding: 10px 15px !important;
+  border-radius: 14px !important;
+  font-size: 12.5px !important;
+  font-weight: 800 !important;
+  cursor: pointer !important;
+  text-decoration: none !important;
+  transition: transform .18s ease, box-shadow .18s ease !important;
+}
+
+.modal-sparkle-btn {
+  border: 1.5px solid rgba(218,174,74,.65) !important;
+  background: linear-gradient(135deg,#fff8e4,#f3ecff) !important;
+  color: #3b1d9e !important;
+}
+
+.modal-craft-link {
+  border: 1px solid rgba(245,208,118,.45) !important;
+  background: linear-gradient(135deg,#4f2ce0,#7c3aed,#c026d3) !important;
+  color: white !important;
+}
+
+.modal-sparkle-btn:hover,
+.modal-craft-link:hover {
+  transform: translateY(-2px) scale(1.02) !important;
+  box-shadow: 0 10px 22px rgba(109,74,255,.25) !important;
+}
+
+/* Sparkle animation */
+.magic-sparkle {
+  position: absolute !important;
+  z-index: 5 !important;
+  pointer-events: none !important;
+  font-size: 19px !important;
+  animation: magicSparkle .85s ease-out forwards;
+}
+
+@keyframes magicSparkle {
+  0% {
+    opacity: 0;
+    transform: translate(0,0) scale(.3);
+  }
+  30% {
+    opacity: 1;
+    transform: translate(
+      calc(var(--dx) * .3),
+      calc(var(--dy) * .3)
+    ) scale(1.2) rotate(90deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx),var(--dy))
+      scale(.5) rotate(180deg);
+  }
+}
+
+/* Photo lightbox */
+.modal-photo-lightbox {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 99999 !important;
+  background: rgba(14,9,34,.92) !important;
+  backdrop-filter: blur(10px) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 24px !important;
+  animation: modalPopIn .2s ease;
+  cursor: zoom-out;
+}
+
+.modal-photo-lightbox img {
+  max-width: min(92vw,840px) !important;
+  max-height: 84vh !important;
+  width: auto !important;
+  height: auto !important;
+  object-fit: contain !important;
+  border-radius: 22px !important;
+  border: 2px solid rgba(242,199,98,.78) !important;
+  box-shadow: 0 28px 70px rgba(0,0,0,.65) !important;
+}
+
+/* Dark mode */
+body.dark-mode .rad-magic-modal-card,
+body.dark-mode .event-modal,
+body.dark-mode .event-detail-modal,
+body.dark-mode .occasion-detail-modal,
+body.dark-mode .modal-card {
+  background: linear-gradient(
+    165deg,#1a1436,#241b4a 60%,#2b1f4e
+  ) !important;
+  border-color: rgba(242,199,98,.5) !important;
+  color: #f6f2ff !important;
+}
+
+body.dark-mode .modal-sparkle-btn {
+  background: linear-gradient(
+    135deg,rgba(242,199,98,.18),rgba(149,123,255,.2)
+  ) !important;
+  color: #ffe59e !important;
+  border-color: rgba(242,199,98,.55) !important;
+}
+
+body.dark-mode .rad-magic-modal-card .modal-footer,
+body.dark-mode .event-modal .modal-footer {
+  border-color: #393052 !important;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .rad-magic-modal-card,
+  .rad-magic-modal-card::before,
+  .magic-sparkle {
+    animation: none !important;
+  }
+
+  .rad-magic-modal-card img,
+  .modal-sparkle-btn,
+  .modal-craft-link {
+    transition: none !important;
+  }
+}
+
+
+
+/* ==========================================
+   COSMIC VIOLET & GOLD CALENDAR + DAY PEEK
+   ========================================== */
+
+@keyframes calTilePop {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes calSheetIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+body.home-dashboard .dashboard-calendar {
+  position: relative;
+  overflow: hidden;
+  border-radius: 26px !important;
+  padding: 22px 24px 26px !important;
+  background:
+    linear-gradient(155deg, #ffffff 0%, #f6f2ff 62%, #fffaf0 100%) padding-box,
+    linear-gradient(135deg, rgba(109, 74, 255, 0.36), rgba(217, 175, 76, 0.44)) border-box !important;
+  border: 1.5px solid transparent !important;
+  box-shadow: 0 20px 48px rgba(28, 20, 74, 0.09) !important;
+}
+
+body.home-dashboard .calendar-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 14px !important;
+  margin-bottom: 18px !important;
+  padding-bottom: 14px !important;
+  border-bottom: 1px solid rgba(109, 74, 255, 0.14) !important;
+}
+
+body.home-dashboard .calendar-title-group {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  flex-wrap: wrap !important;
+}
+
+body.home-dashboard #calendar-month {
+  font-family: Georgia, serif !important;
+  font-size: 24px !important;
+  color: #1d1546 !important;
+  margin: 0 !important;
+}
+
+body.home-dashboard .interactive-pill {
+  padding: 4px 11px !important;
+  border-radius: 999px !important;
+  background: rgba(217, 175, 76, 0.18) !important;
+  border: 1px solid rgba(217, 175, 76, 0.42) !important;
+  color: #9e6d09 !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.5px !important;
+}
+
+.cal-month-summary-badge {
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: #f1ecff;
+  border: 1px solid #dfd6fc;
+  color: #5a38f5;
+  font-size: 11.5px;
+  font-weight: 800;
+}
+
+body.home-dashboard .calendar-navigation {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+body.home-dashboard .calendar-button {
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 999px !important;
+  border: 1px solid #dfd6fc !important;
+  background: #ffffff !important;
+  color: #4b28dc !important;
+  font-size: 20px !important;
+  line-height: 1 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  box-shadow: 0 4px 12px rgba(75, 40, 220, 0.08) !important;
+  transition: transform 0.16s ease, border-color 0.16s ease, background 0.16s ease !important;
+}
+
+body.home-dashboard .calendar-button:hover {
+  transform: translateY(-1px) scale(1.04) !important;
+  border-color: #6d4aff !important;
+  background: #f4f0ff !important;
+}
+
+body.home-dashboard .today-button {
+  padding: 7px 14px !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(217, 175, 76, 0.5) !important;
+  background: linear-gradient(135deg, #fff8e3, #f3ecff) !important;
+  color: #4b28dc !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  cursor: pointer !important;
+  transition: transform 0.16s ease, box-shadow 0.16s ease !important;
+}
+
+body.home-dashboard .today-button:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 6px 16px rgba(217, 175, 76, 0.24) !important;
+}
+
+/* Weekday Row */
+body.home-dashboard .calendar-weekdays {
+  display: grid !important;
+  grid-template-columns: repeat(7, minmax(0, 1fr)) !important;
+  gap: 8px !important;
+  margin-bottom: 10px !important;
+}
+
+body.home-dashboard .calendar-weekdays span {
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.9px !important;
+  color: #78709e !important;
+}
+
+/* Calendar Day Grid & Tiles */
+body.home-dashboard #calendar-days.calendar-days {
+  display: grid !important;
+  grid-template-columns: repeat(7, minmax(0, 1fr)) !important;
+  gap: 8px !important;
+}
+
+body.home-dashboard #calendar-days .calendar-day {
+  position: relative !important;
+  min-height: 58px !important;
+  border-radius: 16px !important;
+  background: rgba(255, 255, 255, 0.85) !important;
+  border: 1px solid #e6e0fb !important;
+  color: #1e1846 !important;
+  padding: 6px !important;
+  transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease !important;
+}
+
+body.home-dashboard #calendar-days .calendar-day:not(.empty):hover {
+  transform: translateY(-2px) !important;
+  border-color: #7c5cff !important;
+  box-shadow: 0 8px 20px rgba(109, 74, 255, 0.13) !important;
+  cursor: pointer !important;
+}
+
+body.home-dashboard #calendar-days .calendar-day.has-event {
+  background: linear-gradient(145deg, #f5f0ff 0%, #fff8e6 100%) !important;
+  border-color: rgba(217, 175, 76, 0.65) !important;
+  box-shadow: 0 6px 16px rgba(217, 175, 76, 0.14) !important;
+}
+
+body.home-dashboard #calendar-days .calendar-day.today,
+body.home-dashboard #calendar-days .calendar-day.has-event.today {
+  background: linear-gradient(135deg, #4b28dc 0%, #7c3aed 65%, #b455f7 100%) !important;
+  border-color: rgba(245, 208, 118, 0.8) !important;
+  color: #ffffff !important;
+  box-shadow: 0 10px 24px rgba(75, 40, 220, 0.34) !important;
+}
+
+body.home-dashboard #calendar-days .day-number {
+  font-size: 13.5px !important;
+  font-weight: 800 !important;
+}
+
+body.home-dashboard #calendar-days .event-dot {
+  width: 7px !important;
+  height: 7px !important;
+  bottom: 7px !important;
+  background: #d49b1e !important;
+  box-shadow: 0 0 8px rgba(212, 155, 30, 0.65) !important;
+}
+
+body.home-dashboard #calendar-days .calendar-day.today .event-dot {
+  background: #ffe394 !important;
+}
+
+.cal-day-mini-label {
+  display: block;
+  max-width: 100%;
+  margin-top: 3px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: rgba(109, 74, 255, 0.12);
+  color: #4b28dc;
+  font-size: 9px;
+  font-weight: 800;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+body.home-dashboard #calendar-days .calendar-day.today .cal-day-mini-label {
+  background: rgba(255, 255, 255, 0.22);
+  color: #fff6d6;
+}
+
+/* Upgraded "On Press" Day Card */
+.rad-cal-day-sheet {
+  position: relative !important;
+  overflow: hidden !important;
+  border-radius: 26px !important;
+  background: linear-gradient(165deg, #ffffff 0%, #f6f2ff 60%, #fffaf0 100%) !important;
+  border: 1.5px solid rgba(217, 175, 76, 0.55) !important;
+  color: #1e1846 !important;
+  box-shadow: 0 28px 68px rgba(24, 16, 66, 0.32) !important;
+  animation: calSheetIn 0.24s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+.cal-sheet-magic-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(109, 74, 255, 0.14);
+}
+
+.cal-sheet-sparkle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 13px;
+  border-radius: 12px;
+  border: 1px solid rgba(217, 175, 76, 0.55);
+  background: linear-gradient(135deg, #fff8e3, #f3ecff);
+  color: #4b28dc;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.cal-sheet-sparkle-btn:hover {
+  transform: translateY(-1px);
+}
+
+.cal-sheet-studio-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 14px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #4b28dc, #9d4edd);
+  color: #ffffff !important;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 6px 16px rgba(75, 40, 220, 0.26);
+}
+
+/* Dark Mode Calendar */
+body.dark-mode.home-dashboard .dashboard-calendar {
+  background:
+    linear-gradient(155deg, #1b1636 0%, #241c49 100%) padding-box,
+    linear-gradient(135deg, rgba(149, 123, 255, 0.45), rgba(224, 178, 74, 0.42)) border-box !important;
+}
+
+body.dark-mode.home-dashboard #calendar-month {
+  color: #f4f1ff !important;
+}
+
+body.dark-mode.home-dashboard #calendar-days .calendar-day {
+  background: rgba(27, 23, 51, 0.85) !important;
+  border-color: #322b56 !important;
+  color: #f4f1ff !important;
+}
+
+body.dark-mode.home-dashboard #calendar-days .calendar-day.has-event {
+  background: linear-gradient(145deg, #28204e 0%, #342847 100%) !important;
+  border-color: rgba(224, 178, 74, 0.55) !important;
+}
+
+body.dark-mode .rad-cal-day-sheet {
+  background: linear-gradient(165deg, #1b1636 0%, #251d4c 100%) !important;
+  border-color: rgba(224, 178, 74, 0.48) !important;
+  color: #f4f1ff !important;
+}
+
+@media (max-width: 600px) {
+  body.home-dashboard #calendar-days.calendar-days {
+    gap: 5px !important;
+  }
+  body.home-dashboard #calendar-days .calendar-day {
+    min-height: 46px !important;
+    border-radius: 12px !important;
+  }
+  .cal-day-mini-label {
+    display: none;
+  }
+}
+
+/* ==========================================
+   UNIQUE CALENDAR DAY OCCASION POPUP CARD
+   ========================================== */
+
+@keyframes dayKeepsakePop {
+  0% {
+    opacity: 0;
+    transform: translateY(16px) scale(0.95);
+  }
+  70% {
+    opacity: 1;
+    transform: translateY(-2px) scale(1.006);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes goldRimShimmer {
+  0%, 100% {
+    box-shadow:
+      0 26px 68px rgba(22, 13, 62, 0.36),
+      0 0 0 1.5px rgba(235, 190, 86, 0.65),
+      0 0 36px rgba(124, 77, 255, 0.24);
+  }
+  50% {
+    box-shadow:
+      0 30px 76px rgba(22, 13, 62, 0.44),
+      0 0 0 2px rgba(250, 214, 122, 0.9),
+      0 0 46px rgba(180, 85, 247, 0.34);
+  }
+}
+
+.rad-unique-day-card {
+  position: relative !important;
+  overflow: hidden !important;
+  border-radius: 28px !important;
+  padding: 24px 24px 22px !important;
+  background:
+    radial-gradient(circle at top right, rgba(235, 190, 86, 0.22), transparent 46%),
+    linear-gradient(160deg, #ffffff 0%, #f5f0ff 58%, #fff9eb 100%) !important;
+  border: 1.5px solid rgba(226, 180, 74, 0.68) !important;
+  color: #1c1544 !important;
+  animation: dayKeepsakePop 0.28s cubic-bezier(0.22, 1, 0.36, 1), goldRimShimmer 4s ease-in-out infinite !important;
+}
+
+/* Royal Violet & Gold Top Accent Strip */
+.rad-unique-day-card::before {
+  content: "" !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 6px !important;
+  background: linear-gradient(90deg, #4b28dc 0%, #8b5cf6 50%, #e5b343 100%) !important;
+}
+
+/* Inner occasion item pill inside the day popup */
+.rad-unique-day-card .cal-occasion-item,
+.rad-unique-day-card > div > div:has(strong),
+.rad-unique-day-card > div:nth-child(2) > div {
+  border-radius: 18px !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+  border: 1.5px solid rgba(109, 74, 255, 0.22) !important;
+  box-shadow: 0 10px 24px rgba(75, 40, 220, 0.08) !important;
+  transition: transform 0.18s ease, border-color 0.18s ease !important;
+}
+
+.rad-unique-day-card > div:nth-child(2) > div:hover {
+  transform: translateY(-2px);
+  border-color: rgba(226, 180, 74, 0.75) !important;
+}
+
+/* Close button polish */
+.rad-unique-day-card button {
+  border-radius: 12px !important;
+  transition: transform 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+.rad-unique-day-card button:hover {
+  transform: translateY(-1px) !important;
+}
+
+.day-card-magic-actions {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  flex-wrap: wrap !important;
+}
+
+.day-card-sparkle-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  padding: 9px 14px !important;
+  border-radius: 12px !important;
+  border: 1.5px solid rgba(226, 180, 74, 0.72) !important;
+  background: linear-gradient(135deg, #fff7df, #f1ebff) !important;
+  color: #4220cf !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  cursor: pointer !important;
+  box-shadow: 0 6px 16px rgba(226, 180, 74, 0.2) !important;
+  transition: transform 0.15s ease !important;
+}
+
+.day-card-sparkle-btn:hover {
+  transform: translateY(-1px) scale(1.02) !important;
+}
+
+.day-card-craft-link {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  padding: 9px 15px !important;
+  border-radius: 12px !important;
+  background: linear-gradient(135deg, #4b28dc 0%, #7c3aed 55%, #c026d3 100%) !important;
+  color: #ffffff !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+  box-shadow: 0 8px 18px rgba(75, 40, 220, 0.28) !important;
+  transition: transform 0.15s ease !important;
+}
+
+.day-card-craft-link:hover {
+  transform: translateY(-1px) scale(1.02) !important;
+}
+
+/* Dark mode */
+body.dark-mode .rad-unique-day-card {
+  background:
+    radial-gradient(circle at top right, rgba(224, 178, 74, 0.18), transparent 46%),
+    linear-gradient(160deg, #1a1436 0%, #241b4b 62%, #2c1f4f 100%) !important;
+  border-color: rgba(224, 178, 74, 0.6) !important;
+  color: #f5f2ff !important;
+}
+
+/* ==========================================
+   BRAND-NEW CUSTOM CALENDAR DAY KEEPSAKE CARD
+   ========================================== */
+
+@keyframes keepsakeCardRise {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -44%) scale(0.93);
+  }
+  70% {
+    opacity: 1;
+    transform: translate(-50%, -50.5%) scale(1.008);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes keepsakeAura {
+  0%, 100% {
+    box-shadow:
+      0 30px 78px rgba(20, 11, 58, 0.42),
+      0 0 0 1.5px rgba(242, 198, 92, 0.72),
+      0 0 42px rgba(124, 77, 255, 0.28);
+  }
+  50% {
+    box-shadow:
+      0 34px 86px rgba(20, 11, 58, 0.5),
+      0 0 0 2px rgba(255, 222, 134, 0.95),
+      0 0 54px rgba(180, 85, 247, 0.38);
+  }
+}
+
+.rad-day-backdrop {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 99980 !important;
+  background: rgba(15, 9, 38, 0.62) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  animation: pageFade 0.2s ease !important;
+}
+
+#rad-custom-day-card {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  z-index: 99990 !important;
+  width: min(92vw, 450px) !important;
+  border-radius: 28px !important;
+  overflow: hidden !important;
+  background:
+    radial-gradient(circle at top right, rgba(242, 198, 92, 0.24), transparent 48%),
+    linear-gradient(165deg, #ffffff 0%, #f5f0ff 56%, #fff9eb 100%) !important;
+  border: 1.5px solid rgba(232, 186, 78, 0.75) !important;
+  color: #1c1444 !important;
+  animation: keepsakeCardRise 0.3s cubic-bezier(0.22, 1, 0.36, 1), keepsakeAura 4s ease-in-out infinite !important;
+}
+
+body.dark-mode #rad-custom-day-card {
+  background:
+    radial-gradient(circle at top right, rgba(224, 178, 74, 0.2), transparent 48%),
+    linear-gradient(165deg, #1b1438 0%, #251c4e 58%, #2e2052 100%) !important;
+  border-color: rgba(232, 186, 78, 0.65) !important;
+  color: #f6f2ff !important;
+}
+
+.rad-kcard-banner {
+  background: linear-gradient(125deg, #3b1d9e 0%, #6838f5 55%, #a84df5 100%);
+  padding: 18px 22px 20px;
+  color: #ffffff;
+  border-bottom: 1.5px solid rgba(250, 212, 122, 0.48);
+  position: relative;
+}
+
+.rad-kcard-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.rad-kcard-tag {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(255, 224, 138, 0.2);
+  border: 1px solid rgba(255, 224, 138, 0.45);
+  color: #ffe89e;
+}
+
+.rad-kcard-close {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.rad-kcard-close:hover {
+  transform: scale(1.08);
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.rad-kcard-heading {
+  font-family: Georgia, serif;
+  font-size: 24px;
+  line-height: 1.2;
+  margin: 0 0 4px;
+  color: #ffffff;
+}
+
+.rad-kcard-date {
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.86);
+  margin: 0;
+}
+
+.rad-kcard-body {
+  padding: 18px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.rad-kcard-item {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 14px 15px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1.5px solid rgba(109, 74, 255, 0.22);
+  box-shadow: 0 10px 24px rgba(64, 34, 185, 0.08);
+  transition: transform 0.18s ease, border-color 0.18s ease;
+}
+
+body.dark-mode .rad-kcard-item {
+  background: rgba(27, 21, 58, 0.85);
+  border-color: rgba(149, 123, 255, 0.32);
+}
+
+.rad-kcard-item:hover {
+  transform: translateY(-2px);
+  border-color: rgba(232, 186, 78, 0.75);
+}
+
+.rad-kcard-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+  background: linear-gradient(135deg, rgba(109, 74, 255, 0.14), rgba(232, 186, 78, 0.2));
+  border: 1px solid rgba(232, 186, 78, 0.45);
+  flex-shrink: 0;
+}
+
+.rad-kcard-info {
+  min-width: 0;
+  flex: 1;
+}
+
+.rad-kcard-info strong {
+  display: block;
+  font-family: Georgia, serif;
+  font-size: 17px;
+  color: inherit;
+  margin-bottom: 2px;
+}
+
+.rad-kcard-info span {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #6d4aff;
+}
+
+body.dark-mode .rad-kcard-info span {
+  color: #e5b84b;
+}
+
+.rad-kcard-footer {
+  padding: 0 22px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.rad-kcard-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rad-kcard-sparkle {
+  padding: 9px 14px;
+  border-radius: 12px;
+  border: 1.5px solid rgba(232, 186, 78, 0.72);
+  background: linear-gradient(135deg, #fff7df, #f1ebff);
+  color: #4220cf;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.rad-kcard-sparkle:hover {
+  transform: translateY(-1px) scale(1.03);
+}
+
+.rad-kcard-craft {
+  padding: 9px 15px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #4b28dc 0%, #7c3aed 55%, #c026d3 100%);
+  color: #ffffff !important;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 8px 20px rgba(75, 40, 220, 0.28);
+  transition: transform 0.15s ease;
+}
+
+.rad-kcard-craft:hover {
+  transform: translateY(-1px) scale(1.03);
+}
+
+.rad-kcard-done {
+  padding: 9px 16px;
+  border-radius: 12px;
+  border: 0;
+  background: #1d1546;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.rad-kcard-done:hover {
+  transform: translateY(-1px);
+  opacity: 0.92;
+}
+
+
+/* Calendar event types — distinct colours */
+body.home-dashboard #calendar-days .event-dot.personal {
+  background: #7655e8 !important;
+  box-shadow: 0 0 8px rgba(118, 85, 232, 0.55) !important;
+}
+
+body.home-dashboard #calendar-days .event-dot.reference {
+  background: #20a6a0 !important;
+  box-shadow: 0 0 8px rgba(32, 166, 160, 0.55) !important;
+}
+
+/* Keep both colours visible on today's highlighted date */
+body.home-dashboard #calendar-days .calendar-day.today .event-dot.personal {
+  background: #e6d9ff !important;
+}
+
+body.home-dashboard #calendar-days .calendar-day.today .event-dot.reference {
+  background: #a8fff0 !important;
 }

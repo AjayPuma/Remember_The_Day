@@ -1,156 +1,165 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Settings - Remember a Day</title>
-  <meta name="theme-color" content="#19365B">
-
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="manifest" href="manifest.json">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#7564d8">
+<title>Settings | Remember a Day</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/settings.css">
 </head>
-
 <body class="settings-page">
-
-  <!-- HEADER -->
-  <header class="app-header">
-    <div class="header-content">
-      <div class="app-brand">
-        <div class="app-logo" aria-hidden="true">♥</div>
-        <div>
-          <h1>Settings</h1>
-          <p class="tagline">Make Remember a Day yours.</p>
-        </div>
+<header class="app-header">
+  <div class="header-content settings-topbar">
+    <a class="settings-brand" href="index.html"><span>♥</span><b>Remember a Day</b></a>
+    <a class="settings-home-link" href="index.html">← Home</a>
+  </div>
+</header>
+<main class="settings-shell">
+  <header class="settings-intro"><div><small>YOUR SPACE, YOUR WAY</small><h1>Settings</h1><p>Make Remember a Day feel just right for you.</p></div><span class="settings-gear">⚙</span></header>
+  <div class="settings-profile"><span class="settings-heart">♥</span><div><b>Remember a Day</b><small>Your personal space for life's important moments</small></div><em>Personal</em></div>
+  <div class="settings-layout">
+    <aside class="settings-note">
+      <b>Preferences</b>
+      <span>Changes are saved on this device automatically.</span>
+      <div class="settings-quick-actions">
+        <button type="button" class="settings-mini-btn" id="expand-all-settings">Expand all</button>
+        <button type="button" class="settings-mini-btn" id="collapse-all-settings">Collapse all</button>
       </div>
+    </aside>
+    <div class="settings-sections" id="settings-sections">
+
+      <section class="settings-section">
+        <button class="settings-trigger" aria-expanded="true"><i>◐</i><span><b>Appearance</b><small>Theme, accent colour, text size and layout</small></span><u>⌄</u></button>
+        <div class="settings-panel">
+          <label class="settings-row"><span><b>Colour theme</b><small>Choose how the app looks.</small></span><select id="setting-theme"><option value="light">Light</option><option value="dark">Dark</option><option value="system">System default</option></select></label>
+          <div class="settings-row"><span><b>Accent colour</b><small>Used for highlights and controls.</small></span><div class="swatches"><button data-accent="#7564d8" aria-label="Violet"></button><button data-accent="#4f8c83" aria-label="Sage"></button><button data-accent="#d18a55" aria-label="Apricot"></button><button data-accent="#557ca8" aria-label="Blue"></button></div></div>
+          <label class="settings-row"><span><b>Text size</b><small>Adjust text on this page.</small></span><select id="setting-font-size"><option value="small">Small</option><option value="medium">Medium</option><option value="large">Large</option></select></label>
+          <label class="settings-row"><span><b>Compact layout</b><small>Use tighter spacing.</small></span><input type="checkbox" class="switch" id="setting-compact"></label>
+        </div>
+      </section>
+
+      <section class="settings-section">
+        <button class="settings-trigger" aria-expanded="false"><i>♧</i><span><b>Notifications & reminders</b><small>Choose which reminders you want</small></span><u>⌄</u></button>
+        <div class="settings-panel" hidden>
+          <p class="settings-notice" id="notification-status">Checking browser notification permission…</p>
+          <div class="settings-row"><span><b>Browser notifications</b><small>Allow this browser to show alerts.</small></span><button class="small-action" id="request-notifications">Enable</button></div>
+          <label class="settings-row"><span><b>Birthday reminders</b><small>Preference for birthday alerts.</small></span><input type="checkbox" class="switch" id="setting-birthday-reminders"></label>
+          <label class="settings-row"><span><b>Anniversary reminders</b><small>Preference for anniversary alerts.</small></span><input type="checkbox" class="switch" id="setting-anniversary-reminders"></label>
+          <label class="settings-row"><span><b>Custom occasion reminders</b><small>Preference for other occasion alerts.</small></span><input type="checkbox" class="switch" id="setting-custom-reminders"></label>
+          <label class="settings-row"><span><b>Reminder lead time</b><small>Preferred reminder timing.</small></span><select id="setting-reminder-days"><option value="0">On the day</option><option value="1">1 day before</option><option value="3">3 days before</option><option value="7">7 days before</option><option value="30">30 days before</option></select></label>
+          <p class="settings-footnote">Category and lead-time choices are saved preferences. The existing reminder engine must be connected to them before they change actual alert timing. Browser permission does not schedule background notifications.</p>
+        </div>
+      </section>
+
+      <section class="settings-section">
+        <button class="settings-trigger" aria-expanded="false"><i>▦</i><span><b>Calendar preferences</b><small>Date display, week start and occasion details</small></span><u>⌄</u></button>
+        <div class="settings-panel" hidden>
+          <label class="settings-row"><span><b>Date format</b><small>Preferred date display.</small></span><select id="setting-date-format"><option>DD/MM/YYYY</option><option>MM/DD/YYYY</option><option>YYYY-MM-DD</option></select></label>
+          <label class="settings-row"><span><b>Week starts on</b><small>First day of the week.</small></span><select id="setting-week-start"><option value="sunday">Sunday</option><option value="monday">Monday</option></select></label>
+          <label class="settings-row"><span><b>Time format</b><small>Preferred clock display.</small></span><select id="setting-time-format"><option value="12">12-hour</option><option value="24">24-hour</option></select></label>
+          <label class="settings-row"><span><b>Show age / years completed</b><small>Where supported by occasion cards.</small></span><input type="checkbox" class="switch" id="setting-show-years"></label>
+          <p class="settings-footnote">These preferences are saved here. Other pages must read them before their display changes.</p>
+        </div>
+      </section>
+
+      <section class="settings-section">
+        <button class="settings-trigger" aria-expanded="false"><i>♡</i><span><b>Memories & storage</b><small>Saved occasions, memories and backups</small></span><u>⌄</u></button>
+        <div class="settings-panel" hidden>
+          <div class="stats"><div><b id="occasion-count">—</b><small>Occasions</small></div><div><b id="memory-count">—</b><small>Memory entries</small></div><div><b id="storage-size">—</b><small>Local data size</small></div></div>
+          <div class="settings-row"><span><b>Export backup</b><small>Download occasions and memory records as JSON.</small></span><button class="small-action" id="export-backup">Export</button></div>
+          <div class="settings-row"><span><b>Restore backup</b><small>Restoring replaces current occasion and memory records.</small></span><button class="small-action" id="choose-backup">Restore</button><input type="file" id="backup-file" accept=".json,application/json" hidden></div>
+          <p class="settings-footnote">Export regularly and keep a copy somewhere safe. Photo files stored outside the JSON data may need a separate backup.</p>
+        </div>
+      </section>
+
+      <section class="settings-section">
+        <button class="settings-trigger" aria-expanded="false"><i>◇</i><span><b>Privacy & security</b><small>Understand how your data is stored</small></span><u>⌄</u></button>
+        <div class="settings-panel" hidden>
+          <div class="settings-info"><b>Your data is stored in this browser</b><p>This project currently uses browser local storage for occasions, theme and memory records. Clearing site data may remove information that has not been backed up.</p></div>
+          <div class="settings-row"><span><b>Reset preferences</b><small>Reset settings only. Occasions and memories stay safe.</small></span><button class="danger-action" id="reset-preferences">Reset</button></div>
+          <p class="settings-footnote">Account and server-side privacy controls are not included because this version does not establish a sign-in system.</p>
+        </div>
+      </section>
+
+      <section class="settings-section">
+        <button class="settings-trigger" aria-expanded="false"><i>✧</i><span><b>Surprise Studio</b><small>Default greeting-card preferences</small></span><u>⌄</u></button>
+        <div class="settings-panel" hidden>
+          <label class="settings-row"><span><b>Default card mood</b><small>Your preferred starting style.</small></span><select id="setting-card-mood"><option value="elegant">Elegant</option><option value="playful">Playful</option><option value="minimal">Minimal</option><option value="festive">Festive</option></select></label>
+          <label class="settings-row"><span><b>Card animations</b><small>Preference for supported templates.</small></span><input type="checkbox" class="switch" id="setting-card-animations"></label>
+          <p class="settings-footnote">Surprise Studio templates must read these saved preferences before they affect generated cards.</p>
+        </div>
+      </section>
+
+      <section class="settings-section">
+        <button class="settings-trigger" aria-expanded="false"><i>◎</i><span><b>Language & region</b><small>Language, regional format and time zone</small></span><u>⌄</u></button>
+        <div class="settings-panel" hidden>
+          <label class="settings-row"><span><b>Language</b><small>Currently available interface language.</small></span><select id="setting-language"><option value="en">English</option></select></label>
+          <label class="settings-row"><span><b>Region</b><small>Preferred regional format.</small></span><select id="setting-region"><option value="en-IN">India (English)</option><option value="en-US">United States (English)</option><option value="en-GB">United Kingdom (English)</option></select></label>
+          <div class="settings-row"><span><b>Time zone</b><small>Detected from your browser.</small></span><span class="readonly" id="settings-timezone">Detecting…</span></div>
+          <p class="settings-footnote">The interface currently supports English only. Additional languages can be added with translations.</p>
+        </div>
+      </section>
+
+     <section class="settings-section">
+        <button class="settings-trigger" aria-expanded="false"><i>ⓘ</i><span><b>About & support</b><small>Our story, app features and build details</small></span><u>⌄</u></button>
+        <div class="settings-panel" hidden>
+          <div class="about-card">
+            <span>♥</span>
+            <b>Remember-a-Day</b>
+            <strong>Cherish every moment &amp; milestone · Every date has a story.</strong>
+            <small>
+              Remember-a-Day is a personal occasion, memory, and celebration companion designed to help you remember the people, milestones, and everyday moments that matter most—all in one calm, personal space.
+            </small>
+            <div class="about-features">
+              <p><b>Occasions &amp; Countdowns:</b> Organise Birthdays, Anniversaries, Trips, Holidays, Milestones, Festivals, and Special Occasions with automatic yearly rollovers, live day countdowns, search, category filters, and reminder preferences.</p>
+              <p><b>Memories &amp; Timeline:</b> Capture memories with notes and photos, look back at past-year moments in <em>On This Day</em>, travel through your story on the <em>Memory Timeline</em>, and inspect photos up close.</p>
+              <p><b>Daily Glance &amp; Calendar:</b> See what is happening today, spot special observances, browse upcoming reminders, and tap calendar dates to view keepsake day cards.</p>
+              <p><b>Surprise Studio:</b> Turn any birthday, anniversary, festival, or milestone into a personalised greeting card or gift box.</p>
+              <p><b>Local-First &amp; Personalised:</b> Saved directly on your device with JSON backup export and restore, plus light/dark themes, accent colours, text size, and compact spacing controls.</p>
+            </div>
+          </div>
+          <div class="settings-row"><span><b>Our story</b><small>Built so important dates and heartfelt memories never slip by unnoticed.</small></span><span class="readonly">Cherish every moment &amp; milestone</span></div>
+          <div class="settings-row"><span><b>Feedback template</b><small>Copy a quick note template to share ideas or bugs.</small></span><button class="small-action" id="copy-feedback">Copy</button></div>
+          <div class="settings-row"><span><b>Version</b><small>Current local application build.</small></span><span class="readonly">Local build</span></div>
+        </div>
+      </section>
+
+      <section class="settings-section">
+        <button class="settings-trigger" aria-expanded="false"><i>⚙</i><span><b>General & maintenance</b><small>Refresh and reset preferences</small></span><u>⌄</u></button>
+        <div class="settings-panel" hidden>
+          <div class="settings-row"><span><b>Refresh application</b><small>Reload this page.</small></span><button class="small-action" id="reload-app">Refresh</button></div>
+          <div class="settings-row"><span><b>Reset all settings</b><small>Restore default preferences. Saved occasions and memories stay untouched.</small></span><button class="danger-action" id="reset-all-settings">Reset</button></div>
+        </div>
+      </section>
     </div>
-  </header>
+  </div>
+  <p class="save-status" id="settings-save-status" role="status" aria-live="polite">Preferences are saved on this device.</p>
+  <footer class="settings-footer">Remember a Day · Every date has a story ♥</footer>
+</main>
+<nav class="bottom-nav" aria-label="Main navigation">
+  <a href="index.html" class="nav-item"><span>⌂</span><small>Home</small></a>
+  <a href="pages/add.html" class="nav-item"><span>＋</span><small>New Day</small></a>
+  <a href="pages/memories.html" class="nav-item"><span>♡</span><small>Memories</small></a>
+  <a href="pages/timeline.html" class="nav-item"><span>◷</span><small>Timeline</small></a>
+  <a href="settings.html" class="nav-item active" aria-current="page"><span>⚙</span><small>Settings</small></a>
+</nav>
+<script src="js/storage.js"></script>
+<script src="js/settings.js"></script>
 
-  <main class="app-container">
-    <div class="settings-intro">
-  <h2>Everything in one place</h2>
-  <p>A little control over how you remember.</p>
-</div>
-
-    <!-- APPEARANCE -->
-    <section class="settings-card">
-      <p class="section-label">APPEARANCE</p>
-      <h2>Theme</h2>
-
-      <div class="setting-row">
-        <div>
-          <strong>Dark Mode</strong>
-          <p>Use a darker appearance.</p>
-        </div>
-
-        <label class="switch">
-          <input type="checkbox" id="dark-mode-toggle">
-          <span class="slider"></span>
-        </label>
-      </div>
-    </section>
-
-    <!-- BACKUP & RESTORE -->
-    <section class="settings-card">
-      <p class="section-label">YOUR DATA</p>
-      <h2>Backup &amp; Restore</h2>
-
-      <p class="setting-description">
-        Keep your occasions, memories and photos safe.
-        Export a backup or restore your data from a saved file.
-      </p>
-
-      <div class="backup-actions">
-        <button id="export-data" class="secondary-button" type="button">
-          Export Backup
-        </button>
-
-        <label for="import-data" class="secondary-button">
-          Import Backup
-          <input
-            type="file"
-            id="import-data"
-            accept=".json,application/json"
-            hidden
-          >
-        </label>
-      </div>
-
-      <p class="setting-description" style="margin-top: 14px;">
-        Importing a backup replaces your current saved data.
-        Export a backup first if you want to keep a copy.
-      </p>
-    </section>
-
-    <!-- ABOUT -->
-    <section class="settings-card">
-      <p class="section-label">ABOUT</p>
-      <h2>Remember a Day</h2>
-
-      <p class="setting-description">
-        A simple place for the days, people and memories that matter.
-      </p>
-
-      <p class="version">Version 1.0</p>
-    </section>
-
-  </main>
-
-  <!-- BOTTOM NAVIGATION -->
-  <nav class="bottom-nav" aria-label="Main navigation">
-
-    <a href="index.html" class="nav-item">
-      <span aria-hidden="true">⌂</span>
-      <small>Home</small>
-    </a>
-
-    <a href="pages/add.html" class="nav-item">
-      <span aria-hidden="true">＋</span>
-      <small>Add</small>
-    </a>
-
-    <a href="pages/memories.html" class="nav-item">
-      <span aria-hidden="true">♥</span>
-      <small>Memories</small>
-    </a>
-
-    <a href="settings.html" class="nav-item active" aria-current="page">
-      <span aria-hidden="true">⚙</span>
-      <small>Settings</small>
-    </a>
-
-  </nav>
-
-  <!-- EXISTING APPLICATION LOGIC -->
-  <script src="js/app.js"></script>
-  <script src="js/storage.js"></script>
-<script src="js/events.js"></script>
-<script src="js/reminders.js"></script>
-<script src="js/memories.js"></script>
-
-
-  <!-- DARK MODE -->
-  <script>
-    const darkModeToggle = document.getElementById("dark-mode-toggle");
-    const savedTheme = localStorage.getItem("remember-a-day-theme");
-
-    if (savedTheme === "dark") {
-      document.body.classList.add("dark-mode");
-      darkModeToggle.checked = true;
-    }
-
-    darkModeToggle.addEventListener("change", function () {
-      const isDark = this.checked;
-
-      document.body.classList.toggle("dark-mode", isDark);
-
-      localStorage.setItem(
-        "remember-a-day-theme",
-        isDark ? "dark" : "light"
-      );
-    });
-  </script>
-
+<script>
+  (function () {
+    const setAllPanels = (open) => {
+      document.querySelectorAll(".settings-trigger").forEach(btn => {
+        btn.setAttribute("aria-expanded", String(open));
+        const panel = btn.nextElementSibling;
+        if (panel) panel.hidden = !open;
+      });
+    };
+    document.getElementById("expand-all-settings")?.addEventListener("click", () => setAllPanels(true));
+    document.getElementById("collapse-all-settings")?.addEventListener("click", () => setAllPanels(false));
+  })();
+</script>
 </body>
 </html>
+
